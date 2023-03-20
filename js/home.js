@@ -19,6 +19,7 @@ qna = [
 // Creating the question div
 
 let i = 1;
+let j = 10;
 qna.forEach(element => {
     const question_block = document.createElement('div');
     const question_div = document.createElement('div');
@@ -28,28 +29,35 @@ qna.forEach(element => {
     
     element.op.forEach(option =>{
         const options_block = document.createElement('div');
+      
         // adding the radio button
         const ip = document.createElement("input");
         ip.type = "radio";
-        ip.name = "button" + i;
+        // ip.className = "input" + i;
+        ip.value = option;
+        ip.name = "radio-buttonss" + i;
+        ip.className = 'input' + i;
 
         // adding the question as a label
         const q = document.createElement("label");
         q.textContent = option;
 
-        // adding the the block
+       
+
+        // adding the the block 
         options_block.appendChild(ip);
         options_block.appendChild(q);
 
         // adding the block the the html element 
         question_div.appendChild(options_block);
-        
+        j = j+1;
     })
 
     // adding a submit button 
     const s = document.createElement('button')
+    s.className = "submit-button"
+    s.id = i;
     s.textContent = "SUBMIT";
-    
     question_block.appendChild(question_div);
     question_block.appendChild(options_div);
     question_block.appendChild(s);
@@ -59,5 +67,21 @@ qna.forEach(element => {
 
 
 
-// find out which button is pressed on submit 
-// I want the id of the submit button selected and the option selected
+for(let r=1; r<4; r++) {
+    (function (i) { 
+        const a = document.getElementById(r);
+        a.addEventListener('click',e=>{
+            // e.preventDefault();
+            const p = document.getElementsByClassName('input'+ r);
+            for(let el = 0; el< p.length; el++){
+                if(p[el].checked){
+                    console.log("clicked " + a.id + " " + p[el].value);
+                };
+
+            };
+            
+        });
+    })(i);
+}
+
+
