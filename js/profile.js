@@ -3,6 +3,26 @@ let dummyData = [
     {  name: 'Rohan', score: 70 },
     {  name: 'Nur', score: 80 },
     {  name: 'Rakib', score: 60 },
+    {  name: 'Rashid', score: 90 },
+    {  name: 'Rohan', score: 70 },
+    {  name: 'Nur', score: 80 },
+    {  name: 'Rakib', score: 60 },
+    {  name: 'Rashid', score: 90 },
+    {  name: 'Rohan', score: 70 },
+    {  name: 'Nur', score: 80 },
+    {  name: 'Rakib', score: 60 },
+    {  name: 'Rashid', score: 90 },
+    {  name: 'Rohan', score: 70 },
+    {  name: 'Nur', score: 80 },
+    {  name: 'Rakib', score: 60 },
+    {  name: 'Rashid', score: 90 },
+    {  name: 'Rohan', score: 70 },
+    {  name: 'Nur', score: 80 },
+    {  name: 'Rakib', score: 60 },
+    {  name: 'Rashid', score: 90 },
+    {  name: 'Rohan', score: 70 },
+    {  name: 'Nur', score: 80 },
+    {  name: 'Rakib', score: 60 },
     {  name: 'Rashid', score: 90 }
   ];
   
@@ -30,4 +50,6 @@ let dummyData = [
   
     table.appendChild(row);
   });
-  
+  document.getElementById("wrapper_div").addEventListener("click", function() {
+    this.classList.toggle("is-active");
+});
