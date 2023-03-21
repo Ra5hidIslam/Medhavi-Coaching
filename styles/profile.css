@@ -84,10 +84,17 @@ body{
     transition: height ease 1s;
 }
 #wrapper_div.is-active{
-    height: 100%;
+    height: 80vh;
+    
 
 }
+#wrapper_div.is-active.wrapper p{
+    transform: translateY(-12vh) ;
+}
 .wrapper p{
+    position: relative;
+    transition: 1s;
+    top: 12vh;
     font-size: 2em;
     display: flex;
     justify-content: center;
@@ -107,18 +114,15 @@ body{
     margin-top:8vh ;
    
 }
-/* .rank-leader{
-    display: flex;
-    flex-direction: row;
-    list-style: none;
-    justify-content: space-between;
-    align-items: center;
-    margin: 4vh;
+#wrapper_div.is-active .table{
+    transform: translateY(-20vh);
+}
+.table{
     
-    color: black;
-    height: 8vh;
-    
-} */
+    top:25vh;
+    position: relative;
+    transition: 1s;
+}
 #myTable{
     border-collapse: collapse;
     width: 100%;
@@ -135,8 +139,8 @@ body{
 }
 table{
     width: 100%;
-    align-items: center;
-
+    /* align-items: center; */
+    justify-content: center;
     margin: 4vh;
 
 }
