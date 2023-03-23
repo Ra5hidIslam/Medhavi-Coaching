@@ -8,7 +8,6 @@ import About from './pages/About';
 import Courses from './pages/Courses';
 import Exams  from './pages/Exams'
 import Quiz from './pages/Quiz';
-import Profile from './pages/Profile';
 import Signin from './pages/Signin';
 
 function App() {
@@ -21,7 +20,7 @@ return (
 		<Route path='/Courses' element={<Courses/>} />
 		<Route path='/Exams' element={<Exams/>} />
 		<Route path='/Quiz' element={<Quiz/>} />
-		<Route path='/Profile' element={<Profile/>} />
+		{/* <Route exact path='/profile' render ={()=>{window.location.href ="/profile.html"}} /> */}
 		<Route path='/Signin' element={<Signin/>} />
 	</Routes>
 	</Router>

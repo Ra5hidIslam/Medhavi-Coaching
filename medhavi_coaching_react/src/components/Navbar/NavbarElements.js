@@ -13,7 +13,7 @@ z-index: 12;
 /* justify-content: flex-start; */
 `;
 
-export const NavLink = styled(Link)`
+export const NavLink = styled(Link)` 
 color: #808080;
 display: flex;
 align-items: center;
@@ -84,3 +84,6 @@ margin-left: 24px;
 	color: #808080;
 }
 `;
+
+
+// this is a practice file
