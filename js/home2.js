@@ -30,36 +30,47 @@ let j = 10;
 qna.forEach(element => {
     const question_block = document.createElement('div');
     const question_div = document.createElement('div');
-    const options_div = document.createElement('div');
+    question_div.className = "question_div";
     question_div.textContent = element['q'];
 
 
-    element.op.forEach(option =>{
-        const options_block = document.createElement('div');
-      
-        // adding the radio button
-        const ip = document.createElement("input");
-        ip.type = "radio";
-        // ip.className = "input" + i;
-        ip.value = option;
-        ip.name = "radio-buttonss" + i;
-        ip.className = 'input' + i;
+    if(element.type == "mcq"){
+        const options_div = document.createElement('div');
+        element.op.forEach(option =>{
+            const options_block = document.createElement('div');
+        
+            // adding the radio button
+            const ip = document.createElement("input");
+            ip.type = "radio";
+            // ip.className = "input" + i;
+            ip.value = option;
+            ip.name = "radio-buttonss" + i;
+            ip.className = 'input' + i;
 
-        // adding the question as a label
-        const q = document.createElement("label");
-        q.textContent = option;
+            // adding the question as a label
+            const q = document.createElement("label");
+            q.textContent = option;
 
-       
+            // adding the the block 
+            options_block.appendChild(ip);
+            options_block.appendChild(q);
 
-        // adding the the block 
-        options_block.appendChild(ip);
-        options_block.appendChild(q);
+            // adding the block the the html element 
+            options_div.appendChild(options_block);
+            j = j+1;
+        })
 
-        // adding the block the the html element 
-        question_div.appendChild(options_block);
-        j = j+1;
-    })
+    }
+    else
+    {
+        const blog_interaction_div = document.createElement('div');
+        const comment_div = document.createElement('div');
+        const upvote_div = document.createElement('div');
 
+
+        comment_div.textContent = "comment";
+        
+    }
     // adding a submit button 
     const s = document.createElement('button')
     s.className = "submit-button"
