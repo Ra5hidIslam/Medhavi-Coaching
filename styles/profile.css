@@ -57,6 +57,7 @@ body{
 .wrapper{
     position:relative;
     margin: 5vh;
+    
     background-image: linear-gradient(to right, rgb(130, 176, 198), rgb(188, 142, 188));
     max-width:100%;
     min-width: 50%;
@@ -67,9 +68,9 @@ body{
     backdrop-filter: blur(20px);
     /* box-shadow: 0 0 30px rgba(0, 0, 0, .5); */
     
-    justify-content: center;
     align-items: center;
     margin: 4vh;
+    
     /* border-color: black; */
     border: 2px solid black;
     overflow: hidden;
@@ -102,16 +103,17 @@ body{
 
 }
 .horizontal-scroll{
-    
+   
     overflow: auto;
-    white-space: nowrap;
+    /* white-space: nowrap; */
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
-    align-items: center;
-    
-    width: 100%;
+    justify-content: space-between;
+    align-items:end;
     margin-top:8vh ;
+    width: 100%;
+    
+    
    
 }
 #wrapper_div.is-active .table{
@@ -143,4 +145,18 @@ table{
     justify-content: center;
     margin: 4vh;
 
+}
+.profile-box{
+    position: absolute;
+    height: 50vh;
+    width: 40%;
+    background-color: aqua;
+
+
+}
+.partition{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
 }
