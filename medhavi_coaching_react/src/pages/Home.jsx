@@ -1,4 +1,4 @@
-import Questions from "../components/Questions";
+import Questions from "../components/Questions/Questions";
 
 function Home(){
     return(
@@ -6,6 +6,7 @@ function Home(){
             <Questions/>
             {/* Hello */}
         </div>
+       
     )
 }
 
