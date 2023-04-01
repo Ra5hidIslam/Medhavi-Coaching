@@ -23,9 +23,9 @@ function Nav_bar() {
         <div>
             <Link to="/About" className={NavBarCSS.nav_btn}>About</Link>
         </div>
-        {/* <div>
+        <div>
             <Link to="/Prac" className={NavBarCSS.nav_btn}>Prac</Link>
-        </div> */}
+        </div>
     </div>
 
   );
