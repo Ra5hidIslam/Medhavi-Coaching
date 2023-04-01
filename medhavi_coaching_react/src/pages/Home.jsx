@@ -1,9 +1,9 @@
-import Questions from "../components/Questions/Questions";
-
+// import Questions from "../components/Questions/Questions";
+import HomeFeed from '../components/HomeFeed/HomeFeed'
 function Home(){
     return(
         <div>
-            <Questions/>
+            <HomeFeed/>
             {/* Hello */}
         </div>
        

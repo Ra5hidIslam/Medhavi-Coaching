@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import QuestionsCSS from '../Questions/questions.module.css'
+import QuestionsCSS from './HomeFeed.module.css'
 
 
 

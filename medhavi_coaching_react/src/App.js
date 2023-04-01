@@ -9,7 +9,7 @@ import Courses from './pages/Courses';
 import Exams  from './pages/Exams'
 import Quiz from './pages/Quiz';
 import Signin from './pages/Signin';
-// import Prac from './pages/Prac';
+import Prac from './pages/Prac';
 
 function App() {
 return (
@@ -24,7 +24,7 @@ return (
 		<Route path='/Quiz' element={<Quiz/>} />
 		{/* <Route exact path='/profile' render ={()=>{window.location.href ="/profile.html"}} /> */}
 		<Route path='/Signin' element={<Signin/>} />
-		{/* <Route path='/Prac' element={<Prac/>} /> */}
+		<Route path='/Prac' element={<Prac/>} />
 		
 	</Routes>
 	</Router>
