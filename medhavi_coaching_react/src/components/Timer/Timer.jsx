@@ -32,7 +32,7 @@ function Timer() {
     };
   },[time]);
   return (
-    <p>{time}</p>
+    <p>Time Left:{time}</p>
   )
 }
 
