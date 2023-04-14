@@ -8,7 +8,10 @@ function PracInside() {
 
   console.log(name)
   return (
-    <p>Hello</p>
+    <p>
+      Hello
+    </p>
+
   )
 }
 

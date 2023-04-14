@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import TimerCSS from './Timer.module.css'
 
 
-function Timer() {
+
+function Timer({time_limit}) {
   // const [deadline,setDeadline] = useState(15);
-  const deadline = 15;
+  const deadline = time_limit;
   const [time, setTime] = useState(deadline);
   const [stop,setStop] = useState(false);
   // const time = 15;
@@ -32,7 +34,7 @@ function Timer() {
     };
   },[time]);
   return (
-    <p>Time Left:{time}</p>
+    <div className={TimerCSS.show_timer}>Time Left:{time}</div>
   )
 }
 
