@@ -47,7 +47,7 @@ function Profile() {
                 <div className={profileCSS.username}>rohan123</div>
                 <div className={profileCSS.follower_following}>
                     <div className={profileCSS.follower}>
-                        21 Followers
+                        25 Followers
 
                     </div>
                     <div className={profileCSS.following}>
@@ -72,7 +72,7 @@ function Profile() {
               Questions Solved
             </div>
             <div className={profileCSS.leaderboard}>
-              Questions Saved
+              Questions Saved.
             </div>
           </div>
           

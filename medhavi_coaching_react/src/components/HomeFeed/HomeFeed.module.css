@@ -10,8 +10,9 @@ body{
     padding:20px 20px;
     margin-left:30vh;
     margin-right: 30vh;
-    margin-top: 10vh;
+    margin-top: 7vh;
     border:1px solid rgba(0, 0, 0, 1);
+    border-radius: 1vh;
     /* border-radius: 10px; */
 
 }
