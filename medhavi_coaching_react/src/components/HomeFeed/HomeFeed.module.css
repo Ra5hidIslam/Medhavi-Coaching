@@ -1,9 +1,16 @@
 
+body{
+    background: -webkit-linear-gradient(top right, rgb(203, 255, 200), rgb(240, 247, 203));
+    margin-bottom: 4vh;
+
+}
+
 .question_block{
-    /* background-color: antiquewhite; */
+    background-color: rgb(255, 255, 255); 
     padding:20px 20px;
     margin-left:30vh;
     margin-right: 30vh;
+    margin-top: 10vh;
     border:1px solid rgba(0, 0, 0, 1);
     /* border-radius: 10px; */
 

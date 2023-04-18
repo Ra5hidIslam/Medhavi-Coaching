@@ -1,5 +1,5 @@
 // import Questions from "../components/Questions/Questions";
-import HomeFeed from '../components/HomeFeed/HomeFeed'
+import HomeFeed from '../../components/HomeFeed/HomeFeed'
 function Home(){
     return(
         <div>

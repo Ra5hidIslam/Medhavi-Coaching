@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import QuestionsCSS from './HomeFeed.module.css'
+import QuestionsCSS from '../HomeFeed/HomeFeed.module.css'
 
 
 
@@ -150,7 +150,7 @@ function GetQuestionAnswers(){
         }
         else{
             return(
-                <p>Hide Result</p>
+                <p>Check Result</p>
             )
         }
     }
@@ -163,6 +163,7 @@ function GetQuestionAnswers(){
 
     return (
         questions_array.map((q) => (
+            
             <div className={QuestionsCSS.question_block}>
                 <div className={QuestionsCSS.username_element}>
                     {q.username}

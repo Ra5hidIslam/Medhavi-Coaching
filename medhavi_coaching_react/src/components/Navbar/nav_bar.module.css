@@ -1,7 +1,7 @@
 .nav_bar{
     display: flex;
     justify-content: space-between;
-    background-color: aquamarine;
+    background-color: rgb(43, 42, 42);
     padding: 10px 10px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: x-large;
@@ -9,4 +9,5 @@
 }
 .nav_btn{
     text-decoration: none;
+    color: white;
 }
