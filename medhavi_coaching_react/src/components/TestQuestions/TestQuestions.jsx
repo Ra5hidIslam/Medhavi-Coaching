@@ -16,13 +16,13 @@ function TestQuestions({questions}) {
 
     // update score based on click
     function updateScore(questionID,isCorrect){
-        console.log("button clicked");
+        // console.log("button clicked");
         // const option_id = event.currentTarget.id;
-        // setScore((prev)=>{
-        //     let answer_state;
-        //     answer_state = {[questionID]:isCorrect};
-        //     return {...prev,...answer_state};
-        // })
+        setScore((prev)=>{
+            let answer_state;
+            answer_state = {[questionID]:isCorrect};
+            return {...prev,...answer_state};
+        })
        
         
     }

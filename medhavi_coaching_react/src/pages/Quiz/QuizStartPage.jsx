@@ -18,7 +18,7 @@ function QuizStartPage() {
 
   useEffect(()=>{
     if(start){
-      navigate('/Quiz',{ state: {qna:quizes} }); 
+      navigate('/Quiz',{ state: {qna:quizes,quiz_time:quiz_time} }); 
       // console.log(start);
     }
   },[start])

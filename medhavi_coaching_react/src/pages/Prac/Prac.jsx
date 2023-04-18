@@ -17,21 +17,7 @@ function Prac() {
     }
 
     return (
-        // <div>
-        //     <Routes>
-        //         <Route path = '/Prac_inside' exact Component={<PracInside name = {name}/>} >
-                    
-        //         </Route>
-        //     </Routes>
-        // <Link to ='/Prac_inside' state ={{name:name}}>
-        //     prac_inside
-        // </Link>
-        // </div>
-        <div>
-            <button onClick={goinside}>Get inside Prac</button>
-        </div>
-        
-        
+       <PracInside/>
     )
 }
 

@@ -36,6 +36,14 @@
     margin-right: 1.5vh;
 }
 
+
+.showanswer_btn{
+    color: green;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+}
+
+
 .sub_btn{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 500;
@@ -45,5 +53,14 @@
     border-width: .1em;
     cursor: pointer;
     margin-top: 5px;
+    margin-bottom: 10px;
+    margin-left: 50%;
+
+    
 }
 
+
+.show_timer{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 500;
+}
