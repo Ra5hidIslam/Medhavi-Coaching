@@ -108,7 +108,7 @@ function QuizList() {
 
   const navigate = useNavigate();
 
-  console.log(quiz_array[1].quiz_qna)
+  // console.log(quiz_array[1].quiz_qna)
   function renderQuiz(event){
     const quiz_id = event.currentTarget.id;
     console.log(quiz_id);
