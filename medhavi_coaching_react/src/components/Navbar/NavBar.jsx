@@ -18,7 +18,7 @@ function Nav_bar() {
             <Link to="/Profile" className={NavBarCSS.nav_btn}>Profile</Link>
         </div>
         <div>
-            <Link to="/Quiz" className={NavBarCSS.nav_btn}>Quiz</Link>
+            <Link to="/QuizList" className={NavBarCSS.nav_btn}>Quiz</Link>
         </div>
         <div>
             <Link to="/About" className={NavBarCSS.nav_btn}>About</Link>
