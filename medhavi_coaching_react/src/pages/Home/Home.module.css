@@ -1,0 +1,18 @@
+
+.login_form{
+    position:absolute;
+    z-index: 2;
+}
+.home_body{
+    display: flex;
+    flex-direction: row;
+}
+.home_feed_section{
+    width: 75%;
+    border:1px solid rgba(0, 0, 0, 1);
+}
+.login_section{
+    padding-left: 5vh;
+    width: 20%;
+    /* border:1px solid rgba(0, 0, 0, 1); */
+}
