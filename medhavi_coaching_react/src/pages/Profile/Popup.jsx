@@ -1,11 +1,12 @@
 import React from 'react';
 import profileCSS from '../Profile/profile.module.css'
+import EditProfile from './editprofile';
 
 function Popup() {
   return (
     <div className={profileCSS.EditSection}>
         <div className={profileCSS.EditProfileForm}>
-            <p>Hello, world!</p>
+            <EditProfile/>
             
         </div>
     </div>
