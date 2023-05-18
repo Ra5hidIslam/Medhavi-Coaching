@@ -34,8 +34,17 @@ const UserSchema = new mongoose.Schema({
         type:Boolean,
         default:false,
     },
-    collegeName:{
-        type:String,
+    starMarkedQuestion:{
+        type:Array,
+        default:[],
+    },
+    correctQuestions:{
+        type:Array,
+        default:[],
+    },
+    wrongQuestions:{
+        type:Array,
+        default:[],
     }
 },
     { timestamps:true}
