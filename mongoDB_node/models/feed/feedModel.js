@@ -13,17 +13,8 @@ const feedSchema = new mongoose.Schema({
     type:Array,
     default:[],
    },
-   questionStats:{
-    type:Array,
-    default:[],
-   },
-   upvotes:{
-    type:Array,
-    default:[],
-   },
-   starMarkedByUsers:{
-    type:Array,
-    default:[],
+   questionAnswer:{
+    type:Number,
    }
 },
     { timestamps:true}
