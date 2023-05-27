@@ -22,12 +22,12 @@ router.post("/create", async (req,res)=>{
 });
 
 // Add feedResult
-router.post("/feedresult", async (req,res)=>{
+router.post("/feedresult/:id", async (req,res)=>{
     // check is the user and feed exist first
     try{
         if((await userModel.findById(req.body.userId)) && (await feedModel.findById(req.body.feedId))){
             const newFeedResult = new feedResultModel({
-                feedId:req.body.feedId,
+                feedId:req.params.id,
                 userId:req.body.userId,
                 userSelection:req.body.userSelection,
             });
@@ -37,17 +37,15 @@ router.post("/feedresult", async (req,res)=>{
         }
         else{
             res.status(500).json("User or feed not found")
+            // create the object
+
         }
     }catch(err){
         console.log(err);
     }
 });
 
-function getStat(stat){
-    if(stat){
-        var stat_array = new Array
-    }
-}
+
 
 // Add feedInteraction
 router.put("/feedinteraction", async (req,res)=>{
@@ -59,6 +57,7 @@ router.put("/feedinteraction", async (req,res)=>{
         if(currentFeed){
             const comment_status = req.body.commentStatus;
             const like_status = req.body.likeStatus;
+            const feedStatus = req.body.feedStatStatus;
             // res.status(500).json("feed found");
             if(comment_status){
                 await currentFeed.updateOne({"$push":{comments:{"userId":req.body.userId,"comment":req.body.comments}}})
@@ -68,6 +67,15 @@ router.put("/feedinteraction", async (req,res)=>{
                 await currentFeed.updateOne({$push: {likes:req.body.userId}});
                 // {$push:{feedStats:getStat(req.body.feedStats)}}
                 res.status(200).json("like added");
+            }
+            if(feedStatus){
+                let new_stat = currentFeed.feedStats[req.body.feedSelection] + 1;
+                const index = req.body.feedSelection;
+                let updateQuery = {};
+                updateQuery[`feedStats.${index}`] = new_stat;
+                await currentFeed.updateOne({$inc:updateQuery});
+                // {$push:{feedStats:getStat(req.body.feedStats)}}
+                res.status(200).json("Feed Stat Updated");
             }
             // feedinter = await feedInteractionModel.find({feedId:req.body.feedId});
             
@@ -81,6 +89,7 @@ router.put("/feedinteraction", async (req,res)=>{
                 userId:req.body.userId,
                 comments:[{"userId":req.body.userId,"comment":req.body.comments}],
                 likes:[req.body.userId],
+                feedStats:req.body.feedStats
             });
             const user = await newFeedInteraction.save();
             res.status(200).json("Feed interaction created");

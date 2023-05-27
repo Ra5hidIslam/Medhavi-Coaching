@@ -6,14 +6,23 @@ const quizModel = new mongoose.Schema({
     require:true,
     unique:true,
    },
-   quizText:{
+   quizQuestions:{
     type:Array,
     default:[],
    },
    quizAnswerKey:{
     type:Array,
     default:[],
+   },
+   quizTime:{
+    type:Number,
+   },
+   quizTopic:{
+    type:String,
+    min:2,
+    max:50,
    }
+
 },
     { timestamps:true}
 );

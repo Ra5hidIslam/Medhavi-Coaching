@@ -13,6 +13,10 @@ const feedInteractionModel = new mongoose.Schema({
    likes:{
     type:Array,
     default:[],
+   },
+   feedStats:{
+    type:Array,
+    default:[],
    }
 },
     { timestamps:true}

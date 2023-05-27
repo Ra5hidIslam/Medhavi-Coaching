@@ -4,9 +4,15 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const helmet  = require("helmet");
 const morgan = require("morgan");
-const userRoutes =  require("./Routes/user")
-const authRoutes =  require("./Routes/auth")
-const feedRoutes =   require("./Routes/feed")
+const cookieParser = require("cookie-parser");
+
+const userRoutes =  require("./Routes/user");
+const authRoutes =  require("./Routes/auth");
+const feedRoutes =   require("./Routes/feed");
+const refreshRoute = require("./Routes/refresh");
+const logoutRoute = require("./Routes/logout");
+
+
 
 dotenv.config();
 
@@ -23,12 +29,13 @@ mongoose.connect(process.env.MONGO_URL,
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
-
+app.use(cookieParser());
 
 app.use("/api/user",userRoutes);
 app.use("/api/auth",authRoutes);
 app.use("/api/feed",feedRoutes);
-
+app.use("/api/refresh",refreshRoute);
+app.use("/api/logout",logoutRoute);
 
 app.listen(8800,()=>{
     console.log("Backend server is running");

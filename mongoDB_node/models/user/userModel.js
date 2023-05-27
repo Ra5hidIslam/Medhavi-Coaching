@@ -45,6 +45,9 @@ const UserSchema = new mongoose.Schema({
     wrongQuestions:{
         type:Array,
         default:[],
+    },
+    refreshToken:{
+        type:String,
     }
 },
     { timestamps:true}
