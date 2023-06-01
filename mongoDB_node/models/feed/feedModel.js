@@ -15,6 +15,10 @@ const feedSchema = new mongoose.Schema({
    },
    questionAnswer:{
     type:Number,
+   },
+   userId:{
+    type:String,
+    require:true
    }
 },
     { timestamps:true}

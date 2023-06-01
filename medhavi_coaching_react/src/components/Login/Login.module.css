@@ -1,3 +1,14 @@
+.login_option{
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+}
+.login_buttons{
+    border-radius: 10em;
+    padding:1vh;
+    font-size: x-large;
+}
+
 .active{
     display:block;
     transition:800ms;

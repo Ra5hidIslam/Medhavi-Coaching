@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-// Add user
+// Create user
 router.post("/register", async (req,res)=>{
     // checking if the body contains the user
     const username = req.body.username;

@@ -48,6 +48,10 @@ const UserSchema = new mongoose.Schema({
     },
     refreshToken:{
         type:String,
+    },
+    timeline:{
+        type:Array,
+        default:[],
     }
 },
     { timestamps:true}

@@ -54,7 +54,7 @@ router.get("/:id", verifyJWT,async (req,res)=>{
 });
 
 //follow a user
-router.put("/:id/follow", async (req,res)=>{
+router.put("/follow/:id", async (req,res)=>{
     if(req.body.userId !== req.params.id){
         // need to update my following and follower list?
         // first find the two users

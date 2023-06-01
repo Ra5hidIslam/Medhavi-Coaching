@@ -4,6 +4,24 @@ const feedInteractionModel = require("../models/feed/feedInteractionModel");
 const feedResultModel = require("../models/feed/feedResultModel");
 const userModel = require("../models/user/userModel")
 
+
+// HELPER FUNCTIONS
+
+// helper function to get the feed from timeline of follower
+const getFeedFromUsers = async (timeline)=>{
+    // run a for loop to get the feed and them sort them in chronological order
+    const feed = [];
+    if(timeline.length != 0){
+        for(let i = 0; i<timeline.length; i++){
+            const foundFeed = await feedModel.findOne({_id:timeline[i]});
+            feed.push(foundFeed);
+        }
+    }else{
+        return "No feed available";
+    }
+    return feed;
+}
+
 // Add feed
 router.post("/create", async (req,res)=>{
     try{
@@ -12,13 +30,77 @@ router.post("/create", async (req,res)=>{
             questionTitle:req.body.questionTitle,
             questionOptions:req.body.questionOptions,
             questionAnswer:req.body.questionAnswer,
+            userId:req.body.userId,
         });
-        // save user and respond
-        const user = await newFeed.save();
-        res.status(200).json(user);
+        // save feed and respond
+        const feed = await newFeed.save();
+        // add the feed in the timelines of the followers
+        const foundUser = await userModel.findOne({_id:req.body.userId});
+        if(!foundUser) return res.status(403).json("user not found");
+        const followers = foundUser.followers;
+        for(let i = 0;i<followers.length;i++){
+            // update all the user's timeline object
+            // get the user
+            const currentUser = await userModel.findOne({_id:followers[i]});
+            await currentUser.updateOne({$push:{timeline:feed._id}});
+        }
+        res.status(200).json(feed);
     } catch(err){
         console.log(err);
     }
+});
+
+// Update Feed
+router.put("/updateFeed/:feedId", async (req,res)=>{
+    // check if feed exist using feed id
+    const feedId = req.params.feedId;
+    if(!feedId) return res.status(403).json("feed id not received");
+    const foundFeed = await feedModel.findOne({_id:feedId});
+    if(!foundFeed) return res.status(403).json("feed not found");
+    await foundFeed.updateOne({$set:req.body});
+    res.status(200).json("Feed Updated");
+    
+});
+
+// delete feed
+router.put("/deleteFeed/:feedId", async (req,res)=>{
+    // check if feed exist using feed id
+    const feedId = req.params.feedId;
+    if(!feedId) return res.status(403).json("feed id not received");
+    const foundFeed = await feedModel.findOne({_id:feedId});
+    if(!foundFeed) return res.status(403).json("feed not found");
+    await foundFeed.deleteOne({$set:req.body});
+    res.status(200).json("Feed Updated");
+    
+});
+
+// get a particular feed
+router.get("/getOneFeed/:feedId", async (req,res)=>{
+    // check if feed exist using feed id
+    const feedId = req.params.feedId;
+    if(!feedId) return res.status(403).json("feed id not received");
+    // find the feed based on the feed id
+    const foundFeed = await feedModel.findOne({_id:feedId});
+    if(!foundFeed) return res.status(403).json("feed not found");
+    // return the feed
+    res.status(200).json(foundFeed);
+    
+});
+
+// Get home feed
+router.get("/getHomeFeed/:userId", async (req,res)=>{
+    // check if feed exist using feed id
+    const userId = req.params.userId;
+    if(!userId) return res.status(403).json("user id not received");
+    // find the user and the following list
+    const foundUser = await userModel.findOne({_id:userId});
+    if(!foundUser) return res.status(403).json("user not found");
+    // get the timeline object from the user
+    const timeline = foundUser.timeline;
+    // get the feed from the timeline
+    const feed = await getFeedFromUsers(timeline);
+    res.status(200).json(feed);
+    
 });
 
 // Add feedResult

@@ -6,6 +6,7 @@
 .home_body{
     display: flex;
     flex-direction: row;
+    background-color: rgb(222, 213, 213);
 }
 .home_feed_section{
     width: 75%;

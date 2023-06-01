@@ -21,6 +21,54 @@ const addFeed =  async (req,res)=>{
     }
 };
 
+
+// update feed
+const updateFeed =  async (req,res)=>{
+    // check if feed exist using feed id
+    const feedId = req.params.id;
+    if(!feedId) return sendStatus(403);
+    const foundFeed = await feedModel.findOne({_id:feedId});
+    if(!foundFeed) return sendStatus(403);
+    await foundFeed.findByIdAndUpdate({$set:req.body});
+    req.status(200).json("Feed Updated");
+    
+};
+
+// // delete feed
+// const addFeed =  async (req,res)=>{
+//     try{
+//         // creating new feed 
+//         const newFeed = new feedModel({
+//             questionTitle:req.body.questionTitle,
+//             questionOptions:req.body.questionOptions,
+//             questionAnswer:req.body.questionAnswer,
+//         });
+//         // save user and respond
+//         const user = await newFeed.save();
+//         res.status(200).json(user);
+//     } catch(err){
+//         console.log(err);
+//     }
+// };
+
+// // get feed
+// const addFeed =  async (req,res)=>{
+//     try{
+//         // creating new feed 
+//         const newFeed = new feedModel({
+//             questionTitle:req.body.questionTitle,
+//             questionOptions:req.body.questionOptions,
+//             questionAnswer:req.body.questionAnswer,
+//         });
+//         // save user and respond
+//         const user = await newFeed.save();
+//         res.status(200).json(user);
+//     } catch(err){
+//         console.log(err);
+//     }
+// };
+
+
 // Add feedResult
 const addFeedResult =  async (req,res)=>{
     // check is the user and feed exist first
@@ -103,6 +151,7 @@ const addfeedInteraction =  async (req,res)=>{
 module.exports = {
     addFeed,
     addFeedResult,
-    addfeedInteraction
+    addfeedInteraction,
+    updateFeed
 }
 
