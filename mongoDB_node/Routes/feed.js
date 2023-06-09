@@ -42,7 +42,11 @@ router.post("/create", async (req,res)=>{
             // update all the user's timeline object
             // get the user
             const currentUser = await userModel.findOne({_id:followers[i]});
-            await currentUser.updateOne({$push:{timeline:feed._id}});
+            await currentUser.updateOne({$push:{timeline:{feedId:feed._id,
+                                                          userId:req.body.userId
+                                                        }
+                                                }
+                                        });
         }
         res.status(200).json(feed);
     } catch(err){
@@ -69,8 +73,23 @@ router.put("/deleteFeed/:feedId", async (req,res)=>{
     if(!feedId) return res.status(403).json("feed id not received");
     const foundFeed = await feedModel.findOne({_id:feedId});
     if(!foundFeed) return res.status(403).json("feed not found");
+    // delete the feed from the timeline too of ther followers
+    const foundUser = await userModel.findOne({_id:foundFeed.userId});
+    if(!foundUser) return res.status(403).json("id not received in feed");
+    try{
+        const followers = foundUser.followers;
+        for(let i = 0;i<followers.length;i++){
+            let currentUser = await userModel.findOne({_id:followers[i]});
+            currentUser.updateOne({},
+                {$pull:{timeline:{feedId:req.params.feedId}}},
+                {multi:true})
+        }
+    }catch(err){
+        return res.status(403).json(err.message)
+    }
+    // Finally Delete the feed
     await foundFeed.deleteOne({$set:req.body});
-    res.status(200).json("Feed Updated");
+    res.status(200).json("Feed Deleted");
     
 });
 

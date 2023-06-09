@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import QuestionsCSS from '../HomeFeed/HomeFeed.module.css'
-
+// import the library to fetch homefeed
+import loadHomeFeed from '../client/loadHomeFeed';
 
 
 
@@ -104,6 +105,10 @@ function GetQuestionAnswers(){
                 button_value = r_button.value;
             }
         }
+        // 
+        // call the api and the answer and set the feed interaction accordingly
+
+        
         // using the selected button id, add it to the state variable.
         setButton((prev)=>{
             let radio_button_clicked;
@@ -160,8 +165,41 @@ function GetQuestionAnswers(){
     },[which_answer,which_button])
 
 
+    // const fetchedQuestions = await loadHomeFeed();
+    const fetchQuestions = async (user_id)=>{
+        const fetchedQuestions = await loadHomeFeed(user_id);
+        if(!fetchedQuestions) return "not able to load home feed";
+        else{
+            return fetchedQuestions;
+        }
+        // const fetchedQuestionArray = [];
+        // for(let i = 0;i<fetchedQuestions.length();i++){
+        //     const title = fetchedQuestions.questionTitle;
+        //     const questionId = fetchedQuestions._id;
+        //     const userID = fetchedQuestions.userId;
+        //     const answerOptions = [];
+        //     for(let j = 0;j<fetchedQuestions.questionOptions;j++){
+        //         let tempAnswer = {
+        //             answerText:fetchedQuestions.questionOptions[i],
+        //             isCorrect:((fetchedQuestions.questionAnswer - 1) === i) ? true:false,
+        //             answerId:String(fetchedQuestions._id) + "a" + i,
+        //         }
+        //         answerOptions.push(tempAnswer);
+        //     }
+        //     fetchedQuestionArray.push({
+        //         questionText:title,
+        //         questionId:questionId,
+        //         userId:userID,
+        //         answerOptions:answerOptions,
+        //     })
 
+        // }
+        // return fetchedQuestionArray;
+    }
+    console.log(fetchQuestions(sessionStorage.getItem("userId")));
+    // console.log(sessionStorage.getItem("userId"));
     return (
+        // lets fetch the feed and then print it in the console.
         questions_array.map((q) => (
             
             <div className={QuestionsCSS.question_block}>

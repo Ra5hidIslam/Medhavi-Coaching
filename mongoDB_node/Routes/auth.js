@@ -46,7 +46,7 @@ router.post("/login",async (req,res)=>{
         const accessToken = jwt.sign(
             {"username":foundUser.username},
             process.env.ACCESS_TOKEN_SECRET,
-            {expiresIn:'2m'}
+            {expiresIn:'1d'}
         );
         const refreshToken = jwt.sign(
             {"username":foundUser.username},
@@ -60,7 +60,11 @@ router.post("/login",async (req,res)=>{
         // send the refresh token in http Only cookies
         res.cookie('jwt',refreshToken,{ httpOnly:true, maxAge:90*24*60*60*100});
         // send the accessToken to the client which must be stored in the memory and not local storage
-        res.status(200).json({accessToken:accessToken});
+        res.status(200).json({
+            accessToken:accessToken,
+            userId:foundUser._id,
+        
+        });
     }else{
         res.sendStatus(401);
     }

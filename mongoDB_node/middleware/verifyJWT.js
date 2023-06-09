@@ -3,15 +3,16 @@ require('dotenv').config();
 
 const verifyJWT = async (req,res,next)=>{
     const authHeader = req.headers['authorization'];
-    if(!authHeader) return res.sendStatus(401);
+    if(!authHeader) return res.status(401).json("token not found");
     console.log(authHeader); // Bearer token
     const token = authHeader.split(' ')[1];
     jwt.verify(
         token,
         process.env.ACCESS_TOKEN_SECRET,
         (err,decoded)=>{
-            if(err) return res.sendStatus(403);// invalid token status:forbidden
+            if(err) return res.status(403).json("invalid token");// invalid token status:forbidden
             req.user = decoded.username;
+            // check if the user exits or not before letting the user get in
             next();
         }
     );

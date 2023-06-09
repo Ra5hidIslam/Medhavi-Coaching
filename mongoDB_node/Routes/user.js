@@ -1,21 +1,75 @@
 const verifyJWT = require('../middleware/verifyJWT');
 const userModel = require('../models/user/userModel');
+const feedModel = require('../models/feed/feedModel');
 const router = require("express").Router();
 const bcrypt = require("bcrypt");
 
 // delete user
 router.delete("/:id",verifyJWT, async(req,res)=>{
-    if(req.body.userId == req.params.id || req.body.isAdmin){
-        try{
-            const user = await userModel.findByIdAndDelete(req.params.id);
-            res.status(200).json("Account has been deleted successfully");
-        }catch(err){
-            return res.status(500).json(err);
-        }
-    }else{
-        return res.status(403).json("You can only delete your own account")
-        // status code 403: forbidden
+    // return res.status(200).json("success");
+    if(req.body.userId != req.params.id && !req.body.isAdmin) return res.status(403).json("You can only delete your own account")
+    // first delete the user from the following and followers list of other users and then delete the user.
+    const foundUser = await userModel.findById(req.params.id);
+    if(!foundUser) return res.status(403).json("User not found");
+    // remove from followers list of following 
+    // let tempArr = 0;
+    try{
+        
+        for(let i = 0;i<foundUser.following.length;i++){
+            let tempUser = await userModel.findById(foundUser.following[i]);
+            // tempArr =  tempArr +i;
+            // await tempUser.followingfindByIdAndDelete(tempUser)
+            // simply splicing the array won't work in mongo db, we need to update the object
+            let followersList = tempUser.followers;
+            let indexOfUser = followersList.indexOf(req.params.id);
+            if(indexOfUser>-1){
+                followersList.splice(indexOfUser,1);
+            }
+            // update the original object
+            await userModel.updateOne({$set:{followers:followersList}});
+        }    
+        // return res.status(401).json(tempArr);
     }
+    catch(err){
+        return res.status(403).json("error in erasing following list");
+    }
+    try{
+         // remove from following list of followers
+         for(let i = 0;i<foundUser.followers.length;i++){
+            let tempUser = await userModel.findById(foundUser.followers[i]);
+            // await tempUser.followingfindByIdAndDelete(tempUser)
+            let followingList = tempUser.following;
+            let indexOfUser = followingList.indexOf(req.params.id);
+            if(indexOfUser>-1){
+                followingList.splice(indexOfUser,1);
+            }
+            await tempUser.updateOne({$set:{following:followingList}});
+        }
+    }
+    catch(err){
+        return res.status(403).json("error in clearing followers list")
+    } 
+    // remove the feeds created by the user in the feeds model
+    try{
+        await feedModel.deleteMany({userId:req.params.id});
+    }catch(err){
+        return res.status(403).json("not able to delete the feeds created by the user");
+    }
+    // remove the feeds from the timelines of the user
+    try{
+        const followers = foundUser.followers;
+        for(let i = 0;i<followers.length;i++){
+            let currentUser = await userModel.findOne({_id:followers[i]});
+            currentUser.updateOne({},
+                {$pull:{timeline:{userId:req.params.userId}}},
+                {multi:true})
+        }
+    }catch(err){
+        return res.status(403).json(err);
+        // "not able to delete the timeline feeds"
+    }
+    await userModel.findByIdAndDelete(req.params.id);
+    res.status(200).json("Account has been deleted successfully");
 
 })
 // update a user
