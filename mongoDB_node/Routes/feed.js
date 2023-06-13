@@ -8,16 +8,16 @@ const userModel = require("../models/user/userModel")
 // HELPER FUNCTIONS
 
 // helper function to get the feed from timeline of follower
-const getFeedFromUsers = async (timeline)=>{
+const  getFeedFromUsers = async(timeline)=>{
     // run a for loop to get the feed and them sort them in chronological order
     const feed = [];
-    if(timeline.length != 0){
+    try{
         for(let i = 0; i<timeline.length; i++){
-            const foundFeed = await feedModel.findOne({_id:timeline[i]});
+            const foundFeed = await feedModel.findOne({_id:timeline[i]['feedId']});
             feed.push(foundFeed);
         }
-    }else{
-        return "No feed available";
+    }catch(err){
+        return res.satus(403).json(err.message);
     }
     return feed;
 }
@@ -118,6 +118,7 @@ router.get("/getHomeFeed/:userId", async (req,res)=>{
     const timeline = foundUser.timeline;
     // get the feed from the timeline
     const feed = await getFeedFromUsers(timeline);
+    console.log("First promise");
     res.status(200).json(feed);
     
 });

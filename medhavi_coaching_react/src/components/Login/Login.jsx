@@ -5,24 +5,25 @@ import { useLocation } from 'react-router-dom'
 
 
 
-function Login({logState,handleLoginClick}) {
+function Login({handleLoginClick}) {
 
 
   // const[logState,setLogState] = useState(false);
-  // // // function to change the state on click of the login button
+  // // // // function to change the state on click of the login button
   // function handleLoginClick(){
   //   setLogState((logState)=> !logState);
   // }
 
 // when logged out
-  function logged_out(logState){
+  function logged_out(handleLoginClick){
     return (
       <div className={LoginCSS.login_option}>
         <button className={LoginCSS.login_buttons} onClick={handleLoginClick}>
-          Signup
-        </button>
-        <button className={LoginCSS.login_buttons}>
           Login
+        </button>
+        {/* add onclick go to signup page in the following line */}
+        <button className={LoginCSS.login_buttons} >
+          SignUp
         </button>
       </div>
     )
@@ -42,8 +43,7 @@ function Login({logState,handleLoginClick}) {
 
   return(
     <div>
-      {logState ? logged_in() : logged_out(logState)}
-      {console.log(logState)}
+      {sessionStorage.getItem("userId") ? logged_in() : logged_out(handleLoginClick)}
     </div>
     
   )

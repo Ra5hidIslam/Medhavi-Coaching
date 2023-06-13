@@ -20,12 +20,18 @@ function Login_form({logState}) {
     });
     console.log(formData);
   };
-  const handleSubmit =(e)=>{
-    e.preventDefault();
+  const handleSubmit = async (e)=>{
+    // e.preventDefault();
     // const data = new formData(e.target);
     // console.log(formData);\
     // write code to fetch the api
-    getLogin(formData);
+    const loginstate  = await getLogin(formData);
+    if(loginstate){
+      window.location.reload(false);
+    }
+    else{
+      alert("Login failed");
+    }
   };
   return (
           <div className={logState ? LoginCSS.active: LoginCSS.non_active} >

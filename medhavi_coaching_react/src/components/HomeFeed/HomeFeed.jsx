@@ -2,11 +2,10 @@ import React, { useState,useEffect } from 'react';
 import QuestionsCSS from '../HomeFeed/HomeFeed.module.css'
 // import the library to fetch homefeed
 import loadHomeFeed from '../client/loadHomeFeed';
+import { getAndLoadHomeFeed } from '../helper/getAndLoadHomefeed';
 
 
-
-
-const questions_array = [
+var temp_array = [
     {
         questionText: 'What is the capital of France?',
         questionID: 'q1',
@@ -58,6 +57,9 @@ const questions_array = [
 ];
 
 
+const newArray = getAndLoadHomeFeed();
+
+
 
 // function render_answer(question_id, answer_text){
 //     // const question_object = questions_array.find(question => question.answerOptions);
@@ -82,6 +84,9 @@ function GetQuestionAnswers(){
     //  if a button is pressed, this state will show if its pressed or not.
     const [which_answer,setAnswer] = useState({});
 
+    const [questionArray,setQuestionArray] = useState(temp_array);
+
+    const [isMounted,setIsMounted] = useState(false);
 
     // Create another state to see the radio button options and based on that modify the show_answer function
     const [which_button,setButton] = useState({});
@@ -162,46 +167,20 @@ function GetQuestionAnswers(){
     useEffect(()=>{
         // console.log("state:",which_answer)
         console.log("state:",which_button)
-    },[which_answer,which_button])
+    },[which_answer,which_button,questionArray])
+    
+    // useEffect(()=>{
+    //     if(newArray != null){
+    //         setQuestionArray(newArray);
+    //     }    
+    // },[newArray]);
+    console.log("YO")
+    console.log(newArray);
+    console.log(newArray.length);
 
-
-    // const fetchedQuestions = await loadHomeFeed();
-    const fetchQuestions = async (user_id)=>{
-        const fetchedQuestions = await loadHomeFeed(user_id);
-        if(!fetchedQuestions) return "not able to load home feed";
-        else{
-            return fetchedQuestions;
-        }
-        // const fetchedQuestionArray = [];
-        // for(let i = 0;i<fetchedQuestions.length();i++){
-        //     const title = fetchedQuestions.questionTitle;
-        //     const questionId = fetchedQuestions._id;
-        //     const userID = fetchedQuestions.userId;
-        //     const answerOptions = [];
-        //     for(let j = 0;j<fetchedQuestions.questionOptions;j++){
-        //         let tempAnswer = {
-        //             answerText:fetchedQuestions.questionOptions[i],
-        //             isCorrect:((fetchedQuestions.questionAnswer - 1) === i) ? true:false,
-        //             answerId:String(fetchedQuestions._id) + "a" + i,
-        //         }
-        //         answerOptions.push(tempAnswer);
-        //     }
-        //     fetchedQuestionArray.push({
-        //         questionText:title,
-        //         questionId:questionId,
-        //         userId:userID,
-        //         answerOptions:answerOptions,
-        //     })
-
-        // }
-        // return fetchedQuestionArray;
-    }
-    console.log(fetchQuestions(sessionStorage.getItem("userId")));
-    // console.log(sessionStorage.getItem("userId"));
     return (
         // lets fetch the feed and then print it in the console.
-        questions_array.map((q) => (
-            
+        sessionStorage.getItem("token") && questionArray.map((q) => (
             <div className={QuestionsCSS.question_block}>
                 <div className={QuestionsCSS.username_element}>
                     {q.username}
@@ -222,7 +201,7 @@ function GetQuestionAnswers(){
                 </div>
                 <div>
                     {/* i want this whole div to be replaced with a new div consistingg of the answer */}
-                    <button id = {q.questionID + 'b'} className={QuestionsCSS.sub_btn} name={q.questionID} onClick={(e) => {select_answer(e,questions_array.length)}}>
+                    <button id = {q.questionID + 'b'} className={QuestionsCSS.sub_btn} name={q.questionID} onClick={(e) => {select_answer(e,questionArray.length)}}>
                     {show_answer(q.questionID + 'b',q.answerOptions)}
                     </button>
                 </div>

@@ -19,6 +19,7 @@ router.post("/register", async (req,res)=>{
         const newUser = new userModel({
             username:req.body.username,
             email:req.body.email,
+            userId:req.body.userId,
             password:hashedPassword,
         });
          // save user and respond
@@ -34,6 +35,8 @@ router.post("/register", async (req,res)=>{
 // Login
 
 router.post("/login",async (req,res)=>{
+    console.log(req.body.email);
+    console.log(req.body.password);
     const email = req.body.email;
     const password = req.body.password;
     if (!email || !password ) return res.status(400).json("Username and password required for login");

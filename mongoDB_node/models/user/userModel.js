@@ -8,6 +8,13 @@ const UserSchema = new mongoose.Schema({
         max:20,
         unique:true
     },
+    userId:{
+        type:String,
+        require:true,
+        min:3,
+        max:30,
+        unique:true
+    },
     email:{
         type:String,
         required:true,
