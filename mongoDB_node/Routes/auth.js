@@ -21,6 +21,7 @@ router.post("/register", async (req,res)=>{
             email:req.body.email,
             userId:req.body.userId,
             password:hashedPassword,
+            image:req.body.img,
         });
          // save user and respond
         const user = await newUser.save();
@@ -32,14 +33,15 @@ router.post("/register", async (req,res)=>{
    
 });
 
+
 // Login
 
 router.post("/login",async (req,res)=>{
     console.log(req.body.email);
     console.log(req.body.password);
+    if(!req.body.email || !req.body.password) return res.status(400).json("Username and password required for login");
     const email = req.body.email;
-    const password = req.body.password;
-    if (!email || !password ) return res.status(400).json("Username and password required for login");
+    const password = req.body.password; 
     const foundUser = await userModel.findOne({email:email});
     if(!foundUser) return res.sendStatus(401);//unauthorized
     // evaluate password
@@ -68,8 +70,11 @@ router.post("/login",async (req,res)=>{
             userId:foundUser._id,
         
         });
+        console.log("User found");
     }else{
+        console.log("error in loggin in from server");
         res.sendStatus(401);
+
     }
     
 

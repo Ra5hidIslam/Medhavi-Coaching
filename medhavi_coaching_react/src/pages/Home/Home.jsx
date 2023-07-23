@@ -5,7 +5,7 @@ import HomeFeed from '../../components/HomeFeed/HomeFeed'
 import Login from '../../components/Login/Login';
 import HomeCSS from './Home.module.css';
 import LoginForm from '../../components/Login/LoginForm';
-
+import LogOut from '../../components/hooks/LogOut';
 
 
 function Home(){
@@ -17,7 +17,7 @@ function Home(){
     }   
     useEffect(()=>{
         console.log(logState);
-    },[logState]);
+    },[]);
     return(
         <div>
             {/* <div className= {HomeCSS.login_form}>
@@ -28,11 +28,11 @@ function Home(){
             <div className={HomeCSS.home_body}>
                 <div className={HomeCSS.home_feed_section}>
                     <HomeFeed/>
-                    <div className= {HomeCSS.loginForm}>
+                    {/* <div className= {HomeCSS.loginForm}>
                     <LoginForm
                     logState={logState}
                     />
-                    </div>
+                    </div> */}
                 </div>
                 <div className={HomeCSS.login_section}>
                     <Login
@@ -40,6 +40,9 @@ function Home(){
                     handleLoginClick = {handleLoginClick}
                     />
                 </div>
+                {/* <div className={HomeCSS.logout} onClick={LogOut()}>
+                    Log Out
+                </div> */}
                 
                 {/* Hello */}
             </div>

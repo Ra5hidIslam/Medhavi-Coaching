@@ -59,6 +59,10 @@ const UserSchema = new mongoose.Schema({
     timeline:{
         type:Array,
         default:[],
+    },
+    img:{
+        data:Buffer,
+        contentType:String
     }
 },
     { timestamps:true}

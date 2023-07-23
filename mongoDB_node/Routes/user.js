@@ -101,6 +101,8 @@ router.get("/:id", verifyJWT,async (req,res)=>{
     try{
         const user = await userModel.findById(req.params.id);
         const {password,updatedAt,refreshToken,...other} = user._doc;
+        res.setHeader('Access-Control-Allow-Credentials',true);
+        // res.setHeader('Access-Control-Allow-Origin','http://localhost:3000');
         res.status(200).json(other);
     }catch(err){
         res.status(500).json(err);

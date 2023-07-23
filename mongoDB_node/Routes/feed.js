@@ -31,6 +31,7 @@ router.post("/create", async (req,res)=>{
             questionOptions:req.body.questionOptions,
             questionAnswer:req.body.questionAnswer,
             userId:req.body.userId,
+            userName:req.body.userName,
         });
         // save feed and respond
         const feed = await newFeed.save();

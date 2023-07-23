@@ -11,3 +11,13 @@
     text-decoration: none;
     color: white;
 }
+.profile_button{
+    --button-size:calc(var(--nav-size)*0.8);
+    width:var(--button-size);
+    height:var(--button-size);
+    background-color: antiquewhite;
+    border-radius: 50%;
+    padding:5px;
+    margin:2px;
+
+}

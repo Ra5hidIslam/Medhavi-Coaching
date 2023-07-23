@@ -1,0 +1,11 @@
+.active{
+    display:block;
+    transition:800ms;
+    opacity:1;
+}
+
+.non_active{
+    transform: translateY(100px) scale(0) rotateY(180deg);
+    opacity:0;
+}
+

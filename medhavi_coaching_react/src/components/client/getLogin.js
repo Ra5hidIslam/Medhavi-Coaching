@@ -16,11 +16,9 @@ export const getLogin =  async (data)=>{
         sessionStorage.setItem("userId",result["userId"]);
         console.log("The result of response")
         return true
-        // console.log("Success",result);
-        console.log(sessionStorage.getItem("token"));
 
     }catch(err){
-        console.error("Error:",err.message);
+        console.log("Error:",err.message);
         return false;
     }
 }
