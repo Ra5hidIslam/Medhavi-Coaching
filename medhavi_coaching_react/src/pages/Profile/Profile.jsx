@@ -3,6 +3,7 @@ import ProfileCSS from './profile.module.css'
 
 function profile() {
 
+  
   const user = JSON.parse(sessionStorage.getItem("user"));
   return (
     <div>

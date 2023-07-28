@@ -22,10 +22,7 @@ const getUsers = async (userID) =>{
 
 const getUser = async (userID)=>{
     let user;
-    console.log("Im inside getuser");
     try{
-        // let isMounted = true;
-        // const controller = new AbortController();
         user = await getUsers(userID);
     }catch(err){
         console.log(err.message);

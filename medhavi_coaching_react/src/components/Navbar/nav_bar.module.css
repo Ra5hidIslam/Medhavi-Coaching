@@ -1,17 +1,41 @@
+:root {
+    --bg:  #242526;
+    --bg-accent: #484a4d;
+    --text-color: #dadce1;
+    --nav-size: 60px;
+    --border: 1px solid #474a4d;
+    --border-radius: 8px;
+    --speed: 500ms; 
+  }
+
+
+ul {
+list-style: none;
+margin: 0;
+padding: 0;
+}
+
+a{
+    text-decoration: none;
+    color:var(--text-color);
+}
+
 .nav_bar{
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    background-color: rgb(43, 42, 42);
-    padding: 10px 10px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: x-large;
-    text-shadow:5ch;
+    background-color: var(--bg);
+    border-bottom: var(--border);
+    height: var(--nav-size);
+
 }
 .nav_btn{
     text-decoration: none;
     color: white;
+    font-size: calc(var(--nav-size)*.7);
+    
 }
-.profile_button{
+/* .profile_button{
     --button-size:calc(var(--nav-size)*0.8);
     width:var(--button-size);
     height:var(--button-size);
@@ -20,4 +44,30 @@
     padding:5px;
     margin:2px;
 
-}
+} */
+
+.navItem {
+    /* width: calc(var(--nav-size)*1.8);  */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .usernameButton{
+    color: var(--text-color);
+    font-size: calc(var(--nav-size)*.5);
+    font-weight: 700;
+    width: 100%;
+    padding: 1vh;
+    margin: 2vh;
+    
+  }
+  .usernameButton:hover{
+    background-color: #474a4d;
+    border-radius: .8em;
+    cursor: pointer;
+  }
+
+/* .nav_bar_buttons{
+    display: inline-block;
+} */

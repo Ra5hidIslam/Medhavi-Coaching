@@ -177,7 +177,6 @@ const GetQuestionAnswers =()=>{
             try{
                 if(sessionStorage.getItem("userId")){
                     const response = await loadHomeFeed(sessionStorage.getItem("userId"));
-                    
                     // // Get the profile data too  
                     const user = await getUser(sessionStorage.getItem("userId"));
                     console.log("user:",user);

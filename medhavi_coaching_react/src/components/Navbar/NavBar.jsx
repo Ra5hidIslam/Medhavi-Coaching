@@ -2,69 +2,82 @@ import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 import NavBarCSS from '../Navbar/nav_bar.module.css'
 import e from 'cors';
+import DropdownMenu from '../DropDownMenu/DropDownMenu';
 
 
-const handleProfileClick = ()=>{
+
+
+
+// const handleProfileClick = ()=>{
     
-}
+// }
 
-function DropdownItem(props) {
+// function DropdownItem(props) {
+//     return (
+//       <a href="#" className="menu-item" >
+//         {props.children}
+//       </a>
+//     );
+//   }
+
+// const ButtonDivElement = (username)=>{
+//     return(
+//         <div>
+//         <DropdownItem>
+//             {username}
+//         </DropdownItem>
+//         <DropdownItem>
+//             Settings
+//         </DropdownItem>
+//         </div>
+        
+      
+//     )
+// }
+
+function NavItem(props) {
+    const [open, setOpen] = useState(false);
+  
     return (
-      <a href="#" className="menu-item" >
-        {props.children}
-      </a>
+      <div className={NavBarCSS.navItem}>
+        <div  className={NavBarCSS.usernameButton} onClick={() => setOpen(!open)}>
+          {props.username}
+        </div>
+        {open && props.children}
+      </div>
     );
   }
 
-const ButtonDivElement = (username)=>{
-    return(
-        <div>
-        <DropdownItem>
-            {username}
-        </DropdownItem>
-        <DropdownItem>
-            Settings
-        </DropdownItem>
-        </div>
-        
-      
-    )
-}
-
 
 function Nav_bar() {
-    const [profileElement,setProfileElement] = useState();
-    useEffect(()=>{
-        const showProfileName = ()=>{
-            if(sessionStorage.getItem("user")){
-                const user =  JSON.parse(sessionStorage.getItem("user"));
-                // const button_element = ButtonDivElement(user.username);
-                setProfileElement(<div className={NavBarCSS.nav_btn}>{user.username}</div>);
-                
-            }
+
+  // const [loggedOut,setLoggedOut] = useState(false);
+    const getUserElement =()=>{
+        if(sessionStorage.getItem("user")){
+          if(sessionStorage.getItem("user") != "undefined")
+          {
+            const user = JSON.parse(sessionStorage.getItem("user"));
+            const userElement =  <NavItem username ={user.username}><DropdownMenu></DropdownMenu></NavItem>;
+            return userElement;
+          }
+          // else{
+
+          // }
+            
         }
-        showProfileName();
 
-    },[]);
+    }
 
+    
     
     return (
         <div className={NavBarCSS.nav_bar}>
-            <div>
+            <div className={NavBarCSS.nav_bar_buttons}>
                 <Link to="/Home" className={NavBarCSS.nav_btn}>Home</Link>
             </div>
-            <div onClick={handleProfileClick()}>
-                {profileElement}
+            <div className={NavBarCSS.nav_bar_buttons}>
+                {getUserElement()}
             </div>
-            {/* <div>
-                <Link to="/QuizList" className={NavBarCSS.nav_btn}>Quiz</Link>
-            </div>
-            <div>
-                <Link to="/About" className={NavBarCSS.nav_btn}>About</Link>
-            </div>
-            <div>
-                <Link to="/Prac" className={NavBarCSS.nav_btn}>Prac</Link>
-            </div> */}
         </div>
 
     );
