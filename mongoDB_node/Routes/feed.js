@@ -110,6 +110,7 @@ router.get("/getOneFeed/:feedId", async (req,res)=>{
 // Get home feed
 router.get("/getHomeFeed/:userId", async (req,res)=>{
     // check if feed exist using feed id
+    if(req.params.userId === "undefined" || req.params.userId === null) return res.sendStatus(403);
     const userId = req.params.userId;
     if(!userId) return res.status(403).json("user id not received");
     // find the user and the following list

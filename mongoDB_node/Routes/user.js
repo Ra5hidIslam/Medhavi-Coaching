@@ -73,7 +73,7 @@ router.delete("/:id",verifyJWT, async(req,res)=>{
 
 })
 // update a user
-router.put("/:id", async(req,res)=>{
+router.put("/:id",verifyJWT, async(req,res)=>{
     if(req.body.userId == req.params.id || req.body.isAdmin){
         if(req.body.password){
             try{
@@ -110,7 +110,7 @@ router.get("/:id", verifyJWT,async (req,res)=>{
 });
 
 //follow a user
-router.put("/follow/:id", async (req,res)=>{
+router.put("/follow/:id",verifyJWT, async (req,res)=>{
     if(req.body.userId !== req.params.id){
         // need to update my following and follower list?
         // first find the two users
@@ -135,7 +135,7 @@ router.put("/follow/:id", async (req,res)=>{
 })
 
 // unfollow a user
-router.put("/:id/unfollow", async (req,res)=>{
+router.put("/:id/unfollow",verifyJWT, async (req,res)=>{
     if(req.body.userId !== req.params.id){
         // need to update my following and follower list?
         // first find the two users

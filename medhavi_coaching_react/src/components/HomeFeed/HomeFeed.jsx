@@ -94,6 +94,8 @@ const GetQuestionAnswers =()=>{
     const [statCounter, setStateCounter] = useState(0);
 
 
+
+
     // This function provoked when we click the submit button, using the button pressed and the radio button selected
     // we will render the if the answer is correct or wrong.
     function select_answer(event,question_array_length){
@@ -175,26 +177,50 @@ const GetQuestionAnswers =()=>{
     useEffect(()=>{
         async function getData(){
             try{
-                if(sessionStorage.getItem("userId")){
+                if(sessionStorage.getItem("userId") ){
                     const response = await loadHomeFeed(sessionStorage.getItem("userId"));
                     // // Get the profile data too  
+                    // const user = await getUser(sessionStorage.getItem("userId"));
+                    // console.log("user:",user);
+                    // set the sessionStorage user id to the extracted userID
+                    // Since storing object directly is not possible so we need to convert it into json and then save it
+                    // const userJson = JSON.stringify(user);  
+                    // sessionStorage.setItem("user",userJson);
+                    // const data = await response.json();
+                    setQuestionArray(response);
+                    // window.location.reload();
+                    // myArr = response;
+                }
+            }catch(err){
+                console.log(err.message);
+            }
+            
+        }
+        getData();
+    },[]);
+
+    
+    useEffect(()=>{
+        async function getUser(){
+            try{
+                if(sessionStorage.getItem("userId") ){
                     const user = await getUser(sessionStorage.getItem("userId"));
                     console.log("user:",user);
                     // set the sessionStorage user id to the extracted userID
                     // Since storing object directly is not possible so we need to convert it into json and then save it
                     const userJson = JSON.stringify(user);  
                     sessionStorage.setItem("user",userJson);
-                    // const data = await response.json();
-                    setQuestionArray(response);
-                    // myArr = response;
+                    setIsMounted(true);
                 }
             }catch(err){
-                // console.log(err.message);
+                console.log(err.message);
             }
             
         }
-        getData();
+        getUser();
     },[]);
+
+
 
     useEffect(()=>{
         console.log(which_answer);

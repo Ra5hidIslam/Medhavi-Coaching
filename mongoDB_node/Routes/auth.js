@@ -37,8 +37,8 @@ router.post("/register", async (req,res)=>{
 // Login
 
 router.post("/login",async (req,res)=>{
-    console.log(req.body.email);
-    console.log(req.body.password);
+    // console.log(req.body.email);
+    // console.log(req.body.password);
     if(!req.body.email || !req.body.password) return res.status(400).json("Username and password required for login");
     const email = req.body.email;
     const password = req.body.password; 
