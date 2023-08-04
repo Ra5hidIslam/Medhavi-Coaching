@@ -9,7 +9,7 @@ export const getSignUp = async(data)=>{
                     "Content-Type":"application/json",
                 },
                 body:JSON.stringify(data),
-                credentials:'include',
+                // credentials:'include',
             });
         }
         catch(err){

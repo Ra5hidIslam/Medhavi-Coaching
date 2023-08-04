@@ -10,18 +10,27 @@
     font-size: x-large;
 }
 
-.username{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-weight: 400;
-    margin-bottom: 10em;
-    color: #000;
-    /* float:left;
-    clear:left; */
+.email{
+    display: flex;
+    flex-direction: column;
+    font-weight: 900;
+    margin-bottom: 2vh;
+    font-size:x-large;
 }
 
 .password{
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-weight: 400;
-    margin-bottom: 10em;
+    display: flex;
+    flex-direction: column;
+    font-weight: 900;
+    margin-bottom: 2vh;
+    font-size: x-large;
+}
+.labelTags{
     color: #000;
+}
+
+.InputBoxes{
+    border-radius: 2vh;
+    border-color: aliceblue;
+    font-weight:700;
 }

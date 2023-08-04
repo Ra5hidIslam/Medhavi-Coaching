@@ -1,5 +1,5 @@
 export const getLogin =  async (data)=>{
-    console.log("I am inside getLogin");
+    console.log(data);
     const url = "http://localhost:8800/api/auth/login"
     try{
         const response = await fetch(url,{
@@ -10,13 +10,20 @@ export const getLogin =  async (data)=>{
             body:JSON.stringify(data),
             credentials:'include',
         });
-        const result = await response.json();
-        console.log("The result of response")
-        console.log(result);
-        sessionStorage.setItem("token",result["accessToken"]);
-        sessionStorage.setItem("userId",result["userId"]);
-        console.log("The result of response")
-        return true
+        let result =  response;
+        if(response.status == 200){
+            result = await response.json();
+            sessionStorage.setItem("token",result["accessToken"]);
+            sessionStorage.setItem("userId",result["userId"]);
+            return true
+        }
+        else{
+            console.log(result);
+            return false;
+        }
+        
+        // console.log("The result of response")
+        
 
     }catch(err){
         console.log("Error:",err.message);

@@ -15,7 +15,7 @@ import Quiz from './pages/Quiz/Quiz';
 import QuizStartPage from './pages/Quiz/QuizStartPage';
 import Profile from './pages/Profile/Profile';
 import PracInside from './pages/Prac/PracInside';
-// import Landing from './pages/LandingPage/Landing';
+import Landing from './pages/LandingPage/Landing';
 function App() {
 	return (
 		<Router>
@@ -24,7 +24,7 @@ function App() {
 			{/* </Routes>  */}
 		<NavBar />
 		<Routes>
-			<Route path='/' exact  element={<Home/>}/>
+			<Route path='/' exact  element={<Landing/>}/>
 			<Route path='/Home' exact  element={<Home/>}/>
 			{/* <Route path='/About' element={<About/>} />
 			<Route path='/Courses' element={<Courses/>} />

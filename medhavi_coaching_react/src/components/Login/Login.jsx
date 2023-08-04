@@ -34,8 +34,8 @@ function Login({logState,handleLoginClick}) {
     // console.log(formData);\
     // write code to fetch the api
     const loginstate  = await getLogin(formData);
-    if(loginstate){
-      // console.log()
+    if(loginstate === true){
+      console.log("loginState=",loginstate);
       // window.location.reload(true);
       window.location.href = '/home';
       // console.log("Logged In")
@@ -61,17 +61,13 @@ function Login({logState,handleLoginClick}) {
       <div>
         <div >
               <form>
-                <div>
-                  <label className={LoginCSS.username}>
-                      Username
-                      <input name = "email" value = {formData.value} onChange={handleChange}/>
-                  </label>
+                <div className={LoginCSS.email}>
+                  <label className={LoginCSS.labelTags}>Email</label>
+                  <input name = "email" className={LoginCSS.InputBoxes} value = {formData.value} onChange={handleChange}/>
                 </div>
-                <div>
-                  <label className={LoginCSS.password}>
-                      Password
-                      <input type = "password" name = "password" value = {formData.value}  onChange={handleChange}/>
-                  </label>
+                <div className={LoginCSS.password}>
+                  <label className={LoginCSS.labelTags}>Password</label>
+                  <input type = "password" className={LoginCSS.InputBoxes} name = "password" value = {formData.value}  onChange={handleChange}/>
                 </div>
                 {/* <div>
                     <button onClick={handleSubmit}>Submit</button>

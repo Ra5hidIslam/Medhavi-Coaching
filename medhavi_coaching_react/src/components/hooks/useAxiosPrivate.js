@@ -7,7 +7,7 @@ import useRefreshToken from "./useRefreshToken";
 
 const useAxiosPrivate = () =>{
     const refresh = useRefreshToken();
-
+    // refresh();
     try{
         useEffect(()=>{
             const requestIntercept = axiosPrivate.interceptors.request.use(
@@ -44,7 +44,7 @@ const useAxiosPrivate = () =>{
             );
     
             return () =>{
-                axiosPrivate.interceptors.reject.eject(responseIntercept);
+                axiosPrivate.interceptors.request.eject(requestIntercept);
                 axiosPrivate.interceptors.response.eject(responseIntercept);
     
             }

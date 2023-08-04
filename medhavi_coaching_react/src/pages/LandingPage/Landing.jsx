@@ -3,12 +3,15 @@ import { useState } from 'react';
 
 import HomeFeed from '../../components/HomeFeed/HomeFeed'
 import Login from '../../components/Login/Login';
-import LandingCSS from '../LandingPage/Landing.module.css';
+import LandingCSS from '../LandingPage/Landing.module.css'
+// import LoginForm from '../../components/Login/LoginForm';
+import LogOut from '../../components/hooks/LogOut';
 
 
 function Landing(){
 
     const[logState,setLogState] = useState(false);
+    // // function to change the state on click of the login button
     function handleLoginClick(){
         setLogState((logState)=> !logState);
         console.log(logState);
@@ -24,20 +27,12 @@ function Landing(){
                 />
             </div> */}
             <div className={LandingCSS.home_body}>
-                {/* <div className={HomeCSS.home_feed_section}>
-                    <HomeFeed/>
-                </div> */}
-                <div className={LandingCSS.login_section}>
+            <div className={LandingCSS.login_section}>
                     <Login
                     logState = {logState}
                     handleLoginClick = {handleLoginClick}
                     />
                 </div>
-                {/* <div className={HomeCSS.logout} onClick={LogOut()}>
-                    Log Out
-                </div> */}
-                
-                {/* Hello */}
             </div>
         
         </div>
