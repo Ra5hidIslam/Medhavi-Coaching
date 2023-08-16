@@ -14,7 +14,7 @@ export const getLogin =  async (data)=>{
         if(response.status == 200){
             result = await response.json();
             sessionStorage.setItem("token",result["accessToken"]);
-            sessionStorage.setItem("userId",result["userId"]);
+            localStorage.setItem("userId",result["userId"]);
             return true
         }
         else{

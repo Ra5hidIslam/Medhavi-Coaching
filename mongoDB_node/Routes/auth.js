@@ -7,17 +7,17 @@ require('dotenv').config();
 // Create user
 router.post("/register", async (req,res)=>{
     // checking if the body contains the user
-    const username = req.body.username;
+    const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
-    if(!username || !email || !password) return res.status(400).json("username, email and password required");
+    if(!name || !email || !password) return res.status(400).json("name, email and password required");
     // check for dupicate user
     const duplicate = await userModel.findOne({email:email});
-    if(duplicate !== null) return res.status(409).json(duplicate); //conflict
+    if(duplicate != null) return res.status(409).json(duplicate); //conflict
     try{
         const hashedPassword = await bcrypt.hash(password,10);
         const newUser = new userModel({
-            username:req.body.username,
+            name:req.body.name,
             email:req.body.email,
             userId:req.body.userId,
             password:hashedPassword,

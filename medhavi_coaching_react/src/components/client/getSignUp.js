@@ -1,7 +1,7 @@
 export const getSignUp = async(data)=>{
     if(!data) return null;
     const url = "http://localhost:8800/api/auth/register"
-    if(data.email && data.username){
+    if(data.email && data.userId){
         try{
             const response = await fetch(url,{
                 method:"POST",
@@ -11,6 +11,9 @@ export const getSignUp = async(data)=>{
                 body:JSON.stringify(data),
                 // credentials:'include',
             });
+            if(response.status == 200){
+                return true;
+            }
         }
         catch(err){
             return err.message;

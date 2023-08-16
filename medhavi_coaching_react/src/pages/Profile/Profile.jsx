@@ -8,14 +8,20 @@ function profile() {
   return (
     <div>
       <div className={ProfileCSS.profileBody}>
-        <div className={ProfileCSS.profilePhoto}>
-          Profile Picture
-        </div>
-        <div className={ProfileCSS.profileUsername}>
-          {
-            user.username
-          }
-        </div>
+          <div className={ProfileCSS.profilePhoto}>
+            Profile picture
+          </div>
+          <div className={ProfileCSS.profileUsername}>
+            {
+              user.name
+            }
+          </div>
+          <div className={ProfileCSS.profileNavbar} name = "navbar">
+            Navbar 
+          </div>
+          <div className = {ProfileCSS.profileContent}>
+            Profile Content
+          </div>
       </div>
     </div>
   )

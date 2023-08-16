@@ -6,11 +6,11 @@ import { getSignUp } from "../../components/client/getSignUp";
 import { formToJSON } from "axios";
 
 
+
 const initialFormData = Object.freeze({
-  firstname:"",
-  lastname:"",
+  name:"",
   email:"",
-  username:"",
+  userId:"",
   password:""
 });
 
@@ -21,25 +21,31 @@ const SignUp = ({ logState,handleLoginClick}) => {
   const [signUpPageState, setSignUpPageState] = useState(1);
 
   const handleChange =(e)=>{
+    let targetValue;
+    if(e.target.name !="name"){
+      targetValue = e.target.value.trim();
+    }
+    targetValue = e.target.value;
+    
     updateFormData({
       ...formData,
       //Trimming any whitespace
-      [e.target.name]:e.target.value.trim(),
+     
+      [e.target.name]:targetValue,
+      
     });
     console.log(formData);
   };
 
   const handleSubmit = async()=>{
-    if(formData.firstname == ""){
-      console.log("Please enter firstname")
-      return;
-    }else if(formData.lastname == ""){
-      console.log("Please enter lastname")
+
+    if(formData.name == ""){
+      console.log("Please enter name")
       return;
     }else if(formData.email == ""){
       console.log("Please enter email")
       return;
-    }else if(formData.username == ""){
+    }else if(formData.userId == ""){
       console.log("Please enter username")
       return;
     }else if(formData.password == ""){
@@ -59,8 +65,11 @@ const SignUp = ({ logState,handleLoginClick}) => {
         }
         else{
           // alert("error in Signing you, Sorry");
+          if(SignUpState == true){
+            handleSuccessLogin();
+          }
           console.log("Account created successfully");
-          console.log(SignUpState);
+          // console.log(SignUpState);
         }
       }
       catch(err){
@@ -72,7 +81,10 @@ const SignUp = ({ logState,handleLoginClick}) => {
   }
 
   const handleNext =()=>{
-    if(formData.firstname && formData.lastname && formData.email) setSignUpPageState(2);
+    if(formData.name && formData.email) setSignUpPageState(2);
+  }
+  const handleSuccessLogin = ()=>{
+    setSignUpPageState(4);
   }
   const handlePrev =()=>{
     setSignUpPageState(1);
@@ -87,10 +99,8 @@ const SignUp = ({ logState,handleLoginClick}) => {
       if(signUpPageState == 1){
         return(
           <div>
-            <label>First Name</label>
-            <input type="text" name="firstname" className={SignUpCSS.SignUpBox} onChange={handleChange}/>
-            <label>Last Name</label>
-            <input type="text" name="lastname" className={SignUpCSS.SignUpBox} onChange={handleChange}/>
+            <label>Name</label>
+            <input type="text" name="name" className={SignUpCSS.SignUpBox} onChange={handleChange}/>
             <label>email</label>
             <input type="text" name="email" className={SignUpCSS.SignUpBox} onChange={handleChange}/> 
           </div>
@@ -102,13 +112,19 @@ const SignUp = ({ logState,handleLoginClick}) => {
         return(
           <div>
             <label>Username</label>
-            <input type="text" name="username" className={SignUpCSS.SignUpBox} onChange={handleChange}/>
+            <input type="text" name="userId" className={SignUpCSS.SignUpBox} onChange={handleChange}/>
             <label>password</label>
             <input type="password" name="password" className={SignUpCSS.SignUpBox} onChange={handleChange}/> 
           </div>
         )
-          
-          
+      }
+      else if(signUpPageState == 4){
+        return(
+          <div>
+            <div className={SignUpCSS.successMessage}> You account has been created</div>
+            <div className={SignUpCSS.successMessage}> Please login using your credentials</div>
+          </div>
+        )
       }
   }
 
@@ -121,10 +137,7 @@ const SignUp = ({ logState,handleLoginClick}) => {
       return (
         <div className={SignUpCSS.SignUpBtn} onClick={handleSubmit}>Submit</div>
       )
-      
     }
-    
-
   }
 
   // useEffect(()=>{

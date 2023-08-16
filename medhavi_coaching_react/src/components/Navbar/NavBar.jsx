@@ -57,7 +57,7 @@ function Nav_bar() {
           if(sessionStorage.getItem("user") != "undefined")
           {
             const user = JSON.parse(sessionStorage.getItem("user"));
-            const userElement = <NavItem username ={user.username}><DropdownMenu></DropdownMenu></NavItem>;
+            const userElement = <NavItem username ={user.name}><DropdownMenu></DropdownMenu></NavItem>;
             return userElement;
           }
           // else{

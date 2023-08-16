@@ -3,20 +3,42 @@ html, body{
 }
 .profileBody{
     display: flex;
+    /* flex: 1 1 0px; */
     flex-direction: column;    
     height: 100%;
     background-color: aliceblue;
     align-items: center;
-    margin-left: 50vh;
-    margin-right: 50vh;
+    margin-left: 80vh;
+    margin-right: 80vh;
+    max-width: 250px;
+
 
 }
 .profilePhoto{
-    margin: 20vh;
+    /* margin-left: 30vh;
+    margin-right: 30vh; */
+    padding-left: 250px;
+    padding-right: 250px;
+    padding-bottom: 50px;
+    background-color: bisque;
 }
-.profileInfo{
-    margin: 30vh;
-}
+
 .profileUsername{
-    margin: 20vh;
+    /* margin-left: 30vh;
+    margin-right: 30vh; */
+    padding-left: 250px;
+    padding-right: 250px;
+    background-color: blueviolet;
+}
+.profileNavbar{
+    display: b;
+    background-color:black;
+    color: white;
+    padding-left:250px;
+    padding-right:250px;
+}
+.profileContent{
+
+    padding: 250px;
+    background-color: blanchedalmond;
 }

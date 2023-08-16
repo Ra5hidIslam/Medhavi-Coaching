@@ -4,7 +4,7 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 const getUsers = async (userID) =>{
     try{
-        const axiosPrivate = useAxiosPrivate();
+        const axiosPrivate = useAxiosPrivate;
         console.log("Im inside getuser");
         console.log(sessionStorage.getItem("token"));
         const response = await axiosPrivate.get('/user/'+ userID,{

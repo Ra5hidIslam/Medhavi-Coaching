@@ -107,8 +107,8 @@ const GetQuestionAnswers =()=>{
     useEffect(()=>{
         async function getData(){
             try{
-                if(sessionStorage.getItem("userId") ){
-                    const response = await loadHomeFeed(sessionStorage.getItem("userId"));
+                if(localStorage.getItem("userId") ){
+                    const response = await loadHomeFeed(localStorage.getItem("userId"));
                     setQuestionArray(response);
                 }
             }catch(err){
@@ -123,8 +123,8 @@ const GetQuestionAnswers =()=>{
     useEffect(()=>{
         async function getDataUser(){
             try{
-                if(sessionStorage.getItem("userId") ){
-                    const user = await getUser(sessionStorage.getItem("userId"));
+                if(localStorage.getItem("userId") ){
+                    const user = await getUser(localStorage.getItem("userId"));
                     console.log("user:",user);
                     // set the sessionStorage user id to the extracted userID
                     // Since storing object directly is not possible so we need to convert it into json and then save it
