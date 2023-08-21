@@ -1,11 +1,11 @@
 import React, { useState,useEffect } from 'react';
-import QuestionsCSS from '../HomeFeed/HomeFeed.module.css'
+import QuestionsCSS from '../../components/Profile_Post/UserPosts.module.css'
 // import the library to fetch homefeed
 import { loadHomeFeed } from '../client/loadHomeFeed';
 import getUser from '../client/getUser';
+import { loadUserPosts } from '../client/loadUserPosts';
 // import post from '../posts/Posts';
 // import { getAndLoadHomeFeed } from '../helper/getAndLoadHomefeed';
-
 
 
 
@@ -109,7 +109,7 @@ const GetQuestionAnswers =()=>{
         async function getData(){
             try{
                 if(localStorage.getItem("userId") ){
-                    const response = await loadHomeFeed(localStorage.getItem("userId"));
+                    const response = await loadUserPosts(localStorage.getItem("userId"));
                     setQuestionArray(response);
                 }
             }catch(err){
@@ -121,26 +121,7 @@ const GetQuestionAnswers =()=>{
     },[]);
 
     
-    useEffect(()=>{
-        async function getDataUser(){
-            try{
-                if(localStorage.getItem("userId") ){
-                    const user = await getUser(localStorage.getItem("userId"));
-                    console.log("user:",user);
-                    // set the sessionStorage user id to the extracted userID
-                    // Since storing object directly is not possible so we need to convert it into json and then save it
-                    const userJson = JSON.stringify(user);  
-                    sessionStorage.setItem("user",userJson);
-                    setIsMounted(true);
-                }
-            }catch(err){
-                console.log(err.message);
-            }
-            
-        }
 
-        getDataUser();
-    },[]);
 
 
 

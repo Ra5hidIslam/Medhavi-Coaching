@@ -2,15 +2,15 @@ html, body{
     height: 100%;
 }
 .profileBody{
-    display: flex;
-    /* flex: 1 1 0px; */
-    flex-direction: column;    
-    height: 100%;
-    background-color: aliceblue;
-    align-items: center;
-    margin-left: 80vh;
-    margin-right: 80vh;
-    max-width: 250px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    /* background-color: aliceblue; */
+    /* align-items: center; */
+    /* margin-left: 80vh;
+    margin-right: 80vh; */
+    /* max-width: 250px; */
+    height: 100vh;
 
 
 }
@@ -20,7 +20,8 @@ html, body{
     padding-left: 250px;
     padding-right: 250px;
     padding-bottom: 50px;
-    background-color: bisque;
+    height: 200px;
+    background-color: white;
 }
 
 .profileUsername{
@@ -28,17 +29,17 @@ html, body{
     margin-right: 30vh; */
     padding-left: 250px;
     padding-right: 250px;
-    background-color: blueviolet;
+    background-color: rgb(92, 169, 214);
 }
-.profileNavbar{
-    display: b;
-    background-color:black;
-    color: white;
-    padding-left:250px;
-    padding-right:250px;
-}
+
+/* .profileNavbar{ */
+    /* padding-left: 250px;
+    padding-right: 250px; */
+    
+ 
+/* }  */
 .profileContent{
 
-    padding: 250px;
+    /* padding: 250px; */
     background-color: blanchedalmond;
 }

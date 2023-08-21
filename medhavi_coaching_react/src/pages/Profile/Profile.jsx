@@ -1,5 +1,8 @@
 import React from 'react'
 import ProfileCSS from './profile.module.css'
+import UserFeed from '../../components/Profile_Post/UserPost'
+import ProfileNavbar from '../../components/ProfileNavbar/ProfileNavbar'
+import Check from '../../components/ProfileNavbar/Check'
 
 function profile() {
 
@@ -8,21 +11,33 @@ function profile() {
   return (
     <div>
       <div className={ProfileCSS.profileBody}>
-          <div className={ProfileCSS.profilePhoto}>
-            Profile picture
+          <div>
+            
           </div>
-          <div className={ProfileCSS.profileUsername}>
-            {
-              user.name
-            }
+          <div name = "main">
+            <div className={ProfileCSS.profilePhoto}>
+              Profile picture
+            </div>
+            <div className={ProfileCSS.profileUsername}>
+              {
+                user.name
+              }
+            </div>
+            
+            {/* <div className = {ProfileCSS.profileContent}> */}
+              {/* User posts */}
+              {/* <UserFeed/> */}
+            {/* </div> */}
+            
+            <div className={ProfileCSS.profileNavbar} >
+              <ProfileNavbar/>
+            </div>
           </div>
-          <div className={ProfileCSS.profileNavbar} name = "navbar">
-            Navbar 
-          </div>
-          <div className = {ProfileCSS.profileContent}>
-            Profile Content
+          <div>
+            
           </div>
       </div>
+      {/* <UserFeed/> */}
     </div>
   )
 }

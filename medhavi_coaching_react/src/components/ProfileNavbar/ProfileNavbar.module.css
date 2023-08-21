@@ -1,0 +1,35 @@
+.userfeed{
+    /* border:1px solid rgba(0,0,0,1); */
+    /* width: 100vh; */
+
+}
+.navbar{
+    /* border:1px solid rgba(0,0,0,1);  */
+    display: flex;
+    justify-content:space-evenly;
+    /* flex: auto; */
+}
+
+button{
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.UserPostsActive{
+    background-color: rgb(70, 241, 70);
+    
+}
+.UserPostsStandard{
+    background-color: white;
+    
+}
+
+.InterPostsActive{
+    background-color: rgb(70, 241, 70);
+    
+}
+.InterPostsStandard{
+    background-color: white;
+    
+}
