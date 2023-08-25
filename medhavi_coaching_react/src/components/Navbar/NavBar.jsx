@@ -54,15 +54,14 @@ function Nav_bar() {
   // const [loggedOut,setLoggedOut] = useState(false);
     const getUserElement =()=>{
         if(sessionStorage.getItem("user")){
+          
           if(sessionStorage.getItem("user") != "undefined")
           {
             const user = JSON.parse(sessionStorage.getItem("user"));
             const userElement = <NavItem username ={user.name}><DropdownMenu></DropdownMenu></NavItem>;
+            console.log(user.name);
             return userElement;
           }
-          // else{
-
-          // }
             
         }
 

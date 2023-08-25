@@ -15,14 +15,17 @@ function profile() {
             
           </div>
           <div name = "main">
-            <div className={ProfileCSS.profilePhoto}>
+            {/* <div className={ProfileCSS.profilePhoto}>
               Profile picture
-            </div>
-            <div className={ProfileCSS.profileUsername}>
+            </div> */}
+            <div className={ProfileCSS.usernameBlock}>
+              <div className={ProfileCSS.profileUsername}>
               {
                 user.name
               }
+              </div>
             </div>
+            
             
             {/* <div className = {ProfileCSS.profileContent}> */}
               {/* User posts */}

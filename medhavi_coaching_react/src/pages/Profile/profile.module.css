@@ -3,7 +3,7 @@ html, body{
 }
 .profileBody{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr;
     /* background-color: aliceblue; */
     /* align-items: center; */
@@ -23,13 +23,18 @@ html, body{
     height: 200px;
     background-color: white;
 }
+.usernameBlock{
+    background-color: white;
+}
+
 
 .profileUsername{
-    /* margin-left: 30vh;
-    margin-right: 30vh; */
-    padding-left: 250px;
-    padding-right: 250px;
-    background-color: rgb(92, 169, 214);
+    text-align: center;
+    margin:auto;
+    width: fit-content;
+    padding: 1vh;
+    border-radius: 4vh;
+    background-color: rgb(197, 84, 84);
 }
 
 /* .profileNavbar{ */

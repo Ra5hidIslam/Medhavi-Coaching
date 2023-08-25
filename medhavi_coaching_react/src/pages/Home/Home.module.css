@@ -5,17 +5,20 @@
 }
 .home_body{
     /* margin-top: 50vh; */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    /* display: flex;
+    flex-direction: column; */
+    /* align-items: center; */
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
     background-color: rgb(222, 213, 213);
     padding-bottom: 50vh;
 }
 .home_feed_section{
-    width: 75%;
-    border:1px solid rgba(0, 0, 0, 1);
+    /* width: 75%; */
+    /* border:1px solid rgba(0, 0, 0, 1); */
     display: flex;
     flex-direction: column;
+    /* border-radius: 2vh; */
 }
 .login_section{
     padding-left: 5vh;

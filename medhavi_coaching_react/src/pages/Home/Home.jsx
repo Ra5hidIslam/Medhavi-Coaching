@@ -19,12 +19,19 @@ function Home(){
     // useEffect(()=>{
     //     console.log(logState);
     // },[]);
+    // window.location.reload();
     return(
         <div>
             <div className={HomeCSS.home_body}>
+                <div>
+                    
+                </div>
                 <div className={HomeCSS.home_feed_section}>
                     <HomeFeed/>
                 </div> 
+                <div>
+                    
+                </div>
             </div>
         
         </div>

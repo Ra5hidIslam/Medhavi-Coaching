@@ -57,14 +57,12 @@ a{
     color: var(--text-color);
     font-size: calc(var(--nav-size)*.5);
     font-weight: 700;
-    width: 100%;
-    padding: 1vh;
-    margin: 2vh;
+    padding: 10px;
     
   }
   .usernameButton:hover{
     background-color: #474a4d;
-    border-radius: .8em;
+    border-radius: .9em;
     cursor: pointer;
   }
 

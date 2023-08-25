@@ -9,7 +9,7 @@ body{
 }
 
 .question_block{
-    background-color: rgb(44, 68, 51); 
+    background-color: rgb(213, 223, 216); 
     padding:20px 20px;
     /* margin-left:30vh;
     margin-right: 30vh; */
@@ -26,19 +26,26 @@ body{
 }
 
 .userID_element{
+    display: flex;
     font-size: large;
-    color:rgb(43, 205, 80)
-    /* background-color: black; */
+    font-weight: 900;
+    color:rgb(3, 3, 3);
+    background-color: rgb(180, 167, 167);
+    border-radius: .5vh;
+    width:fit-content;
 }
 
 .options{
-    font-size: x-large;
+    font-size: large;
+    padding-left: 1vh;
     border:2pt;
+    color: black;
 }
 .question_title{
     font-size: x-large;
     border:2pt;
-    color: aquamarine;
+    color: rgb(0, 0, 0);
+    font-weight: 700;
     
     
 }

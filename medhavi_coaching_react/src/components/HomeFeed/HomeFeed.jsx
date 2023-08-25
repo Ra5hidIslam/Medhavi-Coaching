@@ -132,6 +132,7 @@ const GetQuestionAnswers =()=>{
                     const userJson = JSON.stringify(user);  
                     sessionStorage.setItem("user",userJson);
                     setIsMounted(true);
+                    
                 }
             }catch(err){
                 console.log(err.message);
@@ -141,7 +142,6 @@ const GetQuestionAnswers =()=>{
 
         getDataUser();
     },[]);
-
 
 
     useEffect(()=>{
@@ -154,7 +154,10 @@ const GetQuestionAnswers =()=>{
         return <div>Loading...</div>;
     }
 
-    
+    // useEffect(()=>{
+    // },[isMounted]);
+
+
     // setQuestionArray(temp_array);
 
     // console.log("I am repeating");
@@ -165,7 +168,16 @@ const GetQuestionAnswers =()=>{
             localStorage.getItem("userId") && questionArray.map((q) => (
             <div className={QuestionsCSS.question_block}>
                 <div className={QuestionsCSS.userID_element}>
+                    {/* <div>
+                        {q.name}
+                    </div> */}
+                    <div>
+                        @
+                    </div>
+                    <div>
                     {q.userName}
+                    </div>
+                    
                 </div>
                 <div className={QuestionsCSS.question_title} id={q.questionID}>
                     {q.questionText}
