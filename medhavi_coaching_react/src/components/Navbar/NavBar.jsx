@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useReducer, useState } from 'react'
 import { Link } from "react-router-dom";
 import NavBarCSS from '../Navbar/nav_bar.module.css'
 import e from 'cors';
 import DropdownMenu from '../DropDownMenu/DropDownMenu';
+// import { useAuthContext } from '../hooks/useAuthContext';
 
 
 
@@ -51,10 +52,13 @@ function NavItem(props) {
 
 function Nav_bar() {
 
+  
+  // const state = useAuthContext();
+
+  // console.log("context");
   // const [loggedOut,setLoggedOut] = useState(false);
     const getUserElement =()=>{
         if(sessionStorage.getItem("user")){
-          
           if(sessionStorage.getItem("user") != "undefined")
           {
             const user = JSON.parse(sessionStorage.getItem("user"));
@@ -68,7 +72,9 @@ function Nav_bar() {
     }
     
     const ifLanding =()=>{
+      
       if(sessionStorage.getItem("token")){
+        
         const navElement = <Link to="/Home" className={NavBarCSS.nav_btn}>Home</Link>
         return navElement;
       }else{
@@ -76,6 +82,12 @@ function Nav_bar() {
         return navElement;
       }
     }
+
+
+    // const state = useAuthContext();
+    // console.log("context",state);
+    // state.dispatch({type:'LOGIN'})
+    // console.log("context",state);
 
     
     

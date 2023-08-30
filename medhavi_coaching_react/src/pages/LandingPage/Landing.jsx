@@ -19,16 +19,24 @@ function Landing(){
     function handleLoginClick(){
         setLogState((logState)=> !logState);
         console.log(logState);
-    }   
+    }  
+    
+    
 
     const checkToken = async()=>{
+         // log the person in and redirect to home page
+         const refreshToken = await refreshFunction();
+         sessionStorage.setItem("token",refreshToken);
+         const user = await getUser(localStorage.getItem("userId"));
+         const userJson = JSON.stringify(user);  
+         sessionStorage.setItem("user",userJson);
+         window.location.href = '/home';
+    }
+
+
+    const landingElement =()=>{
         if(localStorage.getItem("userId")){
-            // log the person in and redirect to home page
-            const refreshToken = await refreshFunction();
-            sessionStorage.setItem("token",refreshToken);
-            const user = getUser(localStorage.getItem("userId"));
-            sessionStorage.getItem("user",user);
-            window.location.href = '/home';
+           checkToken();
         }
         else{
             return (
@@ -38,7 +46,8 @@ function Landing(){
                 />
             )
         }
-    }
+    }   
+    
 
 
     useEffect(()=>{
@@ -48,7 +57,7 @@ function Landing(){
         <div>
             <div className={LandingCSS.home_body}>
                 <div className={LandingCSS.login_section}>
-                        {checkToken()}
+                        {landingElement()}
                 </div>
             </div>
         

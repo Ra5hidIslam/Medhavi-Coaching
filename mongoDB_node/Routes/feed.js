@@ -2,6 +2,7 @@ const router = require("express").Router();
 const feedModel = require("../models/feed/feedModel");
 const feedInteractionModel = require("../models/feed/feedInteractionModel");
 const feedResultModel = require("../models/feed/feedResultModel");
+const verifyJWT = require('../middleware/verifyJWT');
 const userModel = require("../models/user/userModel")
 
 
@@ -35,9 +36,16 @@ async function getSelfFeedsFromUsers(ID){
     
 }
 
+async function feedSelector(feedCount){
+    // get the feed and sort them by time(latest first).
+    const allFeeds = feedModel.find().sort({createdAt:-1});
+    console.log("allfeeds",allFeeds);
+    return allFeeds
+}
+
 
 // Add feed
-router.post("/create", async (req,res)=>{
+router.post("/create",verifyJWT, async (req,res)=>{
     try{
         // creating new feed 
         const newFeed = new feedModel({
@@ -70,7 +78,7 @@ router.post("/create", async (req,res)=>{
 });
 
 // Update Feed
-router.put("/updateFeed/:feedId", async (req,res)=>{
+router.put("/updateFeed/:feedId",verifyJWT, async (req,res)=>{
     // check if feed exist using feed id
     const feedId = req.params.feedId;
     if(!feedId) return res.status(403).json("feed id not received");
@@ -82,7 +90,7 @@ router.put("/updateFeed/:feedId", async (req,res)=>{
 });
 
 // delete feed
-router.put("/deleteFeed/:feedId", async (req,res)=>{
+router.put("/deleteFeed/:feedId",verifyJWT, async (req,res)=>{
     // check if feed exist using feed id
     const feedId = req.params.feedId;
     if(!feedId) return res.status(403).json("feed id not received");
@@ -109,7 +117,7 @@ router.put("/deleteFeed/:feedId", async (req,res)=>{
 });
 
 // get a particular feed
-router.get("/getOneFeed/:feedId", async (req,res)=>{
+router.get("/getOneFeed/:feedId",verifyJWT, async (req,res)=>{
     // check if feed exist using feed id
     const feedId = req.params.feedId;
     if(!feedId) return res.status(403).json("feed id not received");
@@ -121,8 +129,10 @@ router.get("/getOneFeed/:feedId", async (req,res)=>{
     
 });
 
-// Get home feed
-router.get("/getHomeFeed/:userId", async (req,res)=>{
+// Get home feed 
+//  two ways to get the homefeed(algo for now), if the user is following others then show them first then fill the box with other posts
+
+router.get("/getHomeFeed/:userId",verifyJWT, async (req,res)=>{
     // check if feed exist using feed id
     if(req.params.userId === "undefined" || req.params.userId === null) return res.sendStatus(403);
     const userId = req.params.userId;
@@ -132,16 +142,39 @@ router.get("/getHomeFeed/:userId", async (req,res)=>{
     if(!foundUser) return res.status(403).json("user not found");
     // get the timeline object from the user
     const timeline = foundUser.timeline;
-    // get the feed from the timeline
-    const feed = await getFeedFromUsers(timeline);
-    console.log("First promise");
-    res.status(200).json(feed);
+    console.log("Length of timeline",Object.keys(timeline).length);
+    if(timeline == undefined){
+        console.log("RUnning option1");
+        // get feed from feed lists by sorting on timeline
+        const feeds = await feedSelector(10);
+        res.status(200).json(feeds);    
+    }
+    else if(Object.keys(timeline).length <10){
+        console.log("RUnning option2");
+        // get feed from feed lists by sorting on timeline
+        const timelineFeeds = await getFeedFromUsers(timeline);
+        const selectedFeeds = await feedSelector(10 - timeline.length);
+        res.status(200).json(timelineFeeds.concat(selectedFeeds));
+        // append the two lists and return.
+    }
+    else{
+        // get the feed from the timeline
+        console.log("RUnning option3");
+        const feed = await getFeedFromUsers(timeline);
+        console.log("First promise");
+        res.status(200).json(feed);    
+    }
+    //     // get the feed from the timeline
+    // const feed = await getFeedFromUsers(timeline);
+    // console.log("First promise");
+    // res.status(200).json(feed);    
+    
     
 });
 
 
 //get userfeed
-router.get("/getUserFeed/:userId", async (req,res)=>{
+router.get("/getUserFeed/:userId",verifyJWT, async (req,res)=>{
     // check if feed exist using feed id
     if(req.params.userId === "undefined" || req.params.userId === null) return res.sendStatus(403);
     const userId = req.params.userId;
@@ -155,7 +188,7 @@ router.get("/getUserFeed/:userId", async (req,res)=>{
 
 
 // Add feedResult
-router.post("/feedresult/:id", async (req,res)=>{
+router.post("/feedresult/:id",verifyJWT,async (req,res)=>{
     // check is the user and feed exist first
     try{
         if((await userModel.findById(req.body.userId)) && (await feedModel.findById(req.body.feedId))){
@@ -181,7 +214,7 @@ router.post("/feedresult/:id", async (req,res)=>{
 
 
 // Add feedInteraction
-router.put("/feedinteraction", async (req,res)=>{
+router.put("/feedinteraction",verifyJWT, async (req,res)=>{
     try{
         // check if the feed interaction table for the feed is already there
         // interfile = await feedInteractionModel.findOne({"feedId":req.body.feedId});

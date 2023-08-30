@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
 const fetchQuestions= async (fetchedQuestions)=>{
     // const fetchedQuestions = await loadHomeFeed(user_id)
@@ -17,6 +18,7 @@ const fetchQuestions= async (fetchedQuestions)=>{
                 answerText:fetchedQuestions[i].questionOptions[j],
                 // isCorrect:(Number(fetchedQuestions[i].questionAnswer) - 1) == Number(i) ? true:false,
                 isCorrect:Number(fetchedQuestions[i].questionAnswer) - 1 === j,
+                // answerId:String(fetchedQuestions[i]._id) + "a" + j,
                 answerId:String(fetchedQuestions[i]._id) + "a" + j,
             }
             answerOptions.push(tempAnswer);
@@ -42,15 +44,22 @@ export const loadHomeFeed = async (user_id)=>{
     // var questionArray;
     console.log("I am here");
     try{
+
+        const axiosPrivate = useAxiosPrivate;
         const url = "http://localhost:8800/api/feed/getHomeFeed/" + String(user_id);
-        const response  = await fetch(url,{
-                method:"GET",
-                headers:{
-                    "Content-Type":"application/json",
-                },
-                // body:JSON.stringify(data),
-            });
-        const result = await response.json();
+        // const response  = await fetch(url,{
+        //         method:"GET",
+        //         headers:{
+        //             "Content-Type":"application/json",
+        //         },
+        //         // body:JSON.stringify(data),
+        //     });
+         const response = await axiosPrivate.get(url,{
+            // signal:controller.signal
+            headers:{'Authorization':`Bearer ${sessionStorage.getItem("token")}`},
+        });
+        // const result = await response.json();
+        const result = response.data;
         console.log("result of api call",result);
         const preparedQuestions = await fetchQuestions(result);
         // setQuestionArray(preparedQuestions);

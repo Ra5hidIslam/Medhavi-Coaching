@@ -22,21 +22,22 @@ function App() {
 			{/* <Routes>
 				{/* <Route path='/' element={<Landing/>} /> */}
 			{/* </Routes>  */}
-		<NavBar />
-		<Routes>
-			<Route path='/' exact  element={<Landing/>}/>
-			<Route path='/Home' exact  element={<Home/>}/>
-			{/* <Route path='/About' element={<About/>} />
-			<Route path='/Courses' element={<Courses/>} />
-			<Route path='/Exams' element={<ExamsPage/>} />
-			<Route path='/QuizList/*' element={<QuizList/>} /> */}
-			{/* <Route exact path='/profile' render ={()=>{window.location.href ="/profile.html"}} /> */}
-			{/* <Route path='/Quiz' element={<Quiz/>}/>
-			<Route path='/QuizStartPage' element={<QuizStartPage/>}/> */}
-			<Route path='/Profile' element={<Profile/>}/>
-			{/* <Route path='/PracInside' element={<PracInside/>} /> */}
-			
-		</Routes>
+			<NavBar />
+			<Routes>
+				<Route path='/' exact  element={<Landing/>}/>
+				{/* <Route path='/' exact  element={<Home/>}/> */}
+				<Route path='/Home' exact  element={<Home/>}/>
+				{/* <Route path='/About' element={<About/>} />
+				<Route path='/Courses' element={<Courses/>} />
+				<Route path='/Exams' element={<ExamsPage/>} />
+				<Route path='/QuizList/*' element={<QuizList/>} /> */}
+				{/* <Route exact path='/profile' render ={()=>{window.location.href ="/profile.html"}} /> */}
+				{/* <Route path='/Quiz' element={<Quiz/>}/>
+				<Route path='/QuizStartPage' element={<QuizStartPage/>}/> */}
+				<Route path='/Profile' element={<Profile/>}/>
+				{/* <Route path='/PracInside' element={<PracInside/>} /> */}
+				
+			</Routes>
 		</Router>
 	
 	);

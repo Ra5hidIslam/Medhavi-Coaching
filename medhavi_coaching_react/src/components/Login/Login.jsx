@@ -4,8 +4,11 @@ import { useLocation } from 'react-router-dom'
 import { getLogin } from '../client/getLogin';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import SignUp from '../../pages/SignUp/SignUp';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 
+
+// const context = useAuthContext();
 
 const initialFormData = Object.freeze({
   email:"",
@@ -37,6 +40,9 @@ function Login({logState,handleLoginClick}) {
     if(loginstate === true){
       console.log("loginState=",loginstate);
       // window.location.reload(true);
+      // console.log("context",state);
+      // context.dispatch({type:'LOGIN'})
+      // console.log("context",state);
       window.location.href = '/home';
       // console.log("Logged In")
     }

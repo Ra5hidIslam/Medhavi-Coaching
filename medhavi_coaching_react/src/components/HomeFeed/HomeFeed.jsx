@@ -3,6 +3,7 @@ import QuestionsCSS from '../HomeFeed/HomeFeed.module.css'
 // import the library to fetch homefeed
 import { loadHomeFeed } from '../client/loadHomeFeed';
 import getUser from '../client/getUser';
+import { useAuthContext } from '../hooks/useAuthContext';
 // import post from '../posts/Posts';
 // import { getAndLoadHomeFeed } from '../helper/getAndLoadHomefeed';
 
@@ -30,24 +31,29 @@ const GetQuestionAnswers =()=>{
     // This function provoked when we click the submit button, using the button pressed and the radio button selected
     // we will render the if the answer is correct or wrong.
     function select_answer(event,question_array_length){
+        console.log("select annswer function ");
         const ID = event.currentTarget.id;
-        // console.log(event.currentTarget.id);
-
+        console.log(event.currentTarget.id);
+        console.log("question length = ",question_array_length);
         // Get the selected button id 
         let selected_button;
         let button_value;
-        for(let i = 1;i<=question_array_length;i++){
+        for(let i = 0;i<question_array_length;i++){
             const button_id = event.currentTarget.name + 'a' + i;
             const r_button = document.getElementById(button_id);
+            
+            console.log("button id",button_id);
+            console.log("button ",r_button.value);
             if(r_button.checked){
-                // console.log("question id: " + event.currentTarget.name + " selected option = :" + r_button.value)
+                console.log("question id: " + event.currentTarget.name + " selected option = :" + r_button.value)
                 selected_button  = ID;
                 button_value = r_button.value;
             }
         }
         // 
         // call the api and the answer and set the feed interaction accordingly
-
+        console.log("selected button",selected_button);
+        console.log("button value",button_value);
         
         // using the selected button id, add it to the state variable.
         setButton((prev)=>{
@@ -77,7 +83,7 @@ const GetQuestionAnswers =()=>{
             let correct_answer;
             for(let i = 0;i<answer.length;i++){
                 if(answer[i].isCorrect === true){
-                    // correct_answer = answer[i].answerText;
+                    correct_answer = answer[i].answerText;
                     console.log(answer[i].answerText)
                 }
             }
@@ -120,19 +126,31 @@ const GetQuestionAnswers =()=>{
         getData();
     },[]);
 
+
+    let context =useAuthContext();
     
     useEffect(()=>{
         async function getDataUser(){
             try{
-                if(localStorage.getItem("userId") ){
+                if(localStorage.getItem("userId") && !sessionStorage.getItem("user") ){
+                    console.log("hello");
                     const user = await getUser(localStorage.getItem("userId"));
                     console.log("user:",user);
                     // set the sessionStorage user id to the extracted userID
                     // Since storing object directly is not possible so we need to convert it into json and then save it
                     const userJson = JSON.stringify(user);  
                     sessionStorage.setItem("user",userJson);
+                    context.dispatch({type:'LOGIN'})
+                    console.log("context1",context);
                     setIsMounted(true);
                     
+                }
+                else if(sessionStorage.getItem("user")){
+                    // console.log("hello2");
+                    context.dispatch({type:'LOGIN'});
+                    context = useAuthContext();
+                    // console.log("hello2");
+                    console.log("context2",context);
                 }
             }catch(err){
                 console.log(err.message);
@@ -192,8 +210,9 @@ const GetQuestionAnswers =()=>{
                 </div>
                 <div>
                     {/* i want this whole div to be replaced with a new div consistingg of the answer */}
-                    <button id = {q.questionID + 'b'} className={QuestionsCSS.sub_btn} name={q.questionID} onClick={(e) => {select_answer(e,questionArray.length)}}>
+                    <button id = {q.questionID + 'b'} className={QuestionsCSS.sub_btn} name={q.questionID } onClick={(e) => {select_answer(e,q.answerOptions.length)}}>
                     {show_answer(q.questionID + 'b',q.answerOptions)}
+                    {console.log("q length",q)}
                     </button>
                 </div>
                 {/* Creating upvote,share and save button*/}
@@ -207,7 +226,7 @@ const GetQuestionAnswers =()=>{
                     <button className={QuestionsCSS.up_share_btn}>
                         Share
                     </button>
-                </div> */}
+                </div>  */}
             </div>
         ))
     )

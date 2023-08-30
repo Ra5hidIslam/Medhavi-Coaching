@@ -24,6 +24,7 @@ function DropdownMenu(username) {
         // console.log("Logout function clicked");
         sessionStorage.clear();
         window.location.assign('/');
+        localStorage.clear();
       }
     }
   
