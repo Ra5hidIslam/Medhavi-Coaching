@@ -24,14 +24,14 @@ a{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: var(--bg);
+    background-color: rgb(221, 102, 32);
     border-bottom: var(--border);
     height: var(--nav-size);
 
 }
 .nav_btn{
     text-decoration: none;
-    color: white;
+    color: rgb(2, 2, 2);
     font-size: calc(var(--nav-size)*.7);
     
 }
@@ -64,6 +64,11 @@ a{
     background-color: #474a4d;
     border-radius: .9em;
     cursor: pointer;
+  }
+
+
+  .medhaviLogo{
+    height: var(--nav-size);
   }
 
 /* .nav_bar_buttons{

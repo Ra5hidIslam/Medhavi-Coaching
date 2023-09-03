@@ -52,7 +52,7 @@ router.post("/login",async (req,res)=>{
             const accessToken = jwt.sign(
                 {"username":foundUser.username},
                 process.env.ACCESS_TOKEN_SECRET,
-                {expiresIn:'1min'}
+                {expiresIn:'30min'}
             );
             const refreshToken = jwt.sign(
                 {"username":foundUser.username},

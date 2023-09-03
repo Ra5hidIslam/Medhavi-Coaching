@@ -4,15 +4,18 @@
 }
 
 .SignForm{
-    width: 100%;
+    width: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    height: 50vh;
   }
   
   .formBox{
-    margin-top: 0;
+    /* margin-top: 0; */
+    /* padding: 10vh; */
+    margin: 10vh;
     opacity:80%;
     background: black;
     /* padding-right: 80px;
@@ -22,14 +25,24 @@
     
   }
 
-  .SignUpForm{
+  /* .SignUpForm{
     margin: 10vh;
-  }
+  } */
   
   .signUpTopLayer{
     display: flex;
     flex-direction: row;
+    padding: 2vh;
     /* justify-content: space-around; */
+  }
+  .signUpBoxMiddleLayer{
+    padding-left: 8vh;
+    padding-right: 8vh;
+  }
+  .signUpBoxBottomLayer{
+    padding-left: 8vh;
+    padding-right: 8vh;
+    padding-top: 2vh;
   }
 
 
@@ -69,6 +82,7 @@
   }
   
   .SignUpBox{
+    padding: 10vh;
     border: 1px solid lightgrey;
     display: flex;
     justify-content: center;
@@ -79,10 +93,10 @@
     letter-spacing: 1px;
     font-weight: 600;
     margin: 5px;
-    font-size: 11pt;
+    font-size: 11pt; 
     /* background: transparent; */
     /* background-color: black; */
-    transition: 1s;
+    transition:1s;
     outline: none;
   }
   
@@ -111,9 +125,11 @@
   }
   
   .show {
+    display:-webkit-inline-box;
+    /* height: 50vh; */
     position: absolute;
-    display: block;
-    transition: 800ms;
+    /* display: block; */
+    transition: 400ms;
     opacity: 1;
     /* margin-top: 2vh; */
   }

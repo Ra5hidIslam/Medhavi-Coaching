@@ -1,9 +1,30 @@
-.login_option{
-    margin-top: 10vh;
+body{
+    height: 100%;
+    padding: 0;
+    margin:0;
+}
+.loginBody{
+    /* display: absolute; */
+    position: relative;
     display: flex;
     flex-direction: column;
+}
+
+.login_option{
+    margin-top: 10vh;
+    /* justify-content: center; */
+     display: flex;
+    flex-direction: column; 
     /* position: absolute; */
 }
+ .SignUpElement{
+    position: absolute;
+    justify-content: flex-start;
+    /* margin-top: 0; */
+    height: 100%;
+} 
+
+
 .login_buttons{
     border-radius: 10em;
     padding:1vh;

@@ -80,6 +80,7 @@ const SignUp = ({ logState,handleLoginClick}) => {
    
   }
 
+
   const handleNext =()=>{
     if(formData.name && formData.email) setSignUpPageState(2);
   }
@@ -146,7 +147,7 @@ const SignUp = ({ logState,handleLoginClick}) => {
 
   return (
     <div className={!logState ? SignUpCSS.active : SignUpCSS.show}>
-      <div className={SignUpCSS.SignUpForm}>
+      {/* <div className={SignUpCSS.SignUpForm}> */}
         <div className={SignUpCSS.formBox}>
           
           <form>
@@ -191,7 +192,7 @@ const SignUp = ({ logState,handleLoginClick}) => {
             
           </form>
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
 };

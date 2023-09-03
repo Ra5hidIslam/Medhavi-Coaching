@@ -64,36 +64,39 @@ function Login({logState,handleLoginClick}) {
   function logged_out(logState,handleLoginClick){
     // console.log(logState);
     return (
-      <div>
+      <div className = {LoginCSS.loginBody}>
+
         <div >
-              <form>
-                <div className={LoginCSS.email}>
-                  <label className={LoginCSS.labelTags}>Email</label>
-                  <input name = "email" className={LoginCSS.InputBoxes} value = {formData.value} onChange={handleChange}/>
-                </div>
-                <div className={LoginCSS.password}>
-                  <label className={LoginCSS.labelTags}>Password</label>
-                  <input type = "password" className={LoginCSS.InputBoxes} name = "password" value = {formData.value}  onChange={handleChange}/>
-                </div>
-                {/* <div>
-                    <button onClick={handleSubmit}>Submit</button>
-                </div> */}
-            </form>
-            </div>
+          <form>
+              <div className={LoginCSS.email}>
+                <label className={LoginCSS.labelTags}>Email</label>
+                <input name = "email" className={LoginCSS.InputBoxes} value = {formData.value} onChange={handleChange}/>
+              </div>
+              <div className={LoginCSS.password}>
+                <label className={LoginCSS.labelTags}>Password</label>
+                <input type = "password" className={LoginCSS.InputBoxes} name = "password" value = {formData.value}  onChange={handleChange}/>
+              </div>
+              {/* <div>
+                  <button onClick={handleSubmit}>Submit</button>
+              </div> */}
+          </form>
+        </div>
+
         <div className={LoginCSS.login_option}>
-        <SignUp
-          logState={logState}
-          handleLoginClick = {handleLoginClick}
-        />
-        <button className={LoginCSS.login_buttons} onClick={handleSubmit}>
-          Login
-        </button>
-        {/* add onclick go to signup page in the following line */}
-        <button className={LoginCSS.login_buttons} >
-          <div onClick={handleLoginClick}>Sign Up</div>
-        </button>
+          <SignUp className = {LoginCSS.SignUpElement}
+            logState={logState}
+            handleLoginClick = {handleLoginClick}
+          />
+          <button className={LoginCSS.login_buttons} onClick={handleSubmit}>
+            Login
+          </button>
+          {/* add onclick go to signup page in the following line */}
+          <button className={LoginCSS.login_buttons} >
+            <div onClick={handleLoginClick}>Sign Up</div>
+          </button>
         
-      </div>
+        </div>
+
       </div>
     )
   }

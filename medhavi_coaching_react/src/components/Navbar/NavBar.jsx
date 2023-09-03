@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import NavBarCSS from '../Navbar/nav_bar.module.css'
 import e from 'cors';
 import DropdownMenu from '../DropDownMenu/DropDownMenu';
+import medhaviLogo from '../../files/icons/medhaviLogo.png'
+
 // import { useAuthContext } from '../hooks/useAuthContext';
 
 
@@ -75,10 +77,13 @@ function Nav_bar() {
       
       if(sessionStorage.getItem("token")){
         
-        const navElement = <Link to="/Home" className={NavBarCSS.nav_btn}>Home</Link>
+        // const navElement = <Link to="/Home" className={NavBarCSS.nav_btn}>Home</Link>
+        const navElement = <img  src={medhaviLogo} className={NavBarCSS.medhaviLogo} alt="fireSpot" onClick={()=>{window.location.href = '/Home'}}/>
         return navElement;
       }else{
-        const navElement = <Link to="" className={NavBarCSS.nav_btn}>Medhavi</Link>
+        const navElement = <div> <img  src={medhaviLogo} className={NavBarCSS.medhaviLogo} alt="fireSpot"/></div>
+        
+        
         return navElement;
       }
     }
