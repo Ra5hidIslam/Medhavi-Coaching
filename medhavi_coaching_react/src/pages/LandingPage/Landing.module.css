@@ -10,6 +10,7 @@
     align-items: center;
     background-color: rgb(222, 213, 213);
     padding-bottom: 50vh;
+    min-width: 70vh;
 }
 .home_feed_section{
     width: 75%;
@@ -23,7 +24,7 @@
     margin-top: 10vh;
     padding-bottom: 10vh;
     padding-top: 10vh;
-    width: 20%;
+    /* width: 20%; */
     background-color: rgb(88, 151, 223);
     border-radius: 2vh;
     /* border:1px solid rgba(0, 0, 0, 1); */

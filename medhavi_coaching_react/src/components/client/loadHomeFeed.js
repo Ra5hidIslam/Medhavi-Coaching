@@ -46,7 +46,7 @@ export const loadHomeFeed = async (user_id)=>{
     try{
 
         const axiosPrivate = useAxiosPrivate;
-        const url = "http://localhost:8800/api/feed/getHomeFeed/" + String(user_id);
+        const url = "http://54.200.184.88/api/feed/getHomeFeed/" + String(user_id);
         // const response  = await fetch(url,{
         //         method:"GET",
         //         headers:{
