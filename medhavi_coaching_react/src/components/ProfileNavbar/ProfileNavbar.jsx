@@ -23,7 +23,7 @@ const  Nav_bar=()=> {
         return <UserFeed/>
       }
       else if(currentSelection == 2){
-        return <div> Interacted Posts</div>
+        return <div> No Posts yet...</div>
       }
     }
 

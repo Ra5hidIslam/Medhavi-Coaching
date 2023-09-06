@@ -1,6 +1,6 @@
 export const getLogin =  async (data)=>{
     console.log(data);
-    const url = "http://localhost:8800/api/auth/login"
+    const url = "http://54.200.184.88:8800/api/auth/login"
     try{
         const response = await fetch(url,{
             method:"POST",

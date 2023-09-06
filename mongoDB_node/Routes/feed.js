@@ -174,7 +174,7 @@ router.get("/getHomeFeed/:userId",verifyJWT, async (req,res)=>{
 
 
 //get userfeed
-router.get("/getUserFeed/:userId",verifyJWT, async (req,res)=>{
+router.get("/getUserFeed/:userId",async (req,res)=>{
     // check if feed exist using feed id
     if(req.params.userId === "undefined" || req.params.userId === null) return res.sendStatus(403);
     const userId = req.params.userId;

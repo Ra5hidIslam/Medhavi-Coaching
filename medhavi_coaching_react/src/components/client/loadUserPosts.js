@@ -42,11 +42,12 @@ export const loadUserPosts = async (user_id)=>{
     // var questionArray;
     console.log("I am here");
     try{
-        const url = "http://localhost:8800/api/feed/getUserFeed/" + String(user_id);
+        const url = "http://54.200.184.88:8800/api/feed/getUserFeed/" + String(user_id);
         const response  = await fetch(url,{
                 method:"GET",
                 headers:{
                     "Content-Type":"application/json",
+		    'Authorization':`Bearer ${sessionStorage.getItem("token")}`,
                 },
                 // body:JSON.stringify(data),
             });
