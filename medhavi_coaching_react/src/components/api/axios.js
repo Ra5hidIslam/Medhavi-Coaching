@@ -1,5 +1,5 @@
 import axios from 'axios';
-const BASE_URL = 'http://54.200.184.88:8800/api';
+const BASE_URL = 'http://localhost:8800/api';
 
 
 export default axios.create({

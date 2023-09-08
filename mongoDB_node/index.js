@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGO_URL,
 });
 
 const corsOptions = {
-    origin:"http://54.200.184.88:3000",
+    origin:"http://localhost:3000",
     credentials:true,
 }
 
