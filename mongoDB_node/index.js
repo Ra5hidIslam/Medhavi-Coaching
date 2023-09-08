@@ -28,6 +28,7 @@ mongoose.connect(process.env.MONGO_URL,
 
 const corsOptions = {
     origin:"http://54.200.184.88:3000",
+    origin:"http://medhavineet.com",
     credentials:true,
 }
 
