@@ -87,11 +87,12 @@ function Login({logState,handleLoginClick}) {
             logState={logState}
             handleLoginClick = {handleLoginClick}
           />
-          <button className={LoginCSS.login_buttons} onClick={handleSubmit}>
+
+          <button className={LoginCSS.login_button} onClick={handleSubmit}>
             Login
           </button>
           {/* add onclick go to signup page in the following line */}
-          <button className={LoginCSS.login_buttons} >
+          <button className={LoginCSS.signup_button} >
             <div onClick={handleLoginClick}>Sign Up</div>
           </button>
         

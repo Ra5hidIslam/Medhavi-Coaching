@@ -11,7 +11,7 @@ body{
 }
 
 .login_option{
-    margin-top: 10vh;
+    margin-top: 5vh;
     /* justify-content: center; */
      display: flex;
     flex-direction: column; 
@@ -25,18 +25,39 @@ body{
 } 
 
 
-.login_buttons{
-    border-radius: 10em;
+.login_button{
+    border-radius: 1em;
     padding:1vh;
     font-size: x-large;
+    font-weight: 1000;
+    color: black;
 }
+
+.login_button:hover{
+    background-color: rgb(194, 190, 190);
+}
+
+.signup_button{
+    margin-top: 10vh;
+    border-radius: 1em;
+    padding:2vh;
+    font-size: x-large;
+    font-weight: 1000;
+    color: rgb(221, 102, 32);
+}
+
+.signup_button:hover{
+    color: white;
+    background-color:  rgb(221, 102, 32);
+}
+
 
 .email{
     display: flex;
     flex-direction: column;
     font-weight: 900;
     margin-bottom: 2vh;
-    font-size:x-large;
+    /* font-size:x-large; */
 }
 
 .password{
@@ -44,7 +65,7 @@ body{
     flex-direction: column;
     font-weight: 900;
     margin-bottom: 2vh;
-    font-size: x-large;
+    /* font-size: x-large; */
 }
 .labelTags{
     color: #000;
@@ -53,5 +74,5 @@ body{
 .InputBoxes{
     border-radius: 2vh;
     border-color: aliceblue;
-    font-weight:700;
+    /* font-weight:700; */
 }
