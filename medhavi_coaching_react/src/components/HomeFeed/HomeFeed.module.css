@@ -9,7 +9,9 @@ body{
 }
 
 .question_block{
-    background-color: rgb(96, 224, 64); 
+    /* background-color: rgb(96, 224, 64);  */
+    /* background-color: rgb(133, 197, 90); */
+    background-color: white;
     padding:20px 20px;
     /* margin-left:30vh;
     margin-right: 30vh; */
@@ -34,16 +36,28 @@ body{
     background-color: rgb(180, 167, 167);
     border-radius: .5vh;
     width:fit-content;
+    margin-bottom: 2vh;
 
 }
 
 .options{
+    font-weight: 600;
     font-size: large;
     padding-left: 1vh;
     border:2pt;
     color: black;
+    /* accent-color:rgb(221, 102, 32) ; */
 }
+
+input[type='radio']{
+    accent-color:rgb(221, 102, 32);
+}
+
+
 .question_title{
+    background-color: rgb(133, 197, 90);
+    padding: 2vh;
+    border-radius: .5em;
     font-size: x-large;
     border:2pt;
     color: rgb(0, 0, 0);
