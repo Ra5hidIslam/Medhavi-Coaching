@@ -4,6 +4,7 @@ export const getLogin =  async (data)=>{
     console.log(process.env);
     const url = process.env.REACT_APP_API_URL_SERVER + "/auth/login";
     console.log("url=",process.env.REACT_APP_API_URL_SERVER);
+    console.log("working??")
     try{
         const response = await fetch(url,{
             method:"POST",
