@@ -212,7 +212,7 @@ const GetQuestionAnswers =()=>{
                     {/* i want this whole div to be replaced with a new div consistingg of the answer */}
                     <button id = {q.questionID + 'b'} className={QuestionsCSS.sub_btn} name={q.questionID } onClick={(e) => {select_answer(e,q.answerOptions.length)}}>
                     {show_answer(q.questionID + 'b',q.answerOptions)}
-                    {console.log("q length",q)}
+                    {/* {console.log("q length",q)} */}
                     </button>
                 </div>
                 {/* Creating upvote,share and save button*/}
