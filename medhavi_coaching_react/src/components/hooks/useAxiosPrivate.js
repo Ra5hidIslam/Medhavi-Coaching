@@ -2,8 +2,9 @@
 import { useEffect } from "react";
 import useRefreshToken from "./useRefreshToken";
 import axios from "axios";
+require('dotenv').config();
 
-const BASE_URL = 'http://localhost:8800/api';
+const BASE_URL = process.env.REACT_APP_API_URL_SERVER;
 
 const axiosPrivate =  axios.create({
     baseURL:BASE_URL,

@@ -1,6 +1,7 @@
+require('dotenv').config();
 export const getSignUp = async(data)=>{
     if(!data) return null;
-    const url = "http://localhost:8800/api/auth/register"
+    const url = process.env.REACT_APP_API_URL_SERVER+"/api/auth/register";
     if(data.email && data.userId){
         try{
             const response = await fetch(url,{

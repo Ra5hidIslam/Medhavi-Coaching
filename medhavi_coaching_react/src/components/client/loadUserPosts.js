@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+require('dotenv').config();
+
 
 const fetchQuestions= async (fetchedQuestions)=>{
     // const fetchedQuestions = await loadHomeFeed(user_id)
@@ -42,7 +44,7 @@ export const loadUserPosts = async (user_id)=>{
     // var questionArray;
     console.log("I am here");
     try{
-        const url = "http://localhost:8800/api/feed/getUserFeed/" + String(user_id);
+        const url = process.env.REACT_APP_API_URL_SERVER +"api/feed/getUserFeed/" + String(user_id);
         const response  = await fetch(url,{
                 method:"GET",
                 headers:{

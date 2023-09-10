@@ -1,6 +1,8 @@
+
 import React from 'react'
 import { useState,useEffect } from 'react';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
+require('dotenv').config();
 
 const getUsers = async (userID) =>{
     try{

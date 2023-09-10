@@ -1,6 +1,8 @@
+require('dotenv').config();
+
 export const getLogin =  async (data)=>{
     console.log(data);
-    const url = "http://localhost:8800/api/auth/login"
+    const url = process.env.REACT_APP_API_URL_SERVER +  "/api/auth/login";
     try{
         const response = await fetch(url,{
             method:"POST",

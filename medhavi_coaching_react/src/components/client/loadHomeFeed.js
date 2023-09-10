@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
+require('dotenv').config();
 
 const fetchQuestions= async (fetchedQuestions)=>{
     // const fetchedQuestions = await loadHomeFeed(user_id)
@@ -46,7 +47,7 @@ export const loadHomeFeed = async (user_id)=>{
     try{
 
         const axiosPrivate = useAxiosPrivate;
-        const url = "http://localhost:8800/api/feed/getHomeFeed/" + String(user_id);
+        const url = process.env.REACT_APP_API_URL_SERVER+"/api/feed/getHomeFeed/" + String(user_id);
         // const response  = await fetch(url,{
         //         method:"GET",
         //         headers:{
