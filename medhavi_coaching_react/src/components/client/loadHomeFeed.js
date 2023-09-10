@@ -47,7 +47,7 @@ export const loadHomeFeed = async (user_id)=>{
     try{
 
         const axiosPrivate = useAxiosPrivate;
-        const url = process.env.REACT_APP_API_URL_SERVER+"/api/feed/getHomeFeed/" + String(user_id);
+        const url = process.env.REACT_APP_API_URL_SERVER+"/feed/getHomeFeed/" + String(user_id);
         // const response  = await fetch(url,{
         //         method:"GET",
         //         headers:{

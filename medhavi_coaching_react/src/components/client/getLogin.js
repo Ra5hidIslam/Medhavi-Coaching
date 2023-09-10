@@ -1,8 +1,9 @@
 require('dotenv').config();
 
 export const getLogin =  async (data)=>{
-    console.log(data);
-    const url = process.env.REACT_APP_API_URL_SERVER +  "/api/auth/login";
+    console.log(process.env);
+    const url = process.env.REACT_APP_API_URL_SERVER + "/auth/login";
+    console.log("url=",process.env.REACT_APP_API_URL_SERVER);
     try{
         const response = await fetch(url,{
             method:"POST",
