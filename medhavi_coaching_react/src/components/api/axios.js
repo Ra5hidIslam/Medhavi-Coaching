@@ -1,5 +1,7 @@
 import axios from 'axios';
-const BASE_URL = 'http://54.200.184.88:8800/api';
+require('dotenv').config();
+
+const BASE_URL = process.env.REACT_APP_API_URL_SERVER;
 
 
 export default axios.create({

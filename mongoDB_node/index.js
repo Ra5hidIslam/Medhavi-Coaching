@@ -1,7 +1,8 @@
 const express  = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
+require('dotenv').config()
 const helmet  = require("helmet");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
@@ -16,19 +17,21 @@ const logoutRoute = require("./Routes/logout");
 
 
 
-dotenv.config();
+
+// dotenv.config();
+
+console.log(process.env);
 
 
-
-mongoose.connect(process.env.MONGO_URL,
+mongoose.connect(process.env.REACT_APP_MONGO_URL,
     { useNewUrlParser:true,useUnifiedTopology:true },
 ).then(()=>{
     console.log("Connected to mongo successfully")
 });
 
 const corsOptions = {
-    origin:"http://54.200.184.88:3000",
-    origin:"http://medhavineet.com",
+    origin:process.env.REACT_APP_API_URL_ORIGIN_DOMAIN,
+    origin:process.env.REACT_APP_API_URL_ORIGIN,
     credentials:true,
 }
 
