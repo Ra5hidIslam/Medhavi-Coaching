@@ -4,24 +4,27 @@
 }
 
 .SignForm{
-    width: 500px;
+    /* width: 500px; */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    height: 50vh;
+    height: 100vh;
   }
   
   .formBox{
     /* margin-top: 0; */
     /* padding: 10vh; */
+    
     margin: 10vh;
-    opacity:80%;
-    background: black;
+    opacity:1;
+    background: rgb(3, 3, 3);
     /* padding-right: 80px;
     padding-left: 80px; */
     border-radius: 20px;
     box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.2);
+    height:70vh;
+
     
   }
 
@@ -131,12 +134,14 @@
     /* display: block; */
     transition: 400ms;
     opacity: 1;
-    /* margin-top: 2vh; */
+    /* padding-left: 50px; */
+    /* width: 500px; */
+    height: 500px;
   }
   
   .active {
     transform: translateY(100px) scale(0) rotateY(180deg);
-    opacity: 0;
+    opacity: 1;
     position: absolute;
   }
 

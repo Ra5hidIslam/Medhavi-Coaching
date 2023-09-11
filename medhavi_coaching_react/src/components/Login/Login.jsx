@@ -64,8 +64,12 @@ function Login({logState,handleLoginClick}) {
   function logged_out(logState,handleLoginClick){
     // console.log(logState);
     return (
+      
       <div className = {LoginCSS.loginBody}>
-
+        {/* <SignUp className = {LoginCSS.SignUpElement}
+            logState={logState}
+            handleLoginClick = {handleLoginClick}
+        /> */}
         <div >
           <form>
               <div className={LoginCSS.email}>
@@ -83,19 +87,16 @@ function Login({logState,handleLoginClick}) {
         </div>
 
         <div className={LoginCSS.login_option}>
-          <SignUp className = {LoginCSS.SignUpElement}
-            logState={logState}
-            handleLoginClick = {handleLoginClick}
-          />
+          
 
           <button className={LoginCSS.login_button} onClick={handleSubmit}>
             Login
           </button>
           {/* add onclick go to signup page in the following line */}
+          {/* <div onClick={handleLoginClick}>Sign Up</div> */}
           <button className={LoginCSS.signup_button} >
             <div onClick={handleLoginClick}>Sign Up</div>
           </button>
-        
         </div>
 
       </div>

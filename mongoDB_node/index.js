@@ -20,7 +20,7 @@ const logoutRoute = require("./Routes/logout");
 
 // dotenv.config();
 
-console.log(process.env);
+// console.log(process.env);
 
 
 mongoose.connect(process.env.REACT_APP_MONGO_URL,

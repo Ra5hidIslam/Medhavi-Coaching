@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-
+import SignUp from '../../pages/SignUp/SignUp';
 import HomeFeed from '../../components/HomeFeed/HomeFeed'
 import Login from '../../components/Login/Login';
 import LandingCSS from '../LandingPage/Landing.module.css'
@@ -56,6 +56,10 @@ function Landing(){
     return(
         <div>
             <div className={LandingCSS.home_body}>
+                <SignUp className = {LandingCSS.SignUpElement}
+                    logState={logState}
+                    handleLoginClick = {handleLoginClick}
+                />
                 <div className={LandingCSS.login_section}>
                         {landingElement()}
                 </div>

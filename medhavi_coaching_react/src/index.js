@@ -18,3 +18,19 @@ ReactDOM.render(
 //     <App/>,
 //   document.getElementById('root')
 // );
+
+
+
+// server {
+//   listen 80;
+// #       listen [::]:80 ipv6only = on
+//   root /Medhavi-Coaching/medhavi_coaching_react/build;
+//   index index.html;
+//   location /{
+//   try_files $uri/index.html;
+//   }
+// }
+
+
+
+
