@@ -41,8 +41,10 @@ body{
 }
 
 .options{
-    font-weight: 600;
-    font-size: large;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size:medium;
+    font-weight: 400;
+    /* font-size: large; */
     padding-left: 1vh;
     border:2pt;
     color: black;
@@ -55,13 +57,15 @@ input[type='radio']{
 
 
 .question_title{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size:large;
     background-color: rgb(133, 197, 90);
     padding: 2vh;
     border-radius: .5em;
-    font-size: x-large;
+    /* font-size: x-large; */
     border:2pt;
     color: rgb(0, 0, 0);
-    font-weight: 700;
+    font-weight: 500;
     
     
 }

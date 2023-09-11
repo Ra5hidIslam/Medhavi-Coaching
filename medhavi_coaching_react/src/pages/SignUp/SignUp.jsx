@@ -57,11 +57,7 @@ const SignUp = ({ logState,handleLoginClick}) => {
         const SignUpState = await getSignUp(formData);
         if(SignUpState == "errorCode1"){
           // username already taken
-          console.log("Username already taken");
-        }
-        else if(SignUpState == "errorCode2"){
-          // email is invalid
-          console.log("email is invalid");
+          console.log("Duplicate User");
         }
         else{
           // alert("error in Signing you, Sorry");
@@ -102,8 +98,12 @@ const SignUp = ({ logState,handleLoginClick}) => {
           <div>
             <label>Name</label>
             <input type="text" name="name" className={SignUpCSS.SignUpBox} onChange={handleChange}/>
-            <label>email</label>
+            <label>Email</label>
             <input type="text" name="email" className={SignUpCSS.SignUpBox} onChange={handleChange}/> 
+            <label>Username</label>
+            <input type="text" name="userId" className={SignUpCSS.SignUpBox} onChange={handleChange}/>
+            <label>Password</label>
+            <input type="password" name="password" className={SignUpCSS.SignUpBox} onChange={handleChange}/> 
           </div>
           
         )
@@ -132,13 +132,15 @@ const SignUp = ({ logState,handleLoginClick}) => {
   const signUpSubmitButton = (signUpPageState)=>{
     if(signUpPageState == 1){
       return (
-        <div  className={SignUpCSS.SignUpBtn} onClick={handleNext}>Next</div>
-      )
-    }else if(signUpPageState ==2){
-      return (
+        // <div  className={SignUpCSS.SignUpBtn} onClick={handleNext}>Next</div>
         <div className={SignUpCSS.SignUpBtn} onClick={handleSubmit}>Submit</div>
       )
     }
+    // else if(signUpPageState ==2){
+    //   return (
+    //     // <div className={SignUpCSS.SignUpBtn} onClick={handleSubmit}>Submit</div>
+    //   )
+    // }
   }
 
   // useEffect(()=>{
@@ -185,6 +187,7 @@ const SignUp = ({ logState,handleLoginClick}) => {
               <div className={SignUpCSS.signUpBoxBottomLayer}>
                 {
                   signUpSubmitButton(signUpPageState)
+                  // <div className={SignUpCSS.SignUpBtn} onClick={handleSubmit}>Submit</div>
                 }
               </div>  
               

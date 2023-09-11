@@ -15,6 +15,9 @@ export const getSignUp = async(data)=>{
             if(response.status == 200){
                 return true;
             }
+            else if(response.status == 409){
+                return "errorCode1";
+            }
         }
         catch(err){
             return err.message;
