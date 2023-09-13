@@ -4,6 +4,8 @@ import QuestionsCSS from '../HomeFeed/HomeFeed.module.css'
 import { loadHomeFeed } from '../client/loadHomeFeed';
 import getUser from '../client/getUser';
 import { useAuthContext } from '../hooks/useAuthContext';
+// import { AuthContext } from "../../context/AuthContext";
+// import { useContext } from "react";
 // import post from '../posts/Posts';
 // import { getAndLoadHomeFeed } from '../helper/getAndLoadHomefeed';
 
@@ -127,12 +129,13 @@ const GetQuestionAnswers =()=>{
     },[]);
 
 
-    let context =useAuthContext();
-    
+    const context = useAuthContext();  
     useEffect(()=>{
         async function getDataUser(){
+            
             try{
                 if(localStorage.getItem("userId") && !sessionStorage.getItem("user") ){
+                    
                     console.log("hello");
                     const user = await getUser(localStorage.getItem("userId"));
                     console.log("user:",user);
@@ -141,26 +144,33 @@ const GetQuestionAnswers =()=>{
                     const userJson = JSON.stringify(user);  
                     sessionStorage.setItem("user",userJson);
                     context.dispatch({type:'LOGIN'})
-                    console.log("context1",context);
-                    setIsMounted(true);
+                    // context = useContext(AuthContext);
+                    // console.log("context1",context);
+                    // setIsMounted(true);
                     
                 }
-                else if(sessionStorage.getItem("user")){
-                    // console.log("hello2");
-                    context.dispatch({type:'LOGIN'});
-                    context = useAuthContext();
-                    // console.log("hello2");
-                    console.log("context2",context);
-                }
-            }catch(err){
-                console.log(err.message);
-                console.log(err);
+                // // else if(sessionStorage.getItem("user")){
+                //     const context = getContext();
+                //     console.log("hello2");
+                //     context.dispatch({type:'LOGIN'});
+                //     // console.log("hello2");
+                //     console.log("context2",context);
+                // // }
+            }catch(error){
+                // console.log(err.message);
+                console.log("error in getDataUser");
+                console.log("error",error.message);
             }
             
         }
 
         getDataUser();
     },[]);
+
+    // context = useContext(AuthContext);
+    // console.log(context);
+
+    console.log("Yoyoyoyo");
 
 
     useEffect(()=>{

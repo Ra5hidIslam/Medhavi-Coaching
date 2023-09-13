@@ -4,6 +4,7 @@ import NavBarCSS from '../Navbar/nav_bar.module.css'
 import e from 'cors';
 import DropdownMenu from '../DropDownMenu/DropDownMenu';
 import medhaviLogo from '../../files/icons/medhaviLogo.png'
+import { useAuthContext } from '../hooks/useAuthContext';
 
 // import { useAuthContext } from '../hooks/useAuthContext';
 
@@ -53,6 +54,8 @@ function NavItem(props) {
 
 
 function Nav_bar() {
+
+  const context = useAuthContext();
 
   
   // const state = useAuthContext();
