@@ -24,9 +24,9 @@ function App() {
 			{/* </Routes>  */}
 			<NavBar />
 			<Routes>
-				<Route path='/' exact  element={<Landing/>}/>
+				<Route path='/signin' exact  element={<Landing/>}/>
 				{/* <Route path='/' exact  element={<Home/>}/> */}
-				<Route path='/Home' exact  element={<Home/>}/>
+				<Route path='/' exact  element={<Home/>}/>
 				{/* <Route path='/About' element={<About/>} />
 				<Route path='/Courses' element={<Courses/>} />
 				<Route path='/Exams' element={<ExamsPage/>} />

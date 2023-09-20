@@ -1,33 +1,115 @@
+.web-page {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, rgba(231, 225, 210, 0.0925687) 0%, rgba(208, 240, 208, 0) 33.33%, rgba(168, 242, 11, 0.63) 99.99%, #396317 100%);
 
-.login_form{
-    position:absolute;
-    z-index: 2;
+} 
+
+.banner-row {
+    /* background-color: white; */
+    padding: 20px;
 }
-.home_body{
-    /* margin-top: 50vh; */
-    /* display: flex;
-    flex-direction: column; */
-    /* align-items: center; */
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    background-color: rgb(222, 213, 213);
-    padding-bottom: 50vh;
+
+.banner-quote {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
 }
-.home_feed_section{
-    /* width: 75%; */
-    /* border:1px solid rgba(0, 0, 0, 1); */
+
+.banner-author {
+    font-size: 24px;
+    text-align: right;
+}
+
+.content-row {
+    /* background-color: #f0f0f0; */
+    padding: 20px;
+}
+.text-bold {
+
+    font-weight: bold;
+    justify-content: center;
     display: flex;
-    flex-direction: column;
-    /* border-radius: 2vh; */
+   
+    font-size: 1.7em;
+  }
+  
+  /* Define a class for the bold line in the footer */
+  .bold-line {
+    background-color: #000; /* Set the line color to black */
+    height: 2px; /* Adjust the line height as needed */
+    border: none;
+
+  }
+  .person{
+    max-width: 80%;
+    height:80%;
+    margin-top: 50px;
+    margin-left: 60px;
+    
+  }
+
+ /* .left-col  */
+   /* display: flex;
+     justify-content: left;
+    align-items: left;
+     max-width: 500PX; 
+ } */ 
+ /* .center-col{
+    justify-content: center;
+    align-items: center;
+   
+} */
+ 
+
+.pencil-book {
+    max-width: 90%; 
+    max-height: 470px;
+    /* top: 430px;
+    left: 38px;*/
+     /* width:"390px";
+     height:"480px"; */
+} 
+
+/* .right-col {
+    position: relative;
+    left: 1119px;
+    top: -420px;
+    max-width: 500px;
+
+} */
+
+/* .person {
+    /* width: 100%;
+    height: 100%; 
+  
+    
+} */
+
+.content-text {
+    /* position: absolute;
+    /* bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255,255,255,0.8); */
+    /* padding: 10px;
+    left: 30%;
+    top: 400px; */ 
+    font-weight: bold ;
 }
-.login_section{
-    padding-left: 5vh;
-    padding-right: 5vh;
-    margin-top: 10vh;
-    padding-bottom: 10vh;
-    padding-top: 10vh;
-    width: 20%;
-    background-color: rgb(88, 151, 223);
-    border-radius: 2vh;
-    /* border:1px solid rgba(0, 0, 0, 1); */
-}
+@media (max-width: 768px) {
+    .banner-quote {
+      font-size: 1.5rem; 
+      line-height: 2rem; 
+    }
+    .banner-author{
+        font-size: 0.9rem; 
+      line-height: 2rem; 
+
+    }
+  }
+  @media screen and (max-width: 749px) {
+    .web-page {
+        background-color: #7fbf4a;
+    }
+    }
+  
