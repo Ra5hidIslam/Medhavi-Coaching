@@ -11,7 +11,8 @@ const initialFormData = Object.freeze({
   name:"",
   email:"",
   userId:"",
-  password:""
+  password:"",
+  "image":""
 });
 
 const SignUp = ({ logState,handleLoginClick}) => {
@@ -55,6 +56,7 @@ const SignUp = ({ logState,handleLoginClick}) => {
     else{
       try{
         const SignUpState = await getSignUp(formData);
+        // add one more api call to upload the image for the user
         if(SignUpState == "errorCode1"){
           // username already taken
           console.log("Duplicate User");
@@ -104,6 +106,8 @@ const SignUp = ({ logState,handleLoginClick}) => {
             <input type="text" name="userId" className={SignUpCSS.SignUpBox} onChange={handleChange}/>
             <label>Password</label>
             <input type="password" name="password" className={SignUpCSS.SignUpBox} onChange={handleChange}/> 
+            {/* <label>Profile Picture</label> */}
+            {/* <input type="file" name="image" className={SignUpCSS.SignUpBox} onChange={handleChange}/>  */}
           </div>
           
         )

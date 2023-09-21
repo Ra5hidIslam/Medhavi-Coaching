@@ -80,6 +80,7 @@ router.post("/create",verifyJWT, async (req,res)=>{
 // Update Feed
 router.put("/updateFeed/:feedId",verifyJWT, async (req,res)=>{
     // check if feed exist using feed id
+    console.log(req.file.filename);
     const feedId = req.params.feedId;
     if(!feedId) return res.status(403).json("feed id not received");
     const foundFeed = await feedModel.findOne({_id:feedId});

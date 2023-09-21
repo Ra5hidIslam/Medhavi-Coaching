@@ -11,10 +11,18 @@ const feedSchema = new mongoose.Schema({
    },
    questionOptions:{
     type:Array,
-    default:[],
    },
    questionAnswer:{
-    type:Number,
+    type:String,
+    require:true,
+   },
+   examType:{
+    type:String,
+    require:true
+   },
+   subType:{
+    type:String,
+    require:true,
    },
    userId:{
     type:String,

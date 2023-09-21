@@ -14,7 +14,7 @@ const authRoutes =  require("./Routes/auth");
 const feedRoutes =   require("./Routes/feed");
 const refreshRoute = require("./Routes/refresh");
 const logoutRoute = require("./Routes/logout");
-
+const postRoute = require("./Routes/post");
 
 
 
@@ -48,11 +48,16 @@ app.use(cors(corsOptions));
 //     next();
 //   });
 
+
+
+
+
 app.use("/api/user",userRoutes);
 app.use("/api/auth",authRoutes);
 app.use("/api/feed",feedRoutes);
 app.use("/api/refresh",refreshRoute);
 app.use("/api/logout",logoutRoute);
+app.use("/api/post/",postRoute);
 
 app.listen(8800,()=>{
     console.log("Backend server is running");
