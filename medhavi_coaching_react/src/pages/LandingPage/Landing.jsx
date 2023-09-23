@@ -8,6 +8,7 @@ import LandingCSS from '../LandingPage/Landing.module.css'
 import LogOut from '../../components/hooks/LogOut';
 import useRefreshToken from '../../components/hooks/useRefreshToken';
 import getUser from '../../components/client/getUser';
+import { Container, Row, Col } from 'react-bootstrap';
 
 
 function Landing(){
@@ -30,7 +31,7 @@ function Landing(){
          const user = await getUser(localStorage.getItem("userId"));
          const userJson = JSON.stringify(user);  
          sessionStorage.setItem("user",userJson);
-         window.location.href = '/home';
+         window.location.href = '/';
     }
 
 
@@ -54,8 +55,8 @@ function Landing(){
         console.log(logState);
     },[]);
     return(
-        <div>
-            <div className={LandingCSS.home_body}>
+        <div className={LandingCSS.home_body}>
+            <div>
                 <SignUp className = {LandingCSS.SignUpElement}
                     logState={logState}
                     handleLoginClick = {handleLoginClick}
@@ -63,7 +64,20 @@ function Landing(){
                 <div className={LandingCSS.login_section}>
                         {landingElement()}
                 </div>
+                
             </div>
+            <footer className="text-black py-2">
+        <Container>
+          <Row>
+            <div className={LandingCSS['bold-line']}></div>
+            <Col>
+              <p className={LandingCSS['text-bold']}>Syllabus bhi Selection bhi</p>
+            </Col>
+          </Row>
+        </Container>
+        </footer>
+         
+     
         
         </div>
         

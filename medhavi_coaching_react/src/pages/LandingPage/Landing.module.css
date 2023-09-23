@@ -1,51 +1,102 @@
-body{
-    /* margin: 0; */
-    /* padding-bottom: 100vh; */
-    /* height: 100%; */
+body {
+    margin: 0;
+    /* Remove padding-bottom and height properties for body */
 }
 
-.login_form{
-    position:absolute;
+.login_form {
+    position: absolute;
     z-index: 2;
 }
-.home_body{
-    /* margin-top: 1000;  */
-    /* /* margin-bottom: -10vh; */
+
+.home_body {
     margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(222, 213, 213);
-    padding-bottom: 50vh;
+    background: linear-gradient(180deg, rgba(231, 225, 210, 0.0925687) 0%, rgba(230, 250, 230, 0) 33.33%, rgba(168, 242, 11, 0.63) 99.99%, #396317 100%);
+    height: 100vh;
 }
-.home_feed_section{
-    width: 75%;
-    border:1px solid rgba(0, 0, 0, 1);
+    
+    @media (max-width: 480px) {
+       .home_body{
+        background: linear-gradient(
+            180deg,
+            rgba(231, 225, 210, 1) 0%,
+            rgba(230, 250, 230, 1) 1%,
+            rgba(168, 242, 11, 1) 99.99%,
+            #396317 100%
+          );
+    }
+
+        }
+    
+    /* Remove padding-bottom property */
+
+
+.home_feed_section {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 1);
     display: flex;
     flex-direction: column;
 }
-.login_section{
-    padding-left: 5vh;
-    padding-right: 5vh;
-    margin-top: 10vh;
-    margin-bottom: 10vh;
-    padding-bottom: 10vh;
-    padding-top: 10vh;
-    /* width: 20%; */
-    background-color: rgb(88, 151, 223);
+
+.login_section {
+    padding: 10vh; /* Adjust padding for all sides */
+    margin: 10vh; /* Adjust margin for all sides */
+    background: linear-gradient(180deg, rgba(231, 225, 210, 0.0925687) 0%, rgba(230, 250, 230, 0) 33.33%, rgba(168, 242, 11, 0.63) 99.99%, #396317 100%);
+    border: 4px solid rgba(55, 107, 37, 1);
     border-radius: 20px;
-    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    /* border:1px solid rgba(0, 0, 0, 1); */
+  
+    @media screen and (max-width: 480px) {
+        padding: 3vh; /* Adjust padding for all sides on smaller screens */
+        margin: 5vh; /* Adjust margin for all sides on smaller screens */
+    }
 }
 
-.SignUpElement{
-    /* position: absolute; */
-    top:0;
-    left:0;
+.SignUpElement {
+    top: 0;
+    left: 0;
     z-index: 1;
-    width: 400px;
-    height: 500px;
+    width: 100%; /* Adjust width to take full width on smaller screens */
+    height: auto; /* Allow height to adjust based on content */
+}
+.text-bold {
 
+    font-weight: bold;
+    justify-content: center;
+    display: flex;
+    margin-top: 2vh;
+   
+    font-size: 1.7em;}
 
-} 
+    @media screen and (max-width: 768px) {
+        .text-bold {
+          font-size: 1em; /* Adjust the font size for smaller screens */
+        }
+      }
+      
+      /* Media query for screens with a maximum width of 480px */
+      @media screen and (max-width: 480px) {
+        .text-bold {
+          font-size: 1em; /* Further adjust the font size for smaller screens */
+        }
+      }
+
+  
+  
+  /* Define a class for the bold line in the footer */
+  .bold-line {
+    background-color: #000; /* Set the line color to black */
+    height: 2px; /* Adjust the line height as needed */
+    border: none;
+    width: 1400px;
+    margin-top: 10vh;}
+    @media screen and (max-width: 480px) {
+       .bold-line{
+        width: 100% ;
+       }
+    }
+    
+
+  

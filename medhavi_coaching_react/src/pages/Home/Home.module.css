@@ -1,7 +1,7 @@
 .web-page {
     font-family: Arial, sans-serif;
     background: linear-gradient(180deg, rgba(231, 225, 210, 0.0925687) 0%, rgba(208, 240, 208, 0) 33.33%, rgba(168, 242, 11, 0.63) 99.99%, #396317 100%);
-
+   
 } 
 
 .banner-row {
@@ -32,6 +32,13 @@
    
     font-size: 1.7em;
   }
+
+  @media (max-width: 768px) {
+    .text-bold {
+      font-size: 1em; /* Adjust the font size for smaller screens */
+    }
+  }
+  
   
   /* Define a class for the bold line in the footer */
   .bold-line {
@@ -40,6 +47,13 @@
     border: none;
 
   }
+  @media (max-width: 480px) {
+    .bold-line{
+     height: 2px;
+     width: 100%;
+    }}
+
+
   .person{
     max-width: 80%;
     height:80%;
@@ -106,10 +120,15 @@
       line-height: 2rem; 
 
     }
-  }
-  @media screen and (max-width: 749px) {
+  
     .web-page {
-        background-color: #7fbf4a;
+          background: linear-gradient(
+            180deg,
+            rgba(231, 225, 210, 1) 0%,
+            rgba(230, 250, 230, 1) 1%,
+            rgba(168, 242, 11, 1) 99.99%,
+            #396317 100%
+          );
     }
     }
   

@@ -1,155 +1,190 @@
-
-*{
-  font-family: 'Roboto Mono', monospace;
+* {
+  font-family: Arial, sans-serif;
 }
 
-.SignForm{
-    /* width: 500px; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    height: 100vh;
-  }
-  
+.SignForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  /* height: 100vh; Adjust height to 100vh for full viewport height */
+}
+
+.formBox {
+  display: flex;
+  flex-direction: column;
+  margin: 10vh;
+  opacity: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(231, 225, 210, 1) 0%,
+    rgba(230, 250, 230, 1) 33.33%,
+    rgba(168, 242, 11, 1) 99.99%,
+    #396317 100%
+  );
+  border-radius: 20px;
+  height: 65vh;
+  width: 40vw; /* Adjust width to 65vw for 65% of the viewport width */
+}
+@media (max-width: 468px){
   .formBox{
-    /* margin-top: 0; */
-    /* padding: 10vh; */
-    display: flex;
-    flex-direction: column;
-    /* justify-content: space-between; */
+    margin-top: 4vh;
+    margin-left: 7vw;
+    width: 75vw;
+    max-height: 50vh;
+  }
+
+}
+@media (min-width: 469px) and (max-width: 969px){
+  .formBox{
     margin: 10vh;
-    opacity:1;
-    background: rgb(3, 3, 3);
-    /* padding-right: 80px;
-    padding-left: 80px; */
-    border-radius: 20px;
-    box-shadow: 10px 10px 10px 1px rgba(0, 0, 0, 0.2);
-    height:70vh;
-
     
-  }
-
-  /* .SignUpForm{
-    margin: 10vh;
-  } */
-  
-  .signUpTopLayer{
-    /* display: flex;
-    flex-direction: row; */
-    padding: 2vh;
-    /* justify-content: space-around; */
-  }
-  .signUpBoxMiddleLayer{
-    padding-left: 8vh;
-    padding-right: 8vh;
-  }
-  .signUpBoxBottomLayer{
-    padding-left: 8vh;
-    padding-right: 8vh;
-    padding-top: 2vh;
-  }
-
-
-  /* .closeButton{
     
-  } */
+    width: 55vw;
+    max-height: 60vh;
+  }
+}
 
-  .closeSteps{
-    color: aliceblue;
-  }
+.signUpTopLayer {
+  padding: 1vh;
+}
 
-  .closeLogo{
-    height:20px;
-    width:20px;
-    margin-left: 1vh;
-  }
+.signUpBoxMiddleLayer {
+  padding-left: 13vh;
+  padding-right: 15vh;
+}
 
-  .SignUpText{
-    width: 100%;
-    color: white;
-    /* border-bottom: 2px solid white; */
-    /* line-height: 30px; */
-    width: 100%;
-    font-weight: bolder;
-    text-align: center;
-    /* display: flex;
-    justify-content: center; */
-    /* align-items: center; */
-    /* padding-top: 5vh; */
-  }
-  
-  label {
-    color:rgb(228, 222, 222);
-    width: 100%;
-    text-align: center;
-    
-  }
-  
+.signUpBoxBottomLayer {
+  padding-left: 14vh;
+  padding-right: 10vh;
+  padding-top: 2vh;
+}
+
+.closeSteps {
+  color: aliceblue;
+}
+
+.closeLogo {
+  height: 2vw; /* Adjust height to 2vw for 2% of the viewport width */
+  width: 2vw; /* Adjust width to 2vw for 2% of the viewport width */
+  margin: 1vw;
+}
+
+.SignUpText {
+  width: 100%;
+  color: rgb(0, 0, 0);
+  font-weight: bolder;
+  text-align: center;
+}
+
+label {
+  color: rgb(0, 0, 0);
+  width: 100%;
+  text-align: center;
+}
+
+.SignUpBox {
+  padding: 0vh; /* Adjust padding to 5vh for 5% of the viewport height */
+  border: 1px solid lightgrey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  /* padding: 0vh; Adjust padding to 1vh for 1% of the viewport height */
+  padding-left: 2vw; /* Adjust padding to 1vw for 1% of the viewport width */
+  letter-spacing: 1px;
+  font-weight: 200;
+  margin-left: 4vw; /* Adjust margin as needed */
+  font-size: 1.5vw; /* Adjust font-size to 2vw for 2% of the viewport width */
+  opacity: 1;
+}
+@media (max-width: 468px) {
   .SignUpBox{
-    padding: 10vh;
-    border: 1px solid lightgrey;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    padding: 2px;
-    padding-left: 10px;
-    letter-spacing: 1px;
-    font-weight: 600;
-    margin: 5px;
-    font-size: 15pt; 
-    /* background: transparent; */
-    /* background-color: black; */
-    transition:1s;
-    outline: none;
+    /* padding: 0.6vw; */
+    padding-left: 2vw;
+    border-radius: 10px;
+    width: 40vw;
+    margin-left: -8vw;
+    /* margin-right: vw;  */
+    font-size: 2.2vw;
+
   }
   
+}
+@media (min-width: 468px) and (max-width:968px) {
+  .SignUpBox{
+    /* padding: 0.6vw; */
+    padding-left: 2vw;
+    border-radius: 10px;
+    width: 40vw;
+    margin-left: -10vw;
+    /* margin-right: vw;  */
+    font-size: 2.2vw;}
+  }
+.SignUpBtn {
+  padding-left: 1vh; /* Adjust padding to 1vh for 1% of the viewport height */
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(48, 172, 251);
+  color: white;
+  margin-top: 1vh;
+  margin-left: 4vw;
+  border-radius: 20px;
+  border: none;
+  font-size: 1vw; /* Adjust font-size to 2vw for 2% of the viewport width */
+  font-weight: 700;
+  cursor: pointer;
+  width: 5vw; 
+  /* Adjust width to 10vw for 10% of the viewport width */
+}
+@media (max-width: 468px){
   .SignUpBtn{
-    /* width: 75%; */
-    padding-left: 5vh;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(48,172,251);
-    color: white;
-    margin-top: 5px;
-    border-radius: 20px;
-    border: none;
-    font-size: 15pt;
-    font-weight: 700;
-    transition: 1s;
-    outline:1cm ;
-    cursor: pointer;
-    /* margin-bottom: 20px; */
-  }
-  
-  .SignUpBtn:hover{
-    /* transform: scale(1.03); */
-    /* letter-spacing: 4px; */
-    background-color: #0f5e83;
-    /* color: #1E90FF; */
-
-  }
-  
-  .show {
-    /* display:-webkit-inline-box; */
-    /* height: 50vh; */
-    position: absolute;
-    /* display: block; */
-    transition: 400ms;
-    opacity: 1;
-    /* padding-left: 50px; */
-    /* width: 500px; */
-    height: 500px;
-  }
-  
-  .active {
-    transform: translateY(100px) scale(0) rotateY(180deg);
-    opacity: 1;
-    position: absolute;
+    width: 10vw;
+    height: 2.2vh;
+    margin-top: 0.1vh;
+    margin-bottom: 0;
+    font-size: 2vw;
+   
+    padding-left: 0.9vw;
+    padding-top: 0.2vh;
+    border-radius: 10px;
   }
 
-  .successMessage{
-    color: white;
+}
+@media (min-width: 469px) and (max-width: 969px){
+  .SignUpBtn{
+    width: 10vw;
+    height: 2.5vh;
+    margin-top: 0.1vh;
+    margin-bottom: 0;
+    font-size: 2vw;
+   
+    padding-left: 0.9vw;
+    padding-top: 0.2vh;
+    border-radius: 10px;
+  
+
   }
+}
+
+.SignUpBtn:hover {
+  background-color: #0f5e83;
+}
+
+.show {
+  position: absolute;
+  transition: 400ms;
+  opacity: 1;
+  height: 50vh; /* Adjust height to 50vh for 50% of the viewport height */
+}
+
+.active {
+  transform: translateY(100px) scale(0) rotateY(180deg);
+  opacity: 1;
+  position: absolute;
+}
+
+.successMessage {
+  color: white;
+}
