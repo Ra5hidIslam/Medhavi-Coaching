@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Masonry } from "react-masonry";
+require('dotenv').config();
+
 
 function Notice() {
   return (
@@ -61,11 +63,14 @@ function Blog() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const url = process.env.REACT_APP_API_URL_SERVER+"/post/getPostFeed/";
+
   useEffect(() => {
     axios
-      .get("https://medhayi-api.com/posts")
+      .get(url)
       .then((response) => {
         setPosts(response.data);
+        console.log(response.data);
         setLoading(false);
       })
       .catch((error) => {
