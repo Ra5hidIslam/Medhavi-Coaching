@@ -1,0 +1,253 @@
+/* Import a font from Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+/* Define some variables for colors */
+:root {
+  --green: #4CAF50;
+  --orange: #FF9800;
+  --white: #FFFFFF;
+  --black: #000000;
+}
+
+/* Define the styles for the body element */
+body {
+  /* Use the Roboto font */
+  font-family: 'Roboto', sans-serif;
+  /* Set the background color to white */
+  background-color: var(--white);
+  /* Set the margin and padding to zero */
+  margin: 0;
+  padding: 0;
+}
+
+/* Define the styles for the logo element */
+.logo {
+  /* Align the logo to the center */
+  text-align: center;
+}
+
+/* Define the styles for the banner element */
+.banner {
+  /* Set the background color to green */
+  background-color: var(--green);
+  /* Set the text color to white */
+  color: var(--white);
+  /* Set the font size to 36px */
+  font-size: 36px;
+  /* Align the text to the center */
+  text-align: center;
+  /* Set the padding to 20px */
+  padding: 20px;
+}
+
+/* Define the styles for the main container element */
+.main-container {
+  /* Use flexbox to layout the columns */
+  display: flex;
+}
+
+/* Define the styles for the posts column element */
+.posts-column {
+  /* Set the flex grow factor to 3, meaning it will take up three times as much space as the menu column */
+  flex-grow: 3;
+}
+
+/* Define the styles for the menu column element */
+.menu-column {
+  /* Set the flex grow factor to 1, meaning it will take up one unit of space */
+  flex-grow: 1;
+}
+
+/* Define the styles for the menu element */
+.menu {
+  /* Set the background color to orange */
+  background-color: var(--orange);
+}
+
+/* Define the styles for the menu list element */
+.menu ul {
+  /* Remove the default list style */
+  list-style: none;
+  /* Remove the default margin and padding */
+  margin: 0;
+  padding: 0;
+}
+
+/* Define the styles for the menu list items element */
+.menu li {
+  /* Set the text color to white */
+  color: var(--white);
+  /* Set the font size to 24px */
+  font-size: 24px;
+  /* Set the padding to 10px */
+  padding: 10px;
+}
+
+/* Define the styles for the post element */
+.post {
+   /* Use flexbox to layout the header, content and footer */
+   display: flex;
+   /* Set the flex direction to column, meaning they will stack vertically */
+   flex-direction: column;
+   /* Set a border around each post with a width of 1px, a solid style and a black color */
+   border: 1px solid var(--black);
+   /* Set a margin of 10px around each post */
+   margin:10px;
+}
+
+/* Define the styles for the post header element */
+.post-header {
+   /* Use flexbox to layout the avatar, name and time elements*/
+   display:flex;
+   /* Align them vertically in the center*/
+   align-items:center;
+}
+
+/* Define the styles for post header image element*/
+.post-header img{
+   /* Set a width of50px*/
+   width:50px;
+   /* Set a height of50px*/
+   height:50px;
+   /* Set a border radius of50%, meaning it will be circular*/
+   border-radius:50%;
+   /* Set a margin of10px*/
+   margin:10px;
+}
+
+/* Define the styles for post header span elements*/
+.post-header span{
+   /* Set a font size of18px*/
+   font-size:18px;
+}
+
+/* Define the styles for post content element*/
+.post-content{
+   /* Use flexbox to layout image and title elements*/
+   display:flex;
+   /* Align them vertically inthe center*/
+   align-items:center;
+}
+
+/* Definethe styles for post content image element*/
+.post-content img{
+   /* Set a width of100px*/
+   width:100px;
+   /* Set a height of100px*/
+   height:100px;
+   /* Set a margin of10px*/
+   margin:10px;
+}
+
+/* Definethe styles for post content paragraph element*/
+.post-content p{
+   /* Set a font size of24px*/
+   font-size:24px;
+}
+
+/* Definethe styles for post footer element*/
+.post-footer{
+    /* Use flexbox to layout button elements*/
+    display:flex; 
+    /* Justify them horizontally with space between them*/
+    justify-content:space-between; 
+    /* Align them vertically inthe center*/
+    align-items:center; 
+    /* Set a padding of10px*/
+    padding:10px;
+}
+
+/* Define the styles for post footer button elements*/
+.post-footer button{
+    /* Set a background color to green*/
+    background-color:var(--green); 
+    /* Set a text color to white*/
+    color:var(--white); 
+    /* Set a font size of18px*/
+    font-size:18px; 
+    /* Set a border to none*/
+    border:none; 
+    /* Set a padding of10px*/
+    padding:10px; 
+    /* Set a cursor to pointer, meaning it will change when hovered over*/
+    cursor:pointer;
+}
+
+/* Define the styles for the notice container element */
+.notice-container {
+  /* Set the background color to orange */
+  background-color: var(--orange);
+}
+
+/* Define the styles for the notice element */
+.notice {
+  /* Use flexbox to layout the header, content and footer */
+  display: flex;
+  /* Set the flex direction to column, meaning they will stack vertically */
+  flex-direction: column;
+  /* Set a border around each notice with a width of 1px, a solid style and a black color */
+  border: 1px solid var(--black);
+  /* Set a margin of 10px around each notice */
+  margin: 10px;
+}
+
+/* Define the styles for the notice header element */
+.notice-header {
+  /* Use flexbox to layout the title and date elements */
+  display: flex;
+  /* Justify them horizontally with space between them */
+  justify-content: space-between;
+}
+
+/* Define the styles for notice header span elements */
+.notice-header span {
+  /* Set the text color to white */
+  color: var(--white);
+  /* Set the font size to 18px */
+  font-size: 18px;
+  /* Set the padding to 10px */
+  padding: 10px;
+}
+
+/* Define the styles for notice content element */
+.notice-content {
+  /* Set the text color to white */
+  color: var(--white);
+  /* Set the font size to 18px */
+  font-size: 18px;
+  /* Set the padding to 10px */
+  padding: 10px;
+}
+
+/* Define the styles for notice footer element */
+.notice-footer {
+   /* Align the read button to the right */
+   text-align: right;
+}
+
+/* Define the styles for notice footer button element */
+.notice-footer button {
+   /* Set a background color to green */
+   background-color: var(--green);
+   /* Set a text color to white */
+   color: var(--white);
+   /* Set a font size of18px */
+   font-size:18px; 
+   /* Set a border to none*/
+   border:none; 
+   /* Set a padding of10px*/
+   padding:10px; 
+   /* Set a cursor to pointer, meaning it will change when hovered over*/
+   cursor:pointer;
+}
+
+/* Use media queries to make the webpage responsive */
+
+/* If the screen width is less than or equal to600px, apply these styles */
+
+@media screen and (max-width:600px){
+   /* Change the flex direction ofthe main container to column, meaning the posts column and menu column will stack vertically*/
+   .main-container{
+      flex-direction:column;
+   }
+}

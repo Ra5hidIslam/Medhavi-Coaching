@@ -16,6 +16,7 @@ import QuizStartPage from './pages/Quiz/QuizStartPage';
 import Profile from './pages/Profile/Profile';
 import PracInside from './pages/Prac/PracInside';
 import Landing from './pages/LandingPage/Landing';
+import Blog from './pages/Blog/Blog.js';
 function App() {
 	return (
 		<Router>
@@ -36,7 +37,7 @@ function App() {
 				<Route path='/QuizStartPage' element={<QuizStartPage/>}/> */}
 				<Route path='/Profile' element={<Profile/>}/>
 				{/* <Route path='/PracInside' element={<PracInside/>} /> */}
-				
+				<Route path='/Blog' element={<Blog/>}/>
 			</Routes>
 		</Router>
 	
