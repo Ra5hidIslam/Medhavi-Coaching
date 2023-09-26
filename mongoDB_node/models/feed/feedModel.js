@@ -9,21 +9,41 @@ const feedSchema = new mongoose.Schema({
     max:300,
     unique:true,
    },
+   questionType:{
+    // exp: MCQ,MSQ,NUM
+    type:String,
+   },
    questionOptions:{
     type:Array,
-    default:[],
    },
    questionAnswer:{
-    type:Number,
+    type:Array,
    },
-   userId:{
+   qustionAnswerNum:{
     type:String,
-    require:true
    },
-   userName:{
+   examType:{
+    // Exp Physics
     type:String,
-    require:true
+    require:true,
+   },
+   subType:{
+    // Physics-Thermodynamics
+    type:String,
+    require:true,
+   },
+    topicType:{
+    type:String,
    }
+//    ,
+//    userId:{
+//     type:String,
+//     require:true,
+//    },
+//    userName:{
+//     type:String,
+//     require:true
+//    }
 },
     { timestamps:true}
 );

@@ -2,7 +2,48 @@ const verifyJWT = require('../middleware/verifyJWT');
 const userModel = require('../models/user/userModel');
 const feedModel = require('../models/feed/feedModel');
 const router = require("express").Router();
+const express = require('express');
 const bcrypt = require("bcrypt");
+const { verify } = require('jsonwebtoken');
+const path = require('path');
+
+const multer = require('multer');
+// const userModel = require('../models/user/userModel');
+
+
+router.use(express.static(__dirname+"./files/"));
+const storage = multer.diskStorage({
+    // cb = call back function
+    // in the cb funciton, the first variable is the error which we don't care so we put null and the second variable is the action(depends of destination or filename)
+    destination:(req,file,cb)=>{
+        cb(null,'./files/profilePhotos/')
+    },
+    // create a filename format so each file is different
+    filename:(req,file,cb)=>{
+        console.log(file);
+        cb(null,Date.now() + path.extname(file.originalname));
+    }
+})
+
+const upload = multer({storage:storage});
+
+
+// upload user image
+router.post("/uploadPI/:id",verifyJWT,upload.single('image'),async(req,res)=>{
+    try{
+        let tempUser = await userModel.findById(req.params.id);
+        await tempUser.updateOne({$set:{"image":req.file.filename}});
+        res.status(200).json("Account has been updated");
+    }catch(err){
+        return res.status(500).json(err);
+    }
+
+    // res.json("file uploaded");
+    }
+    
+
+)
+
 
 // delete user
 router.delete("/:id",verifyJWT, async(req,res)=>{
@@ -26,7 +67,7 @@ router.delete("/:id",verifyJWT, async(req,res)=>{
                 followersList.splice(indexOfUser,1);
             }
             // update the original object
-            await userModel.updateOne({$set:{followers:followersList}});
+            await tempUser.updateOne({$set:{followers:followersList}});
         }    
         // return res.status(401).json(tempArr);
     }
@@ -72,9 +113,12 @@ router.delete("/:id",verifyJWT, async(req,res)=>{
     res.status(200).json("Account has been deleted successfully");
 
 })
+
+
+
 // update a user
 router.put("/:id",verifyJWT, async(req,res)=>{
-    if(req.body.userId == req.params.id || req.body.isAdmin){
+    if(req.body.userId == req.params.id || req.body.isAdmin){ 
         if(req.body.password){
             try{
                 const salt = await bcrypt.genSalt(10);
@@ -96,6 +140,8 @@ router.put("/:id",verifyJWT, async(req,res)=>{
 
 })
 
+
+
 // get a user
 router.get("/:id", verifyJWT,async (req,res)=>{
     try{
@@ -108,6 +154,8 @@ router.get("/:id", verifyJWT,async (req,res)=>{
         res.status(500).json(err);
     }
 });
+
+
 
 //follow a user
 router.put("/follow/:id",verifyJWT, async (req,res)=>{
@@ -133,6 +181,8 @@ router.put("/follow/:id",verifyJWT, async (req,res)=>{
         req.status(403).json("You can't follow yourself!");
     }
 })
+
+
 
 // unfollow a user
 router.put("/:id/unfollow",verifyJWT, async (req,res)=>{
