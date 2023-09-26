@@ -215,16 +215,16 @@ router.get("/getPostFeed/:userId",verifyJWT, async (req,res)=>{
 
 
 // //get userfeed
-// router.get("/getUserFeed/:userId",async (req,res)=>{
-//     // check if feed exist using feed id
-//     if(req.params.userId === "undefined" || req.params.userId === null) return res.sendStatus(403);
-//     const userId = req.params.userId;
-//     if(!userId) return res.status(403).json("user id not received");
-//     // find the user and the following list
-//     const feed = await getSelfFeedsFromUsers(userId);
-//     res.status(200).json(feed);
+router.get("/getUserPost/:userId",async (req,res)=>{
+    // check if feed exist using feed id
+    if(req.params.userId === "undefined" || req.params.userId === null) return res.sendStatus(403);
+    const userId = req.params.userId;
+    if(!userId) return res.status(403).json("user id not received");
+    // find the user and the following list
+    const post = await getSelfPostsFromUsers(userId);
+    res.status(200).json(post);
     
-// });
+});
 
 
 
