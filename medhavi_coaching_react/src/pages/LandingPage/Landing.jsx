@@ -31,7 +31,7 @@ function Landing(){
          const user = await getUser(localStorage.getItem("userId"));
          const userJson = JSON.stringify(user);  
          sessionStorage.setItem("user",userJson);
-         window.location.href = '/';
+         window.location.href = '/Blog';
     }
 
 

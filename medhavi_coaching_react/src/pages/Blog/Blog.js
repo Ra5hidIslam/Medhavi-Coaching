@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Masonry } from "react-masonry";
+import getPosts from '../../components/client/getPosts';
 require('dotenv').config();
+
+
 
 
 function Notice() {
@@ -25,6 +28,7 @@ function Notice() {
 }
 
 function Posts({ posts }) {
+  console.log(posts)
   return (
     <Masonry columns={3} gutter={20}>
       {posts.map((post) => (
@@ -43,10 +47,10 @@ function Post({ post }) {
 
   return (
     <div className="card">
-      <img src={post.image} alt={post.title} className="card-img-top" />
+      <img src={post.image} alt={post.postTitle} className="card-img-top" />
       <div className="card-body">
-        <h5 className="card-title">{post.title}</h5>
-        <p className="card-text">{post.content}</p>
+        <h5 className="card-title">{post.postTitle}</h5>
+        {/* <p className="card-text">{post.content}</p> */}
       </div>
       <div className="card-footer">
         <button className="btn btn-primary mr-2" onClick={handleLike}>
@@ -59,24 +63,48 @@ function Post({ post }) {
   );
 }
 
+
+
+
 function Blog() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const url = process.env.REACT_APP_API_URL_SERVER+"/post/getPostFeed/";
+  useEffect(()=>{
+    async function fetchPosts(){
+      const posts = await getPosts(localStorage.getItem("userId"));
+      // const postJson = JSON.stringify(posts); 
+      console.log("fetched Posts",posts)
+      setPosts(posts);
+      // return posts;
+    }
+    fetchPosts();
+  },[])
+  
+  console.log(posts);
+  console.log(Array.isArray(posts));
+  // posts.map((post)=>{
+  //   console.log(Array.isArray(posts))
+  // })
 
-  useEffect(() => {
-    axios
-      .get(url)
-      .then((response) => {
-        setPosts(response.data);
-        console.log(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  // url = 
+  // useEffect(() => {
+  //   axios
+  //     .get(url)
+  //     .then((response) => {
+  //       setPosts(response.data);
+  //       console.log(response.data);
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
+
+//   if(!posts){
+//     return <div>Loading...</div>;
+// }
+
 
   return (
     <div className="container mt-5">
