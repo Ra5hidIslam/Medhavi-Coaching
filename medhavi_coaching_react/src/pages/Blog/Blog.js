@@ -47,7 +47,7 @@ function Post({ post }) {
 
   return (
     <div className="card">
-      <img src={post.image} alt={post.postTitle} className="card-img-top" />
+      {post.image && <img crossorigin="anonymous" src={`http://localhost:8800/postPhotos/` + post.image} alt={post.postTitle} className="card-img-top" /> }
       <div className="card-body">
         <h5 className="card-title">{post.postTitle}</h5>
         {/* <p className="card-text">{post.content}</p> */}

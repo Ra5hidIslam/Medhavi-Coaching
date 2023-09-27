@@ -58,6 +58,7 @@ app.use("/api/feed",feedRoutes);
 app.use("/api/refresh",refreshRoute);
 app.use("/api/logout",logoutRoute);
 app.use("/api/post/",postRoute);
+app.use(express.static('files'));
 
 app.listen(8800,()=>{
     console.log("Backend server is running");
