@@ -21,25 +21,25 @@ function NavItem(props) {
 function Nav_bar() {
   const context = useAuthContext();
 
-  // const getUserElement = () => {
-  //   if (sessionStorage.getItem("user")) {
-  //     if (sessionStorage.getItem("user") !== "undefined") {
-  //       const user = JSON.parse(sessionStorage.getItem("user"));
-  //       return <NavItem username={user.name}><DropdownMenu></DropdownMenu></NavItem>;
-  //     }
-  //   }
-  // };
+  const getUserElement = () => {
+    if (sessionStorage.getItem("user")) {
+      if (sessionStorage.getItem("user") !== "undefined") {
+        const user = JSON.parse(sessionStorage.getItem("user"));
+        return <NavItem username={user.name}><DropdownMenu></DropdownMenu></NavItem>;
+      }
+    }
+  };
 
 
 
   const ifLanding = () => {
-    // if (sessionStorage.getItem("token")) {
-    //   return (
-    //     <div className="d-flex align-items-center">
-    //       <img src={medhaviLogo} className={`img-fluid ${NavBarCSS.medhaviLogo}`} alt="Medhavi Logo" onClick={() => { window.location.href = '/Blog' }} />
-    //     </div>
-    //   );
-    // } else {
+    if (sessionStorage.getItem("token")) {
+      return (
+        <div className="d-flex align-items-center">
+          <img src={medhaviLogo} className={`img-fluid ${NavBarCSS.medhaviLogo}`} alt="Medhavi Logo" onClick={() => { window.location.href = '/Blog' }} />
+        </div>
+      );
+    } else {
       return (
         <div className="d-flex align-items-center">
           <Link to="/">
@@ -54,6 +54,7 @@ function Nav_bar() {
       );
     // }
   };
+};
   
     
   
@@ -61,9 +62,9 @@ function Nav_bar() {
   return (
     <nav className={`navbar navbar-expand-lg navbar-light ${NavBarCSS.nav_bar}`} style={{ background: 'linear-gradient(90.46deg, #EE6161 27.83%, rgba(253, 219, 40, 0) 100.14%)' }}>
       <span className="navbar-brand">{ifLanding()}</span>
-      {/* <div className={`collapse navbar-collapse ${NavBarCSS.nav_bar_buttons}`}>
+      <div className={`collapse navbar-collapse ${NavBarCSS.nav_bar_buttons}`}>
         {getUserElement()}
-      </div> */}
+      </div>
       <div className={`${NavBarCSS.nav_bar_buttons} ${NavBarCSS.sign_in_button}`} style={{ position: 'relative', left: '-10px', top: '20px' }}>
         <button className={NavBarCSS.sign_in_btn} style={{ backgroundColor: 'green', color: 'white' }} onClick={() => { window.location.href = '/signin' }}>
           Sign In

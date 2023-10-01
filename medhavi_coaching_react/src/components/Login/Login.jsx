@@ -43,7 +43,7 @@ function Login({logState,handleLoginClick}) {
       // console.log("context",state);
       // context.dispatch({type:'LOGIN'})
       // console.log("context",state);
-      window.location.href = '/';
+      window.location.href = '/Blog';
       // console.log("Logged In")
     }
     else{
