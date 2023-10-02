@@ -15,7 +15,7 @@ const feedRoutes =   require("./Routes/feed");
 const refreshRoute = require("./Routes/refresh");
 const logoutRoute = require("./Routes/logout");
 const postRoute = require("./Routes/post");
-
+const notesRoute = require("./Routes/notes")
 
 
 // dotenv.config();
@@ -58,6 +58,7 @@ app.use("/api/feed",feedRoutes);
 app.use("/api/refresh",refreshRoute);
 app.use("/api/logout",logoutRoute);
 app.use("/api/post/",postRoute);
+app.use("api/notes/",notesRoute);
 app.use(express.static('files'));
 
 app.listen(8800,()=>{

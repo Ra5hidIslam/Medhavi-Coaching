@@ -62,6 +62,9 @@ const UserSchema = new mongoose.Schema({
     },
     image:{
         type:String,
+    },
+    savedPosts:{
+        type:Array,
     }
 },
     { timestamps:true}

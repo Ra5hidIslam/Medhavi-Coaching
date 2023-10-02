@@ -9,6 +9,7 @@ const multer = require('multer');
 const fs = require('fs'); // module to delete files in server.
 const postCommentsModel = require("../models/postComments/postCommentsModel");
 const postCommentsInteractionModel = require("../models/postComments/postCommentsInteractionModel");
+const feedInteractionModel = require("../models/feed/feedInteractionModel");
 
 
 // const userModel = require('../models/user/userModel');
@@ -67,6 +68,14 @@ const upload = multer({storage:storage});
 // }
 
 
+async function createPostInteraction(feedId){
+    const feedInter = new feedInteractionModel({
+        "feedId":feedId,
+    })
+    const createdInteraction = await feedInter.save();
+    return createdInteraction;
+}
+
 // // Add comment
 // requires comment,userId,userName,postId
 router.post("/create",verifyJWT, upload.single('postImage'),async (req,res)=>{
@@ -94,7 +103,11 @@ router.post("/create",verifyJWT, upload.single('postImage'),async (req,res)=>{
         const comment = await newComment.save();
         // add the comment in the post interactions model for the post of the followers
         const foundPostInteraction = await postInteractionModel.findOne({"postId":req.body.postId});
-        if(!foundPostInteraction) return res.status(403).json("post interaction not found");
+        let newInteraction;
+        if(!foundPostInteraction){
+            newInteraction = createPostInteraction(req.body.postId);
+            await newInteraction.updateOne({$push: {comments:comment}});
+        }
         await foundPostInteraction.updateOne({$push: {comments:comment}});
         res.status(200).json(post);
     } catch(err){

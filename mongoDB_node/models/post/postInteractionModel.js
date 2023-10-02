@@ -14,10 +14,10 @@ const postInteractionModel = new mongoose.Schema({
     type:Array,
     default:[],
    },
-   savedBy:{
-    type:Array,
-    default:[],
-   }
+//    savedBy:{
+//     type:Array,
+//     default:[],
+//    }
 //    feedStats:{
 //     type:Array,
 //     default:[],

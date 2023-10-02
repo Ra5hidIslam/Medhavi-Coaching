@@ -14,6 +14,8 @@ const postCommentsModel = require("../models/postComments/postCommentsModel");
 
 
 router.use(express.static(__dirname+"./files/"));
+
+
 const storage = multer.diskStorage({
     // cb = call back function
     // in the cb funciton, the first variable is the error which we don't care so we put null and the second variable is the action(depends of destination or filename)
@@ -151,6 +153,17 @@ router.put("/deletePost/:postId",verifyJWT, async (req,res)=>{
     }catch(err){
         return res.status(403).json(err.message)
     }
+    // delete the file
+    if(foundpost.postImage){
+        const filePath = './files/postPhotos/' + foundPost.postImage;    
+        fs.unlink(filePath,(err)=>{
+            if(err){
+                console.log(err)
+                return
+            }
+            console.log("File deleted Successfully");
+        })
+    }
     // Finally Delete the feed
     await foundpost.deleteOne({$set:req.body});
     res.status(200).json("post Deleted");
@@ -252,32 +265,32 @@ router.get("/getUserPost/:userId",async (req,res)=>{
 //     }
 // });
 
-const createNewComment = async(userID,comment,userName)=>{
-    // userid  = userid of the commenter
-    // comment = comment object of postComment model
-    // const comment = postCommentsModel.findOne({'userId':userID});
-    // if(!comment){
+// const createNewComment = async(userID,comment,userName)=>{
+//     // userid  = userid of the commenter
+//     // comment = comment object of postComment model
+//     // const comment = postCommentsModel.findOne({'userId':userID});
+//     // if(!comment){
         
-    // }
-    // else{
-    //     await comment.updateOne({"$push":{comments:newComment}});
-    // }
-    try{
-        const newComment = new postCommentsModel({
-            commentTitle:comment,
-            userId:userID,
-            userName:userName
-        });
-        const newCommentCreated = newComment.save();
-        return newCommentCreated._id;
+//     // }
+//     // else{
+//     //     await comment.updateOne({"$push":{comments:newComment}});
+//     // }
+//     try{
+//         const newComment = new postCommentsModel({
+//             commentTitle:comment,
+//             userId:userID,
+//             userName:userName
+//         });
+//         const newCommentCreated = newComment.save();
+//         return newCommentCreated._id;
 
-    }
-    catch(err){
-        console.log(err.message);
-        return 
-    } 
+//     }
+//     catch(err){
+//         console.log(err.message);
+//         return 
+//     } 
     
-} 
+// } 
 
 
 
@@ -288,7 +301,7 @@ const createNewComment = async(userID,comment,userName)=>{
 // comment
 // username
 
-router.put("/postInteraction",verifyJWT, async (req,res)=>{
+router.put("/postInteraction/:postId",verifyJWT, async (req,res)=>{
     try{
         // check if the post interaction table for the post is already there
         // interfile = await postInteractionModel.findOne({"feedId":req.body.feedId});
@@ -311,13 +324,16 @@ router.put("/postInteraction",verifyJWT, async (req,res)=>{
             //     }
                 
             // }
-            if(req.body.like){
+            if(req.body.like == "true"){
                 await currentInteraction.updateOne({$push: {likes:req.body.userId}});
                 // {$push:{feedStats:getStat(req.body.feedStats)}}
                 res.status(200).json("like added");
             }
-            if(req.body.save){
-                await currentInteraction.updateOne({$push: {savedBy:req.body.userId}});
+            if(req.body.save == "true"){
+                // find the user
+                const user = userModel.findById(req.body.userId);
+                await user.updateOne({$push:{savedPosts:req.params.postId}});
+                // await currentInteraction.updateOne({$push: {savedBy:req.body.userId}});
                 // {$push:{feedStats:getStat(req.body.feedStats)}}
                 res.status(200).json("savedBy added");
             }
@@ -338,19 +354,18 @@ router.put("/postInteraction",verifyJWT, async (req,res)=>{
             // const comment_status = req.body.commentStatus;
             // const like_status = req.body.likeStatus;
 
-            const newComment = req.body.comment ? await createNewComment(req.body.userId,req.body.comment,req.body.userName): '';
+            // const newComment = req.body.comment ? await createNewComment(req.body.userId,req.body.comment,req.body.userName): '';
             const likeStatus = req.body.like ? req.body.userId: '';
-            const savedStatus = req.body.save ? req.body.userId:''; 
+            if(req.body.save == "true"){
+                const user = userModel.findById(req.body.userId);
+                await user.updateOne({$push:{savedPosts:req.params.postId}});
+            }
             const newFeedInteraction = new postInteractionModel({
                 postId:req.body.feedId,
-                // userId:req.body.userId,
-                comments:[newComment],
                 likes:[likeStatus],
-                savedBy:[savedStatus],
-                // feedStats:req.body.feedStats
             });
-            const user = await newFeedInteraction.save();
-            res.status(200).json("Feed interaction created");
+            const feedInter = await newFeedInteraction.save();
+            res.status(200).json(feedInter);
         }
         res.status(500).json("some error occured");
     }catch(err){

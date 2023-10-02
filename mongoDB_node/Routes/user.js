@@ -109,6 +109,19 @@ router.delete("/:id",verifyJWT, async(req,res)=>{
         return res.status(403).json(err);
         // "not able to delete the timeline feeds"
     }
+
+    // delete the file
+    if(foundUser.image){
+        const filePath = './files/profilePhotos/' + foundUser.image;    
+        fs.unlink(filePath,(err)=>{
+            if(err){
+                console.log(err)
+                return
+            }
+            console.log("File deleted Successfully");
+        })
+    }
+
     await userModel.findByIdAndDelete(req.params.id);
     res.status(200).json("Account has been deleted successfully");
 

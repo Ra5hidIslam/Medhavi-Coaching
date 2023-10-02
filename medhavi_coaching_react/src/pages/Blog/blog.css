@@ -241,6 +241,12 @@ body {
    cursor:pointer;
 }
 
+.card-footer {
+  display: flex;
+  flex-direction: row;
+}
+
+
 /* Use media queries to make the webpage responsive */
 
 /* If the screen width is less than or equal to600px, apply these styles */
