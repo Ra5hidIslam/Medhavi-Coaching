@@ -12,7 +12,7 @@
 /* Define the styles for the body element */
 body {
   /* Use the Roboto font */
-  font-family: 'Roboto', sans-serif;
+  font-family:  sans-serif;
   /* Set the background color to white */
   background-color: var(--white);
   /* Set the margin and padding to zero */
@@ -175,48 +175,58 @@ body {
 
 /* Define the styles for the notice container element */
 .notice-container {
-  /* Set the background color to orange */
-  background-color: var(--orange);
+  position: relative;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: white;
+  padding: 2vw;
+  position: absolute;
+  top: 90px;
+  right: 0;
+  width: 20vw;
+  background: rgba(255, 235, 235, 1);
+
+   /* Vertically center children */
+  
+  /* Horizontally center children */
 }
 
-/* Define the styles for the notice element */
-.notice {
-  /* Use flexbox to layout the header, content and footer */
-  display: flex;
-  /* Set the flex direction to column, meaning they will stack vertically */
-  flex-direction: column;
-  /* Set a border around each notice with a width of 1px, a solid style and a black color */
-  border: 1px solid var(--black);
-  /* Set a margin of 10px around each notice */
-  margin: 10px;
+.notice-header .header-box {
+  background-color: black;
+  padding-right: 0.5vw;
+  border-radius: 5px;
+  text-align: center;
+  padding-left: 0.5vw;
+  width: fit-content;
+  color: white;
+ /* Remove any default margin */
+  font-size: 2.2vw;
+  
 }
 
-/* Define the styles for the notice header element */
-.notice-header {
-  /* Use flexbox to layout the title and date elements */
-  display: flex;
-  /* Justify them horizontally with space between them */
-  justify-content: space-between;
+/* Style for the white font color */
+.notice-header  {
+ 
+  margin-left: 4vw;
+   /* Remove any default margin */
+  
 }
+.body-text{
+  font-size: 1rem;
 
+
+}
 /* Define the styles for notice header span elements */
-.notice-header span {
-  /* Set the text color to white */
-  color: var(--white);
-  /* Set the font size to 18px */
-  font-size: 18px;
-  /* Set the padding to 10px */
-  padding: 10px;
-}
+
 
 /* Define the styles for notice content element */
 .notice-content {
   /* Set the text color to white */
-  color: var(--white);
+  color: black;
   /* Set the font size to 18px */
-  font-size: 18px;
+  font-size: 1rem;
   /* Set the padding to 10px */
-  padding: 10px;
+  padding: 0.2vw;
 }
 
 /* Define the styles for notice footer element */
@@ -240,13 +250,107 @@ body {
    /* Set a cursor to pointer, meaning it will change when hovered over*/
    cursor:pointer;
 }
-
-.card-footer {
+ 
+.navbar {
+  background-color: lightgreen;
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
+  z-index: -2;
+  padding: 10px;
+  max-width: 79vw;
+}
+
+.navbar a {
+  color: black;
+ 
+  text-transform: uppercase;
+  text-decoration: none;
+ 
+  justify-content: space-between;
+}
+.test{
+  margin-right: 1vw;
+}
+.navbar-links {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navbar-links a {
+  color: black;
+  text-decoration: none;
+  justify-content: space-between;
+  font-weight: bolder;
 }
 
 
+.profile-container {
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  min-height: 20vh;
+
+  /* align-items: right; */
+  padding: 0px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  justify-content: space-between;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+}
+
+.profile-image {
+  width: 6vw;
+  height: 6vw;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.profile-name {
+  margin: 0;
+  margin-top: 10vh;
+  font-size: medium;
+}
+
+.marks-container {
+  background: rgba(241, 120, 106, 1);
+  width: 20vw;
+  max-width: 200px;
+  height: 16vh;
+  padding: 10px;
+  margin: 2vh;
+  margin-right: 10vw;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.marks-label {
+  margin: 0;
+  color: white;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+  .profile-container {
+    flex-direction: column;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-image {
+    width: 80px;
+    height: 80px;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+}
 /* Use media queries to make the webpage responsive */
 
 /* If the screen width is less than or equal to600px, apply these styles */
