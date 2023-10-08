@@ -77,6 +77,7 @@ router.post("/create",verifyJWT, upload.single('postImage'),async (req,res)=>{
         const postImageUploaded = req.body.postImage ? req.file.filename: null;
         const newPost = new postModel({
             postTitle:req.body.postTitle,
+            postContent:req.body.postContent,
             userId:req.body.userId,
             userName:req.body.userName,
             postImage:postImageUploaded
@@ -112,7 +113,8 @@ router.put("/updatePost/:postId",verifyJWT,upload.single('postImage'), async (re
     const foundPost = await postModel.findOne({_id:postId});
     if(!foundPost) return res.status(403).json("post not found");
     // if the element to be updated is image then delete the older image and add the new image.
-    if(req.file){
+    if(req.file && foundPost.postImage){
+
         // delete the older file.
         const filePath = './files/postPhotos/' + foundPost.postImage;
         console.log(filePath);
@@ -125,8 +127,16 @@ router.put("/updatePost/:postId",verifyJWT,upload.single('postImage'), async (re
         })
     }
     console.log(req.body.postTitle);
-    await foundPost.updateOne({$set:req.body});
-    res.status(200).json("post Updated");
+    try{
+        if(req.file){
+            await foundPost.updateOne({$set:{"postImage":req.file.filename}});  
+        }
+        await foundPost.updateOne({$set:req.body});
+        res.status(200).json("post Updated");
+    }catch(err){
+        res.status(403).json(err.message);
+    }
+    
 
     
     
@@ -299,14 +309,14 @@ router.get("/getUserPost/:userId",async (req,res)=>{
 // requires
 // userID
 // comment
-// username
 
 router.put("/postInteraction/:postId",verifyJWT, async (req,res)=>{
     try{
         // check if the post interaction table for the post is already there
         // interfile = await postInteractionModel.findOne({"feedId":req.body.feedId});
         // res.status(500).json(interfile);
-        const currentInteraction = await postInteractionModel.findOne({"postId":req.body.postId});
+        console.log("postId == ",req.params.postId);
+        const currentInteraction = await postInteractionModel.findOne({"postId":req.params.postId});
         if(currentInteraction){
             // const comment_status = req.body.commentStatus;
             // const like_status = req.body.likeStatus;
@@ -324,18 +334,20 @@ router.put("/postInteraction/:postId",verifyJWT, async (req,res)=>{
             //     }
                 
             // }
-            if(req.body.like == "true"){
+            if(req.body.like == true){
+                const user = await userModel.findById(req.body.userId);
+                await user.updateOne({$push:{likedPosts:req.params.postId}});
                 await currentInteraction.updateOne({$push: {likes:req.body.userId}});
                 // {$push:{feedStats:getStat(req.body.feedStats)}}
-                res.status(200).json("like added");
+                res.status(200).json(currentInteraction);
             }
-            if(req.body.save == "true"){
+            if(req.body.save == true){
                 // find the user
-                const user = userModel.findById(req.body.userId);
+                const user = await userModel.findById(req.body.userId);
                 await user.updateOne({$push:{savedPosts:req.params.postId}});
-                // await currentInteraction.updateOne({$push: {savedBy:req.body.userId}});
+                await currentInteraction.updateOne({$push: {savedBy:req.body.userId}});
                 // {$push:{feedStats:getStat(req.body.feedStats)}}
-                res.status(200).json("savedBy added");
+                res.status(200).json(currentInteraction);
             }
             // if(feedStatus){
             //     let new_stat = currentFeed.feedStats[req.body.feedSelection] + 1;
@@ -355,14 +367,16 @@ router.put("/postInteraction/:postId",verifyJWT, async (req,res)=>{
             // const like_status = req.body.likeStatus;
 
             // const newComment = req.body.comment ? await createNewComment(req.body.userId,req.body.comment,req.body.userName): '';
-            const likeStatus = req.body.like ? req.body.userId: '';
+            const likeStatus = req.body.like ? [req.body.userId]: undefined;
+            const saveStatus = req.body.save ? [req.body.userId]: undefined;
             if(req.body.save == "true"){
-                const user = userModel.findById(req.body.userId);
+                const user = await userModel.findById(req.body.userId);
                 await user.updateOne({$push:{savedPosts:req.params.postId}});
             }
             const newFeedInteraction = new postInteractionModel({
-                postId:req.body.feedId,
-                likes:[likeStatus],
+                postId:req.params.postId,
+                likes:likeStatus,
+                savedBy:saveStatus
             });
             const feedInter = await newFeedInteraction.save();
             res.status(200).json(feedInter);

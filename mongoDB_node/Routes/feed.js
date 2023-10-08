@@ -80,6 +80,7 @@ router.post("/create",verifyJWT, async (req,res)=>{
             questionType:req.body.questionType,
             questionOptions:req.body.questionOptions,
             questionAnswer:req.body.questionAnswer,
+            questionAnswerNum:req.body.questionAnswerNum,
             examType:req.body.examType,
             subType:req.body.subType,
             topicType:req.body.topicType,
@@ -164,8 +165,9 @@ router.get("/getOneFeed/:feedId",verifyJWT, async (req,res)=>{
 // Get home feed 
 //  two ways to get the homefeed(algo for now), if the user is following others then show them first then fill the box with other posts
 // While Getting home feed get the feed interaction data too and send it back.
-router.get("/getHomeFeed/:userId",verifyJWT, async (req,res)=>{
+router.get("/getHomeFeed/:userId/:examType/:subType/",verifyJWT, async (req,res)=>{
     // check if feed exist using feed id
+    // console.log(req.body.data);
     if(req.params.userId === "undefined" || req.params.userId === null) return res.sendStatus(403);
     const userId = req.params.userId;
     if(!userId) return res.status(403).json("user id not received");
@@ -178,26 +180,12 @@ router.get("/getHomeFeed/:userId",verifyJWT, async (req,res)=>{
     // if(timeline == undefined){
     //     console.log("RUnning option1");
     //     // get feed from feed lists by sorting on timeline
-    if(!req.body.examType) return res.status(403).json("exam type not provided");
-    let feed = await feedSelector(req.body.examType,req.body.subType,req.body.topicType,15);
+    if(!req.params.examType) return res.status(403).json("exam type not provided");
+    let feed = await feedSelector(req.params.examType,req.params.subType,req.params.topicType,15);
+    console.log(feed);
     const feedInteraction = await getFeedInteraction(feed);
     feed =  {"feed":feed,"feedInteraction":feedInteraction};
-    // res.status(200).json(feeds);    
-    // }
-    // else if(Object.keys(timeline).length <10){
-    //     console.log("RUnning option2");
-    //     // get feed from feed lists by sorting on timeline
-    //     const timelineFeeds = await getFeedFromUsers(timeline);
-    //     const selectedFeeds = await feedSelector(10 - timeline.length);
-    //     res.status(200).json(timelineFeeds.concat(selectedFeeds));
-    //     // append the two lists and return.
-    // }
-    // else{
-    // get the feed from the timeline
-    // console.log("RUnning option3");
-    // const feed = await getFeedFromDB(timeline);
-    // console.log("First promise");
-
+    console.log(feed);
     res.status(200).json(feed);    
     // }
     //     // get the feed from the timeline
@@ -224,27 +212,40 @@ router.get("/getHomeFeed/:userId",verifyJWT, async (req,res)=>{
 
 
 // Add feedResult
-router.post("/feedresult/:id",verifyJWT,async (req,res)=>{
+router.put("/feedresult/:id",verifyJWT,async (req,res)=>{
     // check is the user and feed exist first
     try{
-        
-        const userSel = req.body.userSelection ? req.body.userSelection:null;
-        const userAns = req.body.userAnswer ? req.body.userAnswer:null;
+
+        const userSel = req.body.userSelection ? req.body.userSelection:undefined;
+        const userAns = req.body.userAnswer ? req.body.userAnswer:undefined;
         const userFound = await userModel.findOne({_id:req.body.userId});
         const feedFound = await feedModel.findById(req.params.id);
-        console.log("user",userFound);
-        console.log("feed",feedFound);
+        // console.log("user",userFound);
+        // console.log("feed",feedFound);
         if(userFound && feedFound){
             
-            const newFeedResult = new feedResultModel({
-                feedId:req.params.id,
-                userId:req.body.userId,
-                userSelection:userSel,
-                userAnswer:userAns,
-            });
-            // save user and respond
-            const user = await newFeedResult.save();
-            res.status(200).json(user);
+            const feedResult = await feedResultModel.findOne({"feedId":req.params.id});
+            console.log("feedResult:",feedResult);
+            if(feedResult){
+                
+                await feedResult.updateOne({$set:req.body});
+                console.log("feed updated");
+                res.status(200).json("Feed Updated");
+            }
+            else{
+                const newFeedResult = new feedResultModel({
+                    feedId:req.params.id,
+                    userId:req.body.userId,
+                    userSelection:userSel,
+                    userAnswer:userAns,
+                });
+                // save user and respond
+                
+                const createdFeedResult = await newFeedResult.save();
+                console.log("newfeedResult:",createdFeedResult);
+                res.status(200).json(createdFeedResult);
+            }
+            
         }
         else{
             res.status(500).json("User or feed not found")
@@ -255,7 +256,6 @@ router.post("/feedresult/:id",verifyJWT,async (req,res)=>{
         console.log(err);
     }
 });
-
 
 
 // // Add feedInteraction

@@ -19,7 +19,7 @@ const feedSchema = new mongoose.Schema({
    questionAnswer:{
     type:Array,
    },
-   qustionAnswerNum:{
+   questionAnswerNum:{
     type:String,
    },
    examType:{

@@ -18,7 +18,7 @@ const initialFormData = Object.freeze({
 
 function Login({logState,handleLoginClick}) {
 
-
+  const context = useAuthContext(); 
   const [formData,updateFormData] = useState(initialFormData);
 
   const handleChange =(e)=>{
@@ -37,10 +37,14 @@ function Login({logState,handleLoginClick}) {
     // console.log(formData);\
     // write code to fetch the api
     const loginstate  = await getLogin(formData);
-    if(loginstate === true){
-      console.log("loginState=",loginstate);
-      // window.location.reload(true);
-      // console.log("context",state);
+    
+    // console.log("hello");
+    if(loginstate == true){
+      // console.log("loginState=",loginstate);
+      // context.dispatch({type:'LOGIN'})
+      // alert(context);
+      // // window.location.reload(true);
+      // console.log("context",context);
       // context.dispatch({type:'LOGIN'})
       // console.log("context",state);
       window.location.href = '/Blog';

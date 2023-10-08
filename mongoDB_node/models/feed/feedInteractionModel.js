@@ -5,15 +5,13 @@ const feedInteractionModel = new mongoose.Schema({
     type:String, 
     require:true,
     unique:true,
-   },
-   comments:{
-    type:Array,
-    default:[],
-   },
-   likes:{
-    type:Array,
-    default:[],
-   },
+   }
+   ,
+//    comments:{
+//     type:Array,
+//     default:[],
+//    }
+//    ,
    feedStats:{
     type:Array,
     default:[],

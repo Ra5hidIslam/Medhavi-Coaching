@@ -15,6 +15,7 @@ const feedRoutes =   require("./Routes/feed");
 const refreshRoute = require("./Routes/refresh");
 const logoutRoute = require("./Routes/logout");
 const postRoute = require("./Routes/post");
+const commentRoute = require("./Routes/comments");
 const notesRoute = require("./Routes/notes")
 
 
@@ -58,6 +59,7 @@ app.use("/api/feed",feedRoutes);
 app.use("/api/refresh",refreshRoute);
 app.use("/api/logout",logoutRoute);
 app.use("/api/post/",postRoute);
+app.use("/api/comment",commentRoute);
 app.use("api/notes/",notesRoute);
 app.use(express.static('files'));
 

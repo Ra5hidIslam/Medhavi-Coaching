@@ -14,11 +14,12 @@ export const getLogin =  async (data)=>{
             body:JSON.stringify(data),
             credentials:'include',
         });
-        let result =  response;
+        let result = response;
         if(response.status == 200){
             result = await response.json();
             sessionStorage.setItem("token",result["accessToken"]);
             localStorage.setItem("userId",result["userId"]);
+            // console.log(result);
             return true
         }
         else{

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import SignUp from '../../pages/SignUp/SignUp';
 import HomeFeed from '../../components/HomeFeed/HomeFeed'
@@ -8,11 +8,13 @@ import LandingCSS from '../LandingPage/Landing.module.css'
 import LogOut from '../../components/hooks/LogOut';
 import useRefreshToken from '../../components/hooks/useRefreshToken';
 import getUser from '../../components/client/getUser';
+import { useAuthContext } from '../../components/hooks/useAuthContext';
 import { Container, Row, Col } from 'react-bootstrap';
 
 
 function Landing(){
 
+    const context = useAuthContext(); 
 
     const refreshFunction = useRefreshToken();
     const[logState,setLogState] = useState(false);
@@ -31,7 +33,9 @@ function Landing(){
          const user = await getUser(localStorage.getItem("userId"));
          const userJson = JSON.stringify(user);  
          sessionStorage.setItem("user",userJson);
-         window.location.href = '/Blog';
+        //  change the context
+        // context.dispatch({type:'LOGIN'})
+        window.location.href = '/Blog';
     }
 
 

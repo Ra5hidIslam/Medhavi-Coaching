@@ -68,54 +68,58 @@ const upload = multer({storage:storage});
 // }
 
 
-async function createPostInteraction(feedId){
-    const feedInter = new feedInteractionModel({
-        "feedId":feedId,
+async function createPostInteraction(postId){
+    const postInter = new postInteractionModel({
+        "postId":postId,
     })
-    const createdInteraction = await feedInter.save();
+    const createdInteraction = await postInter.save();
     return createdInteraction;
 }
 
 // // Add comment
 // requires comment,userId,userName,postId
-router.post("/create",verifyJWT, upload.single('postImage'),async (req,res)=>{
+router.post("/create/:postId",verifyJWT, upload.single('postImage'),async (req,res)=>{
     try{
         // creating new feed 
         // const commentImageUploaded = req.body.commentImage ? req.file.filename:
         let newComment;
+        
         if(req.body.commentImage){
+            console.log("Im not running");
+            console.log("commentImage",req.file.commentImage);
             newComment = new postCommentsModel({
-            commentTitle:req.body.comment,
+            comment:req.body.comment,
             userId:req.body.userId,
             userName:req.body.userName,
             commentImage:req.file.filename
             });
-        }else
-        {
+        }
+        else{
             newComment = new postCommentsModel({
-            commentTitle:req.body.comment,
+            comment:req.body.comment,
             userId:req.body.userId,
             userName:req.body.userName
             });
         }
         
-        // save feed and respond
+        // save comment and respond
         const comment = await newComment.save();
         // add the comment in the post interactions model for the post of the followers
-        const foundPostInteraction = await postInteractionModel.findOne({"postId":req.body.postId});
+        const foundPostInteraction = await postInteractionModel.findOne({"postId":req.params.postId});
         let newInteraction;
         if(!foundPostInteraction){
-            newInteraction = createPostInteraction(req.body.postId);
+            newInteraction = createPostInteraction(req.params.postId);
+            console.log("newInter",newInteraction)
             await newInteraction.updateOne({$push: {comments:comment}});
         }
         await foundPostInteraction.updateOne({$push: {comments:comment}});
-        res.status(200).json(post);
+        res.status(200).json(comment);
     } catch(err){
         res.status(401).json(err.message);
     }
 });
 
-// Update Feed
+// Update Comment
 router.put("/updateComment/:commentId",verifyJWT,upload.single('postImage'), async (req,res)=>{
     // check if comment exist using comment id
     // console.log(req.body.postTitle);
@@ -138,9 +142,15 @@ router.put("/updateComment/:commentId",verifyJWT,upload.single('postImage'), asy
         }
         
     }
-    console.log(req.body.postTitle);
-    await foundPost.updateOne({$set:req.body});
-    res.status(200).json("post Updated");
+    try{
+        if(req.file){
+            await foundPost.updateOne({$set:{"postImage":req.file.filename}});  
+        }
+        await foundComment.updateOne({$set:req.body});
+        res.status(200).json("post Updated");
+    }catch(err){
+        res.status(403).json(err.message);
+    }
 
     
     
@@ -349,14 +359,14 @@ router.put("/commentInteraction",verifyJWT, async (req,res)=>{
             // const like_status = req.body.likeStatus;
 
             // const newComment = req.body.comment ? await createNewComment(req.body.userId,req.body.comment,req.body.userName): '';
-            const likeStatus = req.body.like ? req.body.commentId: '';
-            const savedStatus = req.body.save ? req.body.commentId:''; 
+            const likeStatus = req.body.like ? [req.body.commentId]: undefined;
+            const savedStatus = req.body.save ? [req.body.commentId]:undefined; 
             const newCommentInteraction = new postCommentsInteractionModel({
                 commentId:req.body.commentId,
                 // userId:req.body.userId,
                 // comments:[newComment],
-                likes:[likeStatus],
-                savedBy:[savedStatus],
+                likes:likeStatus,
+                savedBy:savedStatus,
                 // feedStats:req.body.feedStats
             });
             const user = await newFeedInteraction.save();

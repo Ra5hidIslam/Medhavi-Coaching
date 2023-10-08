@@ -1,0 +1,20 @@
+.link-contain {
+    background-color: lightgreen;
+    display: flex;
+    justify-content: space-between;
+    z-index: -2;
+    padding: 10px;
+    width: 100vw;
+  }
+  
+  .link-container a {
+    color: black;
+   
+    text-transform: uppercase;
+    text-decoration: none;
+   
+    justify-content: space-between;
+  }
+  .test{
+    margin-right: 1vw;
+  }

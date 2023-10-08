@@ -9,7 +9,6 @@ const feedResult = new mongoose.Schema({
    userId:{
     type:Array,
     require:true,
-    unique:true,
    },
    userSelection:{
     // if 4 options with two answers = [0,0,1,1]

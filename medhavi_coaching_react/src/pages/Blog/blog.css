@@ -251,7 +251,7 @@ body {
    cursor:pointer;
 }
  
-.navbar {
+.link-container {
   background-color: lightgreen;
   display: flex;
   justify-content: space-between;
@@ -260,7 +260,7 @@ body {
   max-width: 79vw;
 }
 
-.navbar a {
+.link-container a {
   color: black;
  
   text-transform: uppercase;
@@ -308,6 +308,7 @@ body {
   height: 6vw;
   border-radius: 50%;
   margin-right: 10px;
+  color: black;
 }
 
 .profile-name {

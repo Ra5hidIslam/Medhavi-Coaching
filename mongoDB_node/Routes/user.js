@@ -6,7 +6,7 @@ const express = require('express');
 const bcrypt = require("bcrypt");
 const { verify } = require('jsonwebtoken');
 const path = require('path');
-
+const fs = require('fs'); // module to delete files in server.
 const multer = require('multer');
 // const userModel = require('../models/user/userModel');
 
@@ -32,6 +32,9 @@ const upload = multer({storage:storage});
 router.post("/uploadPI/:id",verifyJWT,upload.single('image'),async(req,res)=>{
     try{
         let tempUser = await userModel.findById(req.params.id);
+        if(tempUser.userId != req.body.userId){
+            return res.status(500).json("You can only change your own profile picture");
+        }
         await tempUser.updateOne({$set:{"image":req.file.filename}});
         res.status(200).json("Account has been updated");
     }catch(err){
@@ -46,6 +49,7 @@ router.post("/uploadPI/:id",verifyJWT,upload.single('image'),async(req,res)=>{
 
 
 // delete user
+// requirements: userId,isAdmin
 router.delete("/:id",verifyJWT, async(req,res)=>{
     // return res.status(200).json("success");
     if(req.body.userId != req.params.id && !req.body.isAdmin) return res.status(403).json("You can only delete your own account")
@@ -130,6 +134,7 @@ router.delete("/:id",verifyJWT, async(req,res)=>{
 
 
 // update a user
+// requires isAdmin,userId
 router.put("/:id",verifyJWT, async(req,res)=>{
     if(req.body.userId == req.params.id || req.body.isAdmin){ 
         if(req.body.password){
@@ -178,6 +183,8 @@ router.put("/follow/:id",verifyJWT, async (req,res)=>{
         try{
             const user = await userModel.findById(req.params.id);//person to follow
             const currentUser = await  userModel.findById(req.body.userId);//person following
+            if(!user) return res.status(403).json("User not valid");
+            if(!currentUser) return res.status(403).json("User to follow is not valid");
             if(!user.followers.includes(req.body.userId)){
                 await user.updateOne({$push: {followers: req.body.userId}});
                 await currentUser.updateOne({$push: {following: req.params.id}});
@@ -198,7 +205,7 @@ router.put("/follow/:id",verifyJWT, async (req,res)=>{
 
 
 // unfollow a user
-router.put("/:id/unfollow",verifyJWT, async (req,res)=>{
+router.put("/unfollow/:id",verifyJWT, async (req,res)=>{
     if(req.body.userId !== req.params.id){
         // need to update my following and follower list?
         // first find the two users

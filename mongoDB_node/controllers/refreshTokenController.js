@@ -10,9 +10,9 @@ const jwt = require('jsonwebtoken');
 const handleRefreshToken =  async (req,res)=>{
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(401); //unauthorized
-    console.log(cookies.jwt);
+    // console.log(cookies.jwt);
     const refreshToken = cookies.jwt;
-    console.log(refreshToken);
+    // console.log(refreshToken);
     const foundUser = await userModel.findOne({refreshToken:refreshToken});
     if(!foundUser) return res.sendStatus(403);//forbiddens
     jwt.verify(

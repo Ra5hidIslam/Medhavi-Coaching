@@ -9,6 +9,10 @@ const postSchema = new mongoose.Schema({
     max:300,
     unique:true,
    },
+   postContent:{
+    type:String,
+    max:1000,
+   },
    userId:{
     type:String,
     require:true

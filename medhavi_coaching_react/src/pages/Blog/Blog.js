@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Masonry } from "react-masonry";
-
+import { useAuthContext } from "../../components/hooks/useAuthContext";
 import { Link } from 'react-router-dom';
-// import getPosts from '../../components/client/getPosts';
+import getPosts from '../../components/client/getPosts';
 // require('dotenv').config();
 import { Container, Row, Col, Form, Button,Card, Image, } from "react-bootstrap";
 import './blog.css';
@@ -16,19 +16,32 @@ const ProfilePage = () => {
   useEffect(() => {
     
     // Replace the following line with your code to retrieve user data from your database
-    const userData = localStorage.getItem("userId");
+    const userData = sessionStorage.getItem("user");
     setUser(userData);
   }, []);
+
+  function profilePictureElement(){
+    if(sessionStorage.getItem('user').image){
+      return (
+        <img crossorigin="anonymous" src={`http://localhost:8800/profilePhotos/` + user.image} alt="profilePicture" className="rounded-circle profile-image" />
+      )
+    }
+    else{
+      return(
+        <img crossorigin="anonymous" src={`http://localhost:8800/profilePhotos/defaultProfilePicture.jpg`} alt="profilePicture" className="rounded-circle profile-image" />
+      )
+      
+    }
+  }
 
   return (
     <Container className="profile-container">
       <div className="profile-header">
-        <img
-          src="./logo192.png"
-          alt="Profile Avatar"
-          className="rounded-circle profile-image"
-        />
-        <h2 className="profile-name">Akhtar Nawaz</h2>
+        {/* user.image && <img crossorigin="anonymous" src={`http://localhost:8800/profilePhotos/defaultProfilePicture.jpg`} alt="profilePicture" className="rounded-circle profile-image" /> */}
+        <div>{profilePictureElement()}</div>
+        <div className="profile-name">
+          {sessionStorage.getItem('user').name}
+        </div>
       </div>
       <div className="marks-container">
         <p className="marks-label">PREVIOUS EXAM MARKS</p>
@@ -112,7 +125,7 @@ function Notice({ isAdmin }) {
 
 function PageComponent() {
   return (
-    <div className="navbar">
+    <div className="link-container">
       <div className="navbar-links">
         <Link to="./post">Post</Link>
         <Link to="./Jee">JEE</Link>
@@ -126,62 +139,62 @@ function PageComponent() {
   );
 }
 
-// function Posts({ posts }) {
-//   console.log(posts)
-//   return (
-//     <Masonry columns={3} gutter={20}>
-//       {posts.map((post) => (
-//         <Post key={post.id} post={post} />
-//       ))}
-//     </Masonry>
-//   );
-// }
+function Posts({ posts }) {
+  console.log(posts)
+  return (
+    <Masonry columns={3} gutter={20}>
+      {posts.map((post) => (
+        <Post key={post.id} post={post} />
+      ))}
+    </Masonry>
+  );
+}
 
-// function Post({ post }) {
-//   const [liked, setLiked] = useState(false);
+function Post({ post }) {
+  const [liked, setLiked] = useState(false);
 
-//   function handleLike() {
-//     setLiked(!liked);
-//   }
+  function handleLike() {
+    setLiked(!liked);
+  }
 
-//   return (
-//     <div className="card">
-//       {post.image && <img crossorigin="anonymous" src={`http://localhost:8800/postPhotos/` + post.image} alt={post.postTitle} className="card-img-top" /> }
-//       <div className="card-body">
-//         <h5 className="card-title">{post.postTitle}</h5>
-//         {/* <p className="card-text">{post.content}</p> */}
-//       </div>
-//       <div className="card-footer">
-//         <button className="btn btn-primary mr-2" onClick={handleLike}>
-//           {liked ? "Unlike" : "Like"}
-//         </button>
-//         <button className="btn btn-secondary mr-2">Comment</button>
-//         <button className="btn btn-info">Save</button>
-//       </div>
-//     </div>
-//   );
-// }
+  return (
+    <div className="card">
+      {post.image && <img crossorigin="anonymous" src={`http://localhost:8800/postPhotos/` + post.image} alt={post.postTitle} className="card-img-top" /> }
+      <div className="card-body">
+        <h5 className="card-title">{post.postTitle}</h5>
+        {/* <p className="card-text">{post.content}</p> */}
+      </div>
+      <div className="card-footer">
+        <button className="btn btn-primary mr-2" onClick={handleLike}>
+          {liked ? "Unlike" : "Like"}
+        </button>
+        <button className="btn btn-secondary mr-2">Comment</button>
+        <button className="btn btn-info">Save</button>
+      </div>
+    </div>
+  );
+}
 
 
 
 
 function Blog() {
-//   const [posts, setPosts] = useState([]);
-//   const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-//   useEffect(()=>{
-//     async function fetchPosts(){
-//       const posts = await getPosts(localStorage.getItem("userId"));
-//       // const postJson = JSON.stringify(posts); 
-//       console.log("fetched Posts",posts)
-//       setPosts(posts);
-//       // return posts;
-//     }
-//     fetchPosts();
-//   },[])
+  useEffect(()=>{
+    async function fetchPosts(){
+      const posts = await getPosts(localStorage.getItem("userId"));
+      // const postJson = JSON.stringify(posts); 
+      console.log("fetched Posts",posts)
+      setPosts(posts);
+      // return posts;
+    }
+    fetchPosts();
+  },[])
   
-//   console.log(posts);
-//   console.log(Array.isArray(posts));
+  console.log(posts);
+  console.log(Array.isArray(posts));
   // posts.map((post)=>{
   //   console.log(Array.isArray(posts))
   // })
@@ -200,9 +213,9 @@ function Blog() {
   //     });
   // }, []);
 
-//   if(!posts){
-//     return <div>Loading...</div>;
-// }
+  if(!posts){
+    return <div>Loading...</div>;
+}
 
 
   return (
@@ -213,9 +226,9 @@ function Blog() {
       <ProfilePage/> 
       <PageComponent/>
       </header>
-      {/* <main>
+      <main>
         <Posts posts={posts} />
-      </main> */}
+      </main>
     </div>
   );
 

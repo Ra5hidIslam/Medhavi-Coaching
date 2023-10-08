@@ -65,7 +65,10 @@ const UserSchema = new mongoose.Schema({
     },
     savedPosts:{
         type:Array,
-    }
+    },
+    likedPosts:{
+        type:Array,
+    },
 },
     { timestamps:true}
 );
