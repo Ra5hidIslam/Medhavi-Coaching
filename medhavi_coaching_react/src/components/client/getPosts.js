@@ -10,8 +10,11 @@ function toArray(posts){
     for(let i = 0; i < posts.length; i++){
         const temp = {image:posts[i].postImage,
                       postTitle:posts[i].postTitle,
+                      postContent:posts[i].postContent,
                       userId:posts[i].userId,
-                      userName:posts[i].userName}
+                      userName:posts[i].userName,
+                      postId:posts[i]._id,
+                    }
         arr.push(temp);
     }
     return arr

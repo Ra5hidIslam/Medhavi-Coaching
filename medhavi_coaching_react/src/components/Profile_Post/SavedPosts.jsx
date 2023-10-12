@@ -3,7 +3,7 @@ import React, { useState,useEffect } from 'react';
 // import the library to fetch homefeed
 // import { loadHomeFeed } from '../client/loadHomeFeed';
 // import getUser from '../client/getUser';
-import { loadUserPosts } from '../client/loadUserPosts';
+import { loadSavedPosts } from '../client/loadSavedPosts';
 import { Masonry } from "react-masonry";
 // import post from '../posts/Posts';
 // import { getAndLoadHomeFeed } from '../helper/getAndLoadHomefeed';
@@ -56,12 +56,12 @@ function Posts({ posts }) {
   }
   
 
-const userPost=()=>{
+const savedPosts=()=>{
     const [posts,setPost] = useState([]);
 
     useEffect(() => {
         async function fetchPosts() {
-            const posts = await loadUserPosts(localStorage.getItem("userId"));
+            const posts = await loadSavedPosts(localStorage.getItem("userId"));
             console.log("fetched Posts", posts)
             setPost(posts);
         }
@@ -74,4 +74,4 @@ const userPost=()=>{
 
 }
 
-export default userPost;
+export default savedPosts;

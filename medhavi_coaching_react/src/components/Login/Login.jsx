@@ -5,8 +5,7 @@ import { getLogin } from '../client/getLogin';
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import SignUp from '../../pages/SignUp/SignUp';
 import { useAuthContext } from '../hooks/useAuthContext';
-
-
+import getUser from '../client/getUser';
 
 // const context = useAuthContext();
 
@@ -37,17 +36,14 @@ function Login({logState,handleLoginClick}) {
     // console.log(formData);\
     // write code to fetch the api
     const loginstate  = await getLogin(formData);
-    
+    const user = await getUser(localStorage.getItem("userId"));
+    const userJson = JSON.stringify(user);  
+    sessionStorage.setItem("user",userJson);
     // console.log("hello");
-    if(loginstate == true){
-      // console.log("loginState=",loginstate);
-      // context.dispatch({type:'LOGIN'})
-      // alert(context);
-      // // window.location.reload(true);
-      // console.log("context",context);
-      // context.dispatch({type:'LOGIN'})
-      // console.log("context",state);
+    if(loginstate == true && sessionStorage.getItem("user")){
+      context.dispatch({type:'LOGIN'})
       window.location.href = '/Blog';
+      
       // console.log("Logged In")
     }
     else{

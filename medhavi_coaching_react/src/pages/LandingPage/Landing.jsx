@@ -14,10 +14,13 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 function Landing(){
 
-    const context = useAuthContext(); 
+    // const context = useAuthContext(); 
+    // const {setLoginContext,LoginContext} = useContext(context);
+
 
     const refreshFunction = useRefreshToken();
     const[logState,setLogState] = useState(false);
+
     // // function to change the state on click of the login button
     function handleLoginClick(){
         setLogState((logState)=> !logState);
@@ -34,7 +37,7 @@ function Landing(){
          const userJson = JSON.stringify(user);  
          sessionStorage.setItem("user",userJson);
         //  change the context
-        // context.dispatch({type:'LOGIN'})
+        // setLoginContext({'LOGIN':true})
         window.location.href = '/Blog';
     }
 

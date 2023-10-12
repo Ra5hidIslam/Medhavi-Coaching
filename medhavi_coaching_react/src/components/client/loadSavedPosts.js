@@ -38,13 +38,13 @@ require('dotenv').config();
 
 
 
-export const loadUserPosts = async (user_id)=>{
+export const loadSavedPosts = async (user_id)=>{
     // const [questionArray,setQuestionArray] = useState([]);
     // const [loadingState,setLoadingState] = useState(true);
     // var questionArray;
     console.log("I am here");
     try{
-        const url = process.env.REACT_APP_API_URL_SERVER +"/post/getUserPost/" + String(user_id);
+        const url = process.env.REACT_APP_API_URL_SERVER +"/post/getSavedPost/" + String(user_id);
         const response  = await fetch(url,{
                 method:"GET",
                 headers:{

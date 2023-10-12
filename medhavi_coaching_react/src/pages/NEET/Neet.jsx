@@ -385,8 +385,8 @@ function PageComponent() {
     <div className="link-contain">
       <div className="navbar-links">
         <Link to="/post">Post</Link>
-        <Link to="/Jee">JEE</Link>
-        <Link to="/neet">NEET</Link>
+        <Link to="/Blog/JEE">JEE</Link>
+        <Link to="/Blog/NEET">NEET</Link>
         <Link to="/books">Books</Link>
       
       <div className=" test">

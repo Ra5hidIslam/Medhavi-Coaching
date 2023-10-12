@@ -22,9 +22,14 @@ export const AuthContextProvider = ({children})=>{
         login:false,
         userStatus:false,
         feedStatus:false,
-    })
-    console.log("Auth Context state",state);
+    });
 
+    console.log("Auth Context state",state);
+    
+
+    // const setLogin = ()=>{
+    //     const 
+    // }
 
     return (
         <AuthContext.Provider value ={{...state,dispatch}}>

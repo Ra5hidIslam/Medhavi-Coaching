@@ -4,6 +4,8 @@ import { Masonry } from "react-masonry";
 import { useAuthContext } from "../../components/hooks/useAuthContext";
 import { Link } from 'react-router-dom';
 import getPosts from '../../components/client/getPosts';
+import registerCommentInteraction from "../../components/client/registerCommentInteraction";
+
 // require('dotenv').config();
 import { Container, Row, Col, Form, Button,Card, Image, } from "react-bootstrap";
 import './blog.css';
@@ -11,14 +13,15 @@ import './blog.css';
 
 
 const ProfilePage = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(sessionStorage.getItem("user"));
+  // const userData = sessionStorage.getItem("user");
+  // setUser(userData);
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    // Replace the following line with your code to retrieve user data from your database
-    const userData = sessionStorage.getItem("user");
-    setUser(userData);
-  }, []);
+  //   // Replace the following line with your code to retrieve user data from your database
+    
+  // }, []);
 
   function profilePictureElement(){
     if(sessionStorage.getItem('user').image){
@@ -39,9 +42,9 @@ const ProfilePage = () => {
       <div className="profile-header">
         {/* user.image && <img crossorigin="anonymous" src={`http://localhost:8800/profilePhotos/defaultProfilePicture.jpg`} alt="profilePicture" className="rounded-circle profile-image" /> */}
         <div>{profilePictureElement()}</div>
-        <div className="profile-name">
+        <h2 className="profile-name">
           {sessionStorage.getItem('user').name}
-        </div>
+        </h2>
       </div>
       <div className="marks-container">
         <p className="marks-label">PREVIOUS EXAM MARKS</p>
@@ -150,12 +153,29 @@ function Posts({ posts }) {
   );
 }
 
+
+
 function Post({ post }) {
   const [liked, setLiked] = useState(false);
+  const [saved, setSaved] = useState(false);
 
-  function handleLike() {
+
+  function handleLike(e) {
+    console.log(e.target);
     setLiked(!liked);
+    registerCommentInteraction(localStorage.getItem("userId"),"like",e.target.id);
   }
+  function handleComment(e){
+    console.log(e.target);
+    // setLiked(!liked);
+    // registerLike(e.target.id);
+  }
+  function handleSave(e){
+    console.log(e.target);
+    setSaved(!saved);
+    registerCommentInteraction(localStorage.getItem("userId"),"save",(e.target.id).slice(0,-1));
+  }
+
 
   return (
     <div className="card">
@@ -165,11 +185,13 @@ function Post({ post }) {
         {/* <p className="card-text">{post.content}</p> */}
       </div>
       <div className="card-footer">
-        <button className="btn btn-primary mr-2" onClick={handleLike}>
+        <button className="btn btn-primary mr-2" id = {post.postId} onClick={(e)=>handleLike(e)}>
           {liked ? "Unlike" : "Like"}
         </button>
-        <button className="btn btn-secondary mr-2">Comment</button>
-        <button className="btn btn-info">Save</button>
+        <button className="btn btn-secondary mr-2" id = {post.postId + 'c'} onClick={(e)=>handleComment(e)} >Comment</button>
+        <button className="btn btn-info" id = {post.postId + 's'} onClick={(e)=>handleSave(e)}>
+          {saved ? "Saved":"Save"}
+          </button>
       </div>
     </div>
   );
@@ -181,56 +203,107 @@ function Post({ post }) {
 function Blog() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [newPostText, setNewPostText] = useState(''); // State to store the text of the new post
+  const [selectedFile, setSelectedFile] = useState(null); // State to store the selected photo file
+  const [userComment, setUserComment] = useState(''); // State to store the user's comment
 
-  useEffect(()=>{
-    async function fetchPosts(){
+  useEffect(() => {
+    async function fetchPosts() {
       const posts = await getPosts(localStorage.getItem("userId"));
-      // const postJson = JSON.stringify(posts); 
-      console.log("fetched Posts",posts)
+      console.log("fetched Posts", posts)
       setPosts(posts);
-      // return posts;
     }
     fetchPosts();
-  },[])
-  
-  console.log(posts);
-  console.log(Array.isArray(posts));
-  // posts.map((post)=>{
-  //   console.log(Array.isArray(posts))
-  // })
+  }, []);
 
-  // url = 
-  // useEffect(() => {
-  //   axios
-  //     .get(url)
-  //     .then((response) => {
-  //       setPosts(response.data);
-  //       console.log(response.data);
-  //       setLoading(false);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }, []);
+  // Function to handle the form submission when a user posts a new text or photo
+  const handlePostSubmit = async (e) => {
+    e.preventDefault();
 
-  if(!posts){
-    return <div>Loading...</div>;
-}
+    if (newPostText.trim() !== '' || selectedFile !== null) {
+      // Create a FormData object to send text and photo
+      const formData = new FormData();
+      formData.append('text', newPostText);
+      if (selectedFile) {
+        formData.append('photo', selectedFile);
+      }
 
+      // You can send formData to your server using Axios or any other method
+      // Example using Axios:
+      try {
+        const response = await axios.post('/api/uploadpost', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        // Handle success or display a success message to the user
+        console.log('Post uploaded successfully:', response.data);
+
+        // Clear the input fields after a successful post
+        setNewPostText('');
+        setSelectedFile(null);
+
+        // Refresh the list of posts
+        // fetchPosts();
+      } catch (error) {
+        console.error('Error uploading post:', error);
+      }
+    } else {
+      alert('Please enter some content or select a photo before posting.');
+    }
+  };
+
+  // Function to handle the submission of user comments
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+
+    if (userComment.trim() !== '') {
+      // Implement code to post the user's comment to the server or store it locally
+      // For example, you can send the comment using Axios or another API call
+
+      // Clear the comment input field after posting
+      setUserComment('');
+    } else {
+      alert('Please enter a comment before posting.');
+    }
+  };
 
   return (
     <div className="container" style={{ margin: 0, padding: 0 }}>
-      
-         <Notice />
-         <header>
-      <ProfilePage/> 
-      <PageComponent/>
+      <Notice />
+      <header>
+        <ProfilePage />
+        <PageComponent />
       </header>
       <main>
+        {/* Create a form for posting */}
+        <Form onSubmit={handlePostSubmit}>
+          {/* ... (Existing code for posting text and photos) */}
+        </Form>
+
+        {/* Text area for entering user comments */}
+        <Form onSubmit={handleCommentSubmit}>
+          <Form.Group>
+            <Form.Control
+              as="textarea"
+              rows="3"
+              placeholder="Write your comment here..."
+              value={userComment}
+              onChange={(e) => setUserComment(e.target.value)}
+            />
+          </Form.Group>
+          <Button type="submit" variant="primary">
+            Post Comment
+          </Button>
+        </Form>
+
+        {/* Display existing posts */}
         <Posts posts={posts} />
       </main>
     </div>
   );
+}
 
-    }
+
+    
 export default Blog;

@@ -1,4 +1,7 @@
 require('dotenv').config();
+// import { useAuthContext } from '../hooks/useAuthContext';
+
+// const context = useAuthContext();
 
 export const getLogin =  async (data)=>{
     console.log(process.env);
@@ -19,6 +22,7 @@ export const getLogin =  async (data)=>{
             result = await response.json();
             sessionStorage.setItem("token",result["accessToken"]);
             localStorage.setItem("userId",result["userId"]);
+            // context.dispatch({type:'LOGIN'})
             // console.log(result);
             return true
         }

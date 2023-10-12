@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ProfileNavbarCSS from '../ProfileNavbar/ProfileNavbar.module.css';
 import e from 'cors';
 import UserFeed from '../Profile_Post/UserPost'
-
+import SavedPosts from '../Profile_Post/SavedPosts';
 
 
 
@@ -23,7 +23,7 @@ const  Nav_bar=()=> {
         return <UserFeed/>
       }
       else if(currentSelection == 2){
-        return <div> No Posts yet...</div>
+        return <SavedPosts/>
       }
     }
 
@@ -53,7 +53,7 @@ const  Nav_bar=()=> {
           <button className={interstyle} onClick={()=>{
               setCurrentSelection(2)
               changeStyleInter()
-            }}> Interacted Posts</button>
+            }}> Saved Posts</button>
         </div>
           <div className={ProfileNavbarCSS.userfeed}>
             {currentElement()}

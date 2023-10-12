@@ -28,28 +28,30 @@ function logout(){
 function Nav_bar() {
   const context = useAuthContext();
   // const initialState = sessionStorage.getItem("userId") ? true:false;
-  // const [open, setOpen] = useState(initialState);
+  const {open, setOpen} = useState(context);
   console.log("context",context);
+
+
   const getUserElement = () => {
-    // if (localStorage.getItem("userId")){
-    //   // if (sessionStorage.getItem("user") !== "undefined") {
-    //   //   const user = JSON.parse(sessionStorage.getItem("user"));
-    //   //   return <NavItem username={user.name}><DropdownMenu></DropdownMenu></NavItem>;
-    //   // }
-    //   return (
-    //     <button onClick={logout()}>
-    //       Sign out
-    //     </button>
-    //   )
-    // }
-    // else{
+    if (open){
+      // if (sessionStorage.getItem("user") !== "undefined") {
+      //   const user = JSON.parse(sessionStorage.getItem("user"));
+      //   return <NavItem username={user.name}><DropdownMenu></DropdownMenu></NavItem>;
+      // }
+      return (
+        <button onClick={logout()}>
+          Sign out
+        </button>
+      )
+    }
+    else{
       return(
           <button onClick={() => { window.location.href = '/signin' }}>
             Sign In 
           </button>
       )
       
-    // }
+    }
   };
 
   // function SignStateElementFunction(){
