@@ -39,14 +39,14 @@ function Nav_bar() {
       //   return <NavItem username={user.name}><DropdownMenu></DropdownMenu></NavItem>;
       // }
       return (
-        <button onClick={logout()}>
+        <button onClick={logout()} style={{ position: 'absolute', left: "85vw", top: '70px' , backgroundColor: 'green', color: 'white' }} >
           Sign out
         </button>
       )
     }
     else{
       return(
-          <button onClick={() => { window.location.href = '/signin' }}>
+          <button onClick={() => { window.location.href = '/signin' }}  >
             Sign In 
           </button>
       )
@@ -96,7 +96,7 @@ function Nav_bar() {
       {/* <div className={`collapse navbar-collapse ${NavBarCSS.nav_bar_buttons}`}>
         {getUserElement()}
       </div> */}
-      <div className={`${NavBarCSS.nav_bar_buttons} ${NavBarCSS.sign_in_button}`} style={{ position: 'relative', left: '-10px', top: '20px' }}>
+      <div className={`${NavBarCSS.nav_bar_buttons} ${NavBarCSS.sign_in_button}`} style={{ position: 'absolute', left: "80vw", top: '55px' , backgroundColor: 'green', color: 'white' }}>
         <button className={NavBarCSS.sign_in_btn} style={{ backgroundColor: 'green', color: 'white' }} onClick={() =>  window.location.assign('/Signin')} >
           {getUserElement()}
           {/* {SignStateElementFunction} */}

@@ -264,7 +264,7 @@ function Blog() {
       // Clear the comment input field after posting
       setUserComment('');
     } else {
-      alert('Please enter a comment before posting.');
+      alert('Please enter something  before posting.');
     }
   };
 
@@ -279,21 +279,17 @@ function Blog() {
         {/* Create a form for posting */}
         <Form onSubmit={handlePostSubmit}>
           {/* ... (Existing code for posting text and photos) */}
-        </Form>
-
-        {/* Text area for entering user comments */}
-        <Form onSubmit={handleCommentSubmit}>
-          <Form.Group>
+       <Form.Group>
             <Form.Control
               as="textarea"
               rows="3"
               placeholder="Write your comment here..."
-              value={userComment}
-              onChange={(e) => setUserComment(e.target.value)}
+              value={newPostText}
+              onChange={(e) => setNewPostText(e.target.value)}
             />
           </Form.Group>
           <Button type="submit" variant="primary">
-            Post Comment
+            Post 
           </Button>
         </Form>
 
