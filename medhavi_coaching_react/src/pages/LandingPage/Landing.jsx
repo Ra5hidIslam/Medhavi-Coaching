@@ -31,14 +31,24 @@ function Landing(){
 
     const checkToken = async()=>{
          // log the person in and redirect to home page
-         const refreshToken = await refreshFunction();
-         sessionStorage.setItem("token",refreshToken);
-         const user = await getUser(localStorage.getItem("userId"));
-         const userJson = JSON.stringify(user);  
-         sessionStorage.setItem("user",userJson);
+        const  refreshToken = await refreshFunction();
+        if(!refreshToken){
+            return (
+                <Login
+                        logState = {logState}
+                        handleLoginClick = {handleLoginClick}
+                />
+            )
+        }
+        console.log("refresh token = ",refreshToken);
+        sessionStorage.setItem("token",refreshToken);
+        const user = await getUser(localStorage.getItem("userId"));
+        const userJson = JSON.stringify(user);  
+        sessionStorage.setItem("user",userJson);
         //  change the context
         // setLoginContext({'LOGIN':true})
         window.location.href = '/Blog';
+         
     }
 
 

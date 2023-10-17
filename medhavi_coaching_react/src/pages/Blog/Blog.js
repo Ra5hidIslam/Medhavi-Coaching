@@ -4,47 +4,40 @@ import { Masonry } from "react-masonry";
 import { useAuthContext } from "../../components/hooks/useAuthContext";
 import { Link } from 'react-router-dom';
 import getPosts from '../../components/client/getPosts';
-import registerCommentInteraction from "../../components/client/registerCommentInteraction";
-
-// require('dotenv').config();
-import { Container, Row, Col, Form, Button,Card, Image, } from "react-bootstrap";
+import registerPostInteraction from "../../components/client/registerPostInteraction";
+import getPostsInteraction from "../../components/client/getPostInteraction";
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import './blog.css';
-
-
-
+require('dotenv').config();
 const ProfilePage = () => {
-  const [user, setUser] = useState(sessionStorage.getItem("user"));
-  // const userData = sessionStorage.getItem("user");
-  // setUser(userData);
+  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
 
-  // useEffect(() => {
-    
-  //   // Replace the following line with your code to retrieve user data from your database
-    
-  // }, []);
-
-  function profilePictureElement(){
-    if(sessionStorage.getItem('user').image){
+  function profilePictureElement() {
+    if (user.image) {
       return (
-        <img crossorigin="anonymous" src={`http://localhost:8800/profilePhotos/` + user.image} alt="profilePicture" className="rounded-circle profile-image" />
-      )
-    }
-    else{
-      return(
-        <img crossorigin="anonymous" src={`http://localhost:8800/profilePhotos/defaultProfilePicture.jpg`} alt="profilePicture" className="rounded-circle profile-image" />
-      )
-      
+        <img
+          crossorigin="anonymous"
+          src={`http://localhost:8800/profilePhotos/` + user.image}
+          alt="profilePicture"
+          className="rounded-circle profile-image"
+        />
+      );
+    } else {
+      return (
+        <img
+          crossorigin="anonymous"
+          src={`http://localhost:8800/profilePhotos/defaultProfilePicture.jpg`}
+          alt="profilePicture"
+          className="rounded-circle profile-image"/>
+        );
     }
   }
 
   return (
     <Container className="profile-container">
       <div className="profile-header">
-        {/* user.image && <img crossorigin="anonymous" src={`http://localhost:8800/profilePhotos/defaultProfilePicture.jpg`} alt="profilePicture" className="rounded-circle profile-image" /> */}
         <div>{profilePictureElement()}</div>
-        <h2 className="profile-name">
-          {sessionStorage.getItem('user').name}
-        </h2>
+        <h2 className="profile-name">{user.name}</h2>
       </div>
       <div className="marks-container">
         <p className="marks-label">PREVIOUS EXAM MARKS</p>
@@ -52,31 +45,21 @@ const ProfilePage = () => {
       </div>
     </Container>
   );
-   
-  }
-
-
-
-
-
+}
 
 function Notice({ isAdmin }) {
-  const [notices, setNotices] = useState([]); // State to store uploaded notices
-  const [newNotice, setNewNotice] = useState(""); // State to store the new notice being entered
+  const [notices, setNotices] = useState([]);
+  const [newNotice, setNewNotice] = useState("");
 
-  // Function to handle the form submission when an admin uploads a notice
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (newNotice.trim() !== "") {
-      // Add the new notice to the list of notices
       setNotices([...notices, newNotice]);
-      // Clear the input field
       setNewNotice("");
     }
   };
 
-  // Render the "Upload Notice" form only if the user is an admin
   const renderUploadForm = () => {
     if (isAdmin) {
       return (
@@ -125,148 +108,244 @@ function Notice({ isAdmin }) {
   );
 }
 
-
 function PageComponent() {
   return (
     <div className="link-container">
       <div className="navbar-links">
         <Link to="./post">Post</Link>
         <Link to="./Jee">JEE</Link>
-        <Link to="./neet">NEeT</Link>
+        <Link to="./neet">NEET</Link>
         <Link to="./books">Books</Link>
-      
-      <div className=" test">
-        <Link to="./test">Test</Link></div>
+        <div className="test">
+          <Link to="./test">Test</Link>
+        </div>
       </div>
     </div>
   );
 }
 
-function Posts({ posts }) {
-  console.log(posts)
+
+function Posts({ posts, userComment,postInteraction, setUserComment, comments, setComments }) {
   return (
     <Masonry columns={3} gutter={20}>
       {posts.map((post) => (
-        <Post key={post.id} post={post} />
+        <Post
+          key={post.id}
+          post={post}
+          userName={post.userName}  // Pass the userName prop to the Post component
+          userComment={userComment}
+          postInteraction = {postInteraction.filter(obj=>{return obj.postId === post.postId})}
+          setUserComment={setUserComment}
+          comments={comments}
+          setComments={setComments}
+        />
       ))}
     </Masonry>
   );
 }
 
 
+function Post({ post, userName,postInteraction }) {
+  let likeStatus = false;
+  let likeCountStat = 0;
+  let savedStatus = false;
+  let commentsFromInter;
+  if(postInteraction[0]){
+      if(postInteraction[0].likes.includes(post.userId)){
+        console.log("post inter",postInteraction[0].likes.includes(post.userId));
+        likeStatus = true;
+      }
+      if(postInteraction[0].likes.length){
+        likeCountStat = postInteraction[0].likes.length;
+      }
+      if(postInteraction[0].savedBy.includes(post.userId)){
+        savedStatus = true;
+      }
+      if(postInteraction[0].comments.length > 0){
+        commentsFromInter = postInteraction[0].comments;
+      }
 
-function Post({ post }) {
-  const [liked, setLiked] = useState(false);
-  const [saved, setSaved] = useState(false);
+  }
+  const [liked, setLiked] = useState(likeStatus);
 
+  const [likeCount, setLikeCount] = useState(likeCountStat);
+  const [saved, setSaved] = useState(savedStatus);
+  const [userComment, setUserComment] = useState("");
+  const [comments, setComments] = useState(commentsFromInter);
 
   function handleLike(e) {
-    console.log(e.target);
-    setLiked(!liked);
-    registerCommentInteraction(localStorage.getItem("userId"),"like",e.target.id);
-  }
-  function handleComment(e){
-    console.log(e.target);
-    // setLiked(!liked);
-    // registerLike(e.target.id);
-  }
-  function handleSave(e){
-    console.log(e.target);
-    setSaved(!saved);
-    registerCommentInteraction(localStorage.getItem("userId"),"save",(e.target.id).slice(0,-1));
+    // Send a request to your server to like the post
+    // On a successful response, update the like count and set liked to true
+    if (!liked) {
+      // axios.post("YOUR_LIKE_ENDPOINT_URL", { postId: post.postId }).then((response) => {
+      //   if (response.data.success) {
+      //     setLikeCount(likeCount + 1);
+      //     setLiked(true);
+      //   }
+      // });
+      registerPostInteraction(localStorage.getItem("userId"), "like", e.target.id.slice(0, -1));
+      setLikeCount(likeCount + 1);
+      setLiked(true);
+    }
+    else{
+      console.log(registerPostInteraction(localStorage.getItem("userId"), "unlike", e.target.id.slice(0, -1)));
+      setLikeCount(likeCount - 1);
+      setLiked(false);
+    }
   }
 
+  // comment:req.body.comment,
+  //           userId:req.body.userId,
+        //     postId
+  //           commentImage:req.file.filename
+
+  function handleComment(postId) {
+    if (userComment && userComment.trim() !== "") {
+      const commentData = {
+        postId: postId,
+        comment: userComment,
+        userId:localStorage.getItem("userId"),
+
+
+      };
+      const url =  process.env.REACT_APP_API_URL_SERVER + "/comment/create/" + postId;
+      // Make a POST request to your server's comment endpoint
+      axios
+        .post(url, commentData, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        })
+        .then((response) => {
+          const newComment = {
+            id: response.data._id,
+            content: userComment,
+          };
+
+          const updatedComments = [...comments];
+          updatedComments.push(newComment);
+          setComments(updatedComments);
+
+          setUserComment("");
+        })
+        .catch((error) => {
+          console.error("Error posting comment:", error);
+        });
+    } else {
+      alert("Please enter a comment before posting.");
+    }
+  }
+
+  function handleSave(e) {
+    
+    if(!saved){
+      registerPostInteraction(localStorage.getItem("userId"), "save", e.target.id.slice(0, -1));
+      setSaved(!saved);
+    }
+    else{
+      registerPostInteraction(localStorage.getItem("userId"), "save", e.target.id.slice(0, -1));
+      setSaved(!saved);
+    }
+    
+  }
 
   return (
     <div className="card">
-      {post.image && <img crossorigin="anonymous" src={`http://localhost:8800/postPhotos/` + post.image} alt={post.postTitle} className="card-img-top" /> }
+      {post.image && (
+        <img
+          crossorigin="anonymous"
+          src={`http://localhost:8800/postPhotos/` + post.image}
+          alt={post.postTitle}
+          className="card-img-top"
+        />
+      )}
       <div className="card-body">
+        <h5 className="card-title">{userName}</h5>
         <h5 className="card-title">{post.postTitle}</h5>
-        {/* <p className="card-text">{post.content}</p> */}
       </div>
       <div className="card-footer">
-        <button className="btn btn-primary mr-2" id = {post.postId} onClick={(e)=>handleLike(e)}>
+        <button className="btn btn-primary mr-2" id={post.postId} onClick={(e) => handleLike(e)}>
           {liked ? "Unlike" : "Like"}
         </button>
-        <button className="btn btn-secondary mr-2" id = {post.postId + 'c'} onClick={(e)=>handleComment(e)} >Comment</button>
-        <button className="btn btn-info" id = {post.postId + 's'} onClick={(e)=>handleSave(e)}>
-          {saved ? "Saved":"Save"}
-          </button>
+        {likeCount} 
+        <input
+          type="text"
+          placeholder="Write a comment..."
+          value={userComment}
+          onChange={(e) => setUserComment(e.target.value)}
+        />
+        <button className="btn btn-secondary mr-2" id={`${post.postId}c`} onClick={() => handleComment(post.postId)}>
+          Comment
+        </button>
+        <button className="btn btn-info" id={post.postId + "s"} onClick={(e) => handleSave(e)}>
+          {saved ? "Saved" : "Save"}
+        </button>
       </div>
     </div>
   );
 }
 
-
-
+async function getAllPostInteraction(posts){
+  if(posts.length < 1){return}
+  const postInters = [];
+  for(let i = 0; i< posts.length;i++){
+    const currentInter = await getPostsInteraction(posts[i].postId);
+    if(currentInter) postInters.push(currentInter);
+  }
+  console.log(postInters);
+  return postInters;
+  
+}
 
 function Blog() {
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [newPostText, setNewPostText] = useState(''); // State to store the text of the new post
-  const [selectedFile, setSelectedFile] = useState(null); // State to store the selected photo file
-  const [userComment, setUserComment] = useState(''); // State to store the user's comment
+  const[postInteraction,setPostInteraction] = useState([]);
+  const [newPostText, setNewPostText] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [userComment, setUserComment] = useState("");
+  const user = JSON.parse(sessionStorage.getItem("user"));
 
   useEffect(() => {
     async function fetchPosts() {
       const posts = await getPosts(localStorage.getItem("userId"));
-      console.log("fetched Posts", posts)
+      const postInter =await getAllPostInteraction(posts);
+      setPostInteraction(postInter);
+      // posts.push({})
       setPosts(posts);
     }
     fetchPosts();
   }, []);
 
-  // Function to handle the form submission when a user posts a new text or photo
   const handlePostSubmit = async (e) => {
     e.preventDefault();
 
-    if (newPostText.trim() !== '' || selectedFile !== null) {
-      // Create a FormData object to send text and photo
+    if (newPostText.trim() !== "" || selectedFile !== null) {
       const formData = new FormData();
-      formData.append('text', newPostText);
+      formData.append("postTitle", newPostText);
+      formData.append("userId", localStorage.getItem("userId"));
+      formData.append("userName", user.name);
+
       if (selectedFile) {
-        formData.append('photo', selectedFile);
+        formData.append("postImage", selectedFile);
       }
 
-      // You can send formData to your server using Axios or any other method
-      // Example using Axios:
       try {
-        const response = await axios.post('/api/uploadpost', formData, {
+        const url = process.env.REACT_APP_API_URL_SERVER + "/post/create";
+        const response = await axios.post(url, formData, {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         });
-        // Handle success or display a success message to the user
-        console.log('Post uploaded successfully:', response.data);
-
-        // Clear the input fields after a successful post
-        setNewPostText('');
+        setNewPostText("");
         setSelectedFile(null);
-
-        // Refresh the list of posts
-        // fetchPosts();
       } catch (error) {
-        console.error('Error uploading post:', error);
+        console.error("Error uploading post:", error);
       }
     } else {
-      alert('Please enter some content or select a photo before posting.');
+      alert("Please enter some content or select a photo before posting.");
     }
-  };
-
-  // Function to handle the submission of user comments
-  const handleCommentSubmit = async (e) => {
-    e.preventDefault();
-
-    if (userComment.trim() !== '') {
-      // Implement code to post the user's comment to the server or store it locally
-      // For example, you can send the comment using Axios or another API call
-
-      // Clear the comment input field after posting
-      setUserComment('');
-    } else {
-      alert('Please enter something  before posting.');
-    }
-  };
+  }
 
   return (
     <div className="container" style={{ margin: 0, padding: 0 }}>
@@ -276,30 +355,31 @@ function Blog() {
         <PageComponent />
       </header>
       <main>
-        {/* Create a form for posting */}
         <Form onSubmit={handlePostSubmit}>
-          {/* ... (Existing code for posting text and photos) */}
-       <Form.Group>
+          <Form.Group>
             <Form.Control
               as="textarea"
               rows="3"
-              placeholder="Write your comment here..."
+              placeholder="Write your thoughts here..."
               value={newPostText}
               onChange={(e) => setNewPostText(e.target.value)}
             />
           </Form.Group>
           <Button type="submit" variant="primary">
-            Post 
+            Post
           </Button>
         </Form>
-
-        {/* Display existing posts */}
-        <Posts posts={posts} />
+        <Posts
+          userName={user.name}
+          posts={posts}
+          postInteraction = {postInteraction}
+          userComment={userComment}
+          setUserComment={setUserComment}
+       
+        />
       </main>
     </div>
   );
 }
 
-
-    
 export default Blog;

@@ -343,7 +343,7 @@ router.get("/getUserPost/:userId",async (req,res)=>{
 
 
 
-// Add feedInteraction
+// Add postInteraction
 // When someone comments or likes or saves the post
 // requires
 // userID
@@ -401,7 +401,37 @@ router.put("/postInteraction/:postId",verifyJWT, async (req,res)=>{
                 }
                 else{
                     await currentInteraction.updateOne({$push: {savedBy:req.body.userId}});
+                    res.status(200).json(currentInteraction);
                 }
+                
+                // {$push:{feedStats:getStat(req.body.feedStats)}}
+                
+            }
+            if(req.body.button == "unlike"){
+                const user = await userModel.findById(req.body.userId);
+                if((user.likedPosts.includes(req.params.postId))){
+                    await user.updateOne({$pull:{likedPosts:req.params.postId}});    
+                }
+                if(currentInteraction.likes.includes(req.body.userId)){
+                    await currentInteraction.updateOne({$pull: {likes:req.body.userId}});
+                    res.status(200).json(currentInteraction);
+                }
+                res.status(200).json(currentInteraction);
+                // {$push:{feedStats:getStat(req.body.feedStats)}}
+                
+            }
+            if(req.body.button == "unsave"){
+                // find the user
+                const user = await userModel.findById(req.body.userId);
+                if((user.savedPosts.includes(req.params.postId))){
+                    await user.updateOne({$pull:{savedPosts:req.params.postId}});    
+                }
+                if(currentInteraction.savedBy.includes(req.body.userId)){
+                    await currentInteraction.updateOne({$push: {savedBy:req.body.userId}});
+                    res.status(200).json(currentInteraction);
+                }    
+                res.status(200).json(currentInteraction);
+                
                 
                 // {$push:{feedStats:getStat(req.body.feedStats)}}
                 
@@ -424,8 +454,8 @@ router.put("/postInteraction/:postId",verifyJWT, async (req,res)=>{
             // const like_status = req.body.likeStatus;
 
             // const newComment = req.body.comment ? await createNewComment(req.body.userId,req.body.comment,req.body.userName): '';
-            const likeStatus = req.body.like ? [req.body.userId]: undefined;
-            const saveStatus = req.body.save ? [req.body.userId]: undefined;
+            const likeStatus = req.body.button == "like" ? [req.body.userId]: undefined;
+            const saveStatus = req.body.button == "save" ? [req.body.userId]: undefined;
             if(req.body.save == "true"){
                 const user = await userModel.findById(req.body.userId);
                 await user.updateOne({$push:{savedPosts:req.params.postId}});
@@ -443,6 +473,19 @@ router.put("/postInteraction/:postId",verifyJWT, async (req,res)=>{
         console.log(err);
     }
 });
+
+// Get post interaction
+router.get("/getPostInteraction/:postId",verifyJWT,async (req,res)=>{
+    // check if feed exist using feed id
+    if(req.params.postId === "undefined" || req.params.postId === null) return res.sendStatus(403);
+    const postId = req.params.postId;
+    if(!postId) return res.status(403).json("user id not received");
+    // find the user and the following list
+    const postInteration = await postInteractionModel.findOne({'postId':postId});
+    res.status(200).json(postInteration);
+});
+
+
 
 module.exports = router;
 

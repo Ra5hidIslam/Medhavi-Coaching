@@ -43,6 +43,7 @@ async function(error){
         if(error.response.status === 403 ){
             prevRequest.sent = true; // so it doesn't go into a infinite loop
             const newAccessToken = await refresh();
+            console.log("new token = ".newAccessToken);
             prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
             // prevRequest.headers['NewAccessToken'] = newAccessToken;
             return axiosPrivate(prevRequest);

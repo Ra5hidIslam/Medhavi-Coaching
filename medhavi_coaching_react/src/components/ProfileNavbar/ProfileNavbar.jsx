@@ -1,69 +1,63 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from "react-router-dom";
-import ProfileNavbarCSS from '../ProfileNavbar/ProfileNavbar.module.css';
-import e from 'cors';
-import UserFeed from '../Profile_Post/UserPost'
-import SavedPosts from '../Profile_Post/SavedPosts';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import NavBarCSS from '../Navbar/nav_bar.module.css';
+import medhaviLogo from '../../files/icons/medhaviLogo.png';
 
+function logout() {
+  console.log("Logging out");
+  sessionStorage.clear();
+  window.location.assign('/');
+  localStorage.clear();
+}
 
+function Nav_bar() {
+  const [open, setOpen] = useState(false);
 
-const  Nav_bar=()=> {
+  useEffect(() => {
+    const userId = sessionStorage.getItem("user");
+    setOpen(!!userId); // Set open to true if userId exists, false otherwise
+  }, []);
 
- 
-    const [currentSelection,setCurrentSelection] = useState(1);
-    const [userStyle,setUserStyle] = useState("");
-    const [interstyle,setInterStyle] = useState("");
-    // useEffect(()=>{
-    // },[currentSelection]);
-
-
-
-    const currentElement = ()=>{
-      if(currentSelection == 1){
-        return <UserFeed/>
-      }
-      else if(currentSelection == 2){
-        return <SavedPosts/>
-      }
-    }
-
-    const changeStyleUser = ()=>{
-      setUserStyle(ProfileNavbarCSS.UserPostsActive);
-      setInterStyle(ProfileNavbarCSS.InterPostsStandard);
-    }
-
-    
-    const changeStyleInter = ()=>{
-      setInterStyle(ProfileNavbarCSS.InterPostsActive);
-      setUserStyle(ProfileNavbarCSS.UserPostsStandard);
-     
-    }
-    
-    useEffect(()=>{
-    },[userStyle,interstyle])
-
-    
-    return (
-      <div>
-        <div className={ProfileNavbarCSS.navbar}>
-          <button className={userStyle} onClick={()=>{
-            setCurrentSelection(1)
-            changeStyleUser()
-            }}>User Posts</button>
-          <button className={interstyle} onClick={()=>{
-              setCurrentSelection(2)
-              changeStyleInter()
-            }}> Saved Posts</button>
+  const ifLanding = () => {
+    if (sessionStorage.getItem("token")) {
+      return (
+        <div className="d-flex align-items-center">
+          <img src={medhaviLogo} className={`img-fluid ${NavBarCSS.medhaviLogo}`} alt="Medhavi Logo" onClick={() => { window.location.href = '/Blog' }} style={{ maxWidth: '190px', maxHeight: '80px' }} />
         </div>
-          <div className={ProfileNavbarCSS.userfeed}>
-            {currentElement()}
-          </div>
-      </div>
-      // <UserFeed/>
-       
-       
+      );
+    } else {
+      return (
+        <div className="d-flex align-items-center">
+          <Link to="/">
+            <img
+              src={medhaviLogo}
+              className={`img-fluid ${NavBarCSS.medhaviLogo}`}
+              alt="Medhavi Logo"
+              style={{ maxWidth: '190px', maxHeight: '80px' }}
+            />
+          </Link>
+        </div>
+      );
+    }
+  };
 
-    )
+  return (
+    <nav className={`navbar navbar-expand-lg navbar-light ${NavBarCSS.nav_bar}`} style={{ background: 'linear-gradient(90.46deg, #EE6161 27.83%, rgba(253, 219, 40, 0) 100.14%)' }}>
+      <span className="navbar-brand">{ifLanding()}</span>
+      <div className={`${NavBarCSS.nav_bar_buttons} ${NavBarCSS.sign_in_button}`} style={{ position: 'absolute', left: "80vw", top: '55px', backgroundColor: 'green', color: 'white' }}>
+        <button className={NavBarCSS.sign_in_btn} style={{ backgroundColor: 'green', color: 'white' }} onClick={() => {
+          if (open) {
+            logout();
+            setOpen(false); // Set open to false when logging out
+          } else {
+            window.location.assign('/Signin');
+          }
+        }}>
+          {open ? 'Sign Out' : 'Sign In'}
+        </button>
+      </div>
+    </nav>
+  );
 }
 
 export default Nav_bar;

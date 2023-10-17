@@ -11,9 +11,17 @@ const useRefreshToken = () =>{
         // console.log("previous token:",sessionStorage.getItem("token"));
         // console.log("new token:",response.data.accessToken);
         // set the session token as the new accesstoken
-        sessionStorage.setItem("token",response.data.accessToken);
-        return response.data.accessToken;
+        console.log("refresh response = ",response);
+        if(response.status == 403){
+            return false;
+        }
+        else{
+            sessionStorage.setItem("token",response.data.accessToken);
+            return response.data.accessToken;
+        }
+        
     }
+   
     return refresh;
 }
 

@@ -12,7 +12,7 @@ const postCommentSchema = new mongoose.Schema({
     type:String,
     require:true
    },
-   userName:{
+   postId:{
     type:String,
     require:true
    },

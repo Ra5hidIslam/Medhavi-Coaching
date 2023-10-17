@@ -28,7 +28,7 @@ export const getLogin =  async (data)=>{
             return true
         }
         else{
-            console.log(result);
+            console.log("error in logging in= ",result);
             return false;
         }
         

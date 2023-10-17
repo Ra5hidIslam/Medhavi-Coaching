@@ -27,8 +27,8 @@ const fetchPosts = async (userID) =>{
             // signal:controller.signal
             headers:{'Authorization':`Bearer ${sessionStorage.getItem("token")}`},
         });
-        console.log(response);
-        console.log(response.data);
+        // console.log(response);
+        // console.log(response.data);
         const posts = await response.data;
         return toArray(posts);
     } catch(err){
