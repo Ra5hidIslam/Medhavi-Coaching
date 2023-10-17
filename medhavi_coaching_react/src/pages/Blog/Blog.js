@@ -152,7 +152,7 @@ function Post({ post, userName,postInteraction }) {
   let commentsFromInter;
   if(postInteraction[0]){
       if(postInteraction[0].likes.includes(post.userId)){
-        console.log("post inter",postInteraction[0].likes.includes(post.userId));
+        // console.log("post inter",postInteraction[0].likes.includes(post.userId));
         likeStatus = true;
       }
       if(postInteraction[0].likes.length){
@@ -167,7 +167,6 @@ function Post({ post, userName,postInteraction }) {
 
   }
   const [liked, setLiked] = useState(likeStatus);
-
   const [likeCount, setLikeCount] = useState(likeCountStat);
   const [saved, setSaved] = useState(savedStatus);
   const [userComment, setUserComment] = useState("");
@@ -183,12 +182,12 @@ function Post({ post, userName,postInteraction }) {
       //     setLiked(true);
       //   }
       // });
-      registerPostInteraction(localStorage.getItem("userId"), "like", e.target.id.slice(0, -1));
+      registerPostInteraction(localStorage.getItem("userId"), "like", e.target.id);
       setLikeCount(likeCount + 1);
       setLiked(true);
     }
     else{
-      console.log(registerPostInteraction(localStorage.getItem("userId"), "unlike", e.target.id.slice(0, -1)));
+      console.log(registerPostInteraction(localStorage.getItem("userId"), "unlike", e.target.id));
       setLikeCount(likeCount - 1);
       setLiked(false);
     }
@@ -200,15 +199,15 @@ function Post({ post, userName,postInteraction }) {
   //           commentImage:req.file.filename
 
   function handleComment(postId) {
+    console.log("postId",postId)
     if (userComment && userComment.trim() !== "") {
       const commentData = {
-        postId: postId,
         comment: userComment,
         userId:localStorage.getItem("userId"),
 
 
       };
-      const url =  process.env.REACT_APP_API_URL_SERVER + "/comment/create/" + postId;
+      const url =  process.env.REACT_APP_API_URL_SERVER + "/comment/create/" + postId.slice(0, -1);
       // Make a POST request to your server's comment endpoint
       axios
         .post(url, commentData, {
@@ -239,15 +238,23 @@ function Post({ post, userName,postInteraction }) {
   function handleSave(e) {
     
     if(!saved){
+      
       registerPostInteraction(localStorage.getItem("userId"), "save", e.target.id.slice(0, -1));
       setSaved(!saved);
+      // console.log("saved state",saved);
     }
     else{
-      registerPostInteraction(localStorage.getItem("userId"), "save", e.target.id.slice(0, -1));
+      
+      registerPostInteraction(localStorage.getItem("userId"), "unsave", e.target.id.slice(0, -1));
       setSaved(!saved);
+      // console.log("saved state",saved);
     }
     
   }
+
+  // useEffect(()=>{
+  //   console.log("saved State",saved);
+  // },[]);
 
   return (
     <div className="card">
@@ -274,7 +281,7 @@ function Post({ post, userName,postInteraction }) {
           value={userComment}
           onChange={(e) => setUserComment(e.target.value)}
         />
-        <button className="btn btn-secondary mr-2" id={`${post.postId}c`} onClick={() => handleComment(post.postId)}>
+        <button className="btn btn-secondary mr-2" id={post.postId + 'c'} onClick={() => handleComment(post.postId)}>
           Comment
         </button>
         <button className="btn btn-info" id={post.postId + "s"} onClick={(e) => handleSave(e)}>

@@ -20,10 +20,10 @@ require('dotenv').config();
 //     return arr
 // }
 
-const fetchPostsInteraction = async (userID) =>{
+const fetchPostsInteraction = async (postID) =>{
     try{
         const axiosPrivate = useAxiosPrivate;
-        const response = await axiosPrivate.get('/post/getPostInteraction/'+ userID,{
+        const response = await axiosPrivate.get('/post/getPostInteraction/'+ postID,{
             // signal:controller.signal
             headers:{'Authorization':`Bearer ${sessionStorage.getItem("token")}`},
         });
@@ -37,10 +37,10 @@ const fetchPostsInteraction = async (userID) =>{
     }
 }
 
-const getPostsInteraction = async (userID)=>{
+const getPostsInteraction = async (postID)=>{
     let user;
     try{
-        user = await fetchPostsInteraction(userID);
+        user = await fetchPostsInteraction(postID);
     }catch(err){
         console.log(err.message);
     }

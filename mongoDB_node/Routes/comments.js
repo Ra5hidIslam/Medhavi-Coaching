@@ -90,7 +90,8 @@ router.post("/create/:postId",verifyJWT, upload.single('postImage'),async (req,r
             newComment = new postCommentsModel({
             comment:req.body.comment,
             userId:req.body.userId,
-            userName:req.body.userName,
+            postId:req.params.postId,
+            // userName:req.body.userName,
             commentImage:req.file.filename
             });
         }
@@ -98,7 +99,8 @@ router.post("/create/:postId",verifyJWT, upload.single('postImage'),async (req,r
             newComment = new postCommentsModel({
             comment:req.body.comment,
             userId:req.body.userId,
-            userName:req.body.userName
+            postId:req.params.postId,
+            // userName:req.body.userName
             });
         }
         
@@ -113,7 +115,7 @@ router.post("/create/:postId",verifyJWT, upload.single('postImage'),async (req,r
             await newInteraction.updateOne({$push: {comments:comment}});
         }
         await foundPostInteraction.updateOne({$push: {comments:comment}});
-        res.status(200).json(comment);
+        res.status(200).json(foundPostInteraction);
     } catch(err){
         res.status(401).json(err.message);
     }

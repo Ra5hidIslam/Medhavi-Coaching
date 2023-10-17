@@ -35,8 +35,8 @@ router.post("/uploadPI/:id",verifyJWT,upload.single('image'),async(req,res)=>{
         if(tempUser.userId != req.body.userId){
             return res.status(500).json("You can only change your own profile picture");
         }
-        await tempUser.updateOne({$set:{"image":req.file.filename}});
-        res.status(200).json("Account has been updated");
+        await tempUser.updateOne({$set:{image:req.file.filename}});
+        res.status(200).json(tempUser);
     }catch(err){
         return res.status(500).json(err);
     }

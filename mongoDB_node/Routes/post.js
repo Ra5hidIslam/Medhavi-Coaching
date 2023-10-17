@@ -376,7 +376,7 @@ router.put("/postInteraction/:postId",verifyJWT, async (req,res)=>{
             if(req.body.button == "like"){
                 const user = await userModel.findById(req.body.userId);
                 if(!(user.likedPosts.includes(req.params.postId))){
-                    await user.updateOne({$push:{likedPosts:req.params.postId}});    
+                    await user.updateOne({$push:{likedPosts:req.params.postId}});   
                 }
                 if(currentInteraction.likes.includes(req.body.userId)){
                     res.status(200).json(currentInteraction);
@@ -401,6 +401,7 @@ router.put("/postInteraction/:postId",verifyJWT, async (req,res)=>{
                 }
                 else{
                     await currentInteraction.updateOne({$push: {savedBy:req.body.userId}});
+                    // newInter.save();
                     res.status(200).json(currentInteraction);
                 }
                 
@@ -416,7 +417,7 @@ router.put("/postInteraction/:postId",verifyJWT, async (req,res)=>{
                     await currentInteraction.updateOne({$pull: {likes:req.body.userId}});
                     res.status(200).json(currentInteraction);
                 }
-                res.status(200).json(currentInteraction);
+                // res.status(200).json(currentInteraction);
                 // {$push:{feedStats:getStat(req.body.feedStats)}}
                 
             }
@@ -427,10 +428,10 @@ router.put("/postInteraction/:postId",verifyJWT, async (req,res)=>{
                     await user.updateOne({$pull:{savedPosts:req.params.postId}});    
                 }
                 if(currentInteraction.savedBy.includes(req.body.userId)){
-                    await currentInteraction.updateOne({$push: {savedBy:req.body.userId}});
+                    await currentInteraction.updateOne({$pull: {savedBy:req.body.userId}});
                     res.status(200).json(currentInteraction);
                 }    
-                res.status(200).json(currentInteraction);
+                // res.status(200).json(currentInteraction);
                 
                 
                 // {$push:{feedStats:getStat(req.body.feedStats)}}

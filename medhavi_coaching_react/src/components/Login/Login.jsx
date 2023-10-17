@@ -35,6 +35,7 @@ function Login({logState,handleLoginClick}) {
     // const data = new formData(e.target);
     // console.log(formData);\
     // write code to fetch the api
+  
     const loginstate  = await getLogin(formData);
     const user = await getUser(localStorage.getItem("userId"));
     const userJson = JSON.stringify(user);  
