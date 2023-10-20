@@ -12,14 +12,26 @@ const initialFormData = Object.freeze({
   email:"",
   userId:"",
   password:"",
-  "image":""
+  image:""
 });
+
+
+
+// const initialFormData = new FormData;
 
 const SignUp = ({ logState,handleLoginClick}) => {
   console.log(logState);
 
   const [formData,updateFormData] = useState(initialFormData);
   const [signUpPageState, setSignUpPageState] = useState(1);
+
+  const handleImage = (e)=>{
+    updateFormData({
+      ...formData,
+      [e.target.name]:e.target.files[0],
+    })
+    // formData.append(e.target.name,e.target.files[0])
+  }
 
   const handleChange =(e)=>{
     let targetValue;
@@ -35,11 +47,12 @@ const SignUp = ({ logState,handleLoginClick}) => {
       [e.target.name]:targetValue,
       
     });
+    // formData.append(e.target.name,targetValue);
     console.log(formData);
   };
 
   const handleSubmit = async()=>{
-
+    console.log(formData);
     if(formData.name == ""){
       console.log("Please enter name")
       return;
@@ -55,6 +68,13 @@ const SignUp = ({ logState,handleLoginClick}) => {
     }
     else{
       try{
+        // convert the data into form data;
+        // formdata.append("name", formData.name);
+        // formdata.append("email", formData.email);
+        // formdata.append("password", formData.password);
+        // formdata.append("userId", formData.userId);
+        // formdata.append("image", formData.image);
+        // console.log(formdata);    
         const SignUpState = await getSignUp(formData);
         // add one more api call to upload the image for the user
         if(SignUpState == "errorCode1"){
@@ -64,9 +84,11 @@ const SignUp = ({ logState,handleLoginClick}) => {
         else{
           // alert("error in Signing you, Sorry");
           if(SignUpState == true){
+            console.log("Account created successfully");
             handleSuccessLogin();
+
           }
-          console.log("Account created successfully");
+          
           // console.log(SignUpState);
         }
       }
@@ -98,16 +120,18 @@ const SignUp = ({ logState,handleLoginClick}) => {
       if(signUpPageState == 1){
         return(
           <div>
-            <label>Name</label>
-            <input type="text" name="name" className={SignUpCSS.SignUpBox} onChange={handleChange}/>
-            <label>Email</label>
-            <input type="text" name="email" className={SignUpCSS.SignUpBox} onChange={handleChange}/> 
-            <label>Username</label>
-            <input type="text" name="userId" className={SignUpCSS.SignUpBox} onChange={handleChange}/>
-            <label>Password</label>
-            <input type="password" name="password" className={SignUpCSS.SignUpBox} onChange={handleChange}/> 
-            {/* <label>Profile Picture</label> */}
-            {/* <input type="file" name="image" className={SignUpCSS.SignUpBox} onChange={handleChange}/>  */}
+            <form>
+              <label>Name</label>
+              <input type="text" name="name" className={SignUpCSS.SignUpBox} onChange={handleChange}/>
+              <label>Email</label>
+              <input type="text" name="email" className={SignUpCSS.SignUpBox} onChange={handleChange}/> 
+              <label>Username</label>
+              <input type="text" name="userId" className={SignUpCSS.SignUpBox} onChange={handleChange}/>
+              <label>Password</label>
+              <input type="password" name="password" className={SignUpCSS.SignUpBox} onChange={handleChange}/> 
+              <label>Profile Picture</label>
+              <input type="file" name="image" className={SignUpCSS.SignUpBox} onChange={handleImage}/> 
+            </form>
           </div>
           
         )

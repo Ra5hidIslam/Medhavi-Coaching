@@ -91,7 +91,7 @@ router.post("/create/:postId",verifyJWT, upload.single('postImage'),async (req,r
             comment:req.body.comment,
             userId:req.body.userId,
             postId:req.params.postId,
-            // userName:req.body.userName,
+            userName:req.body.userName,
             commentImage:req.file.filename
             });
         }
@@ -100,7 +100,7 @@ router.post("/create/:postId",verifyJWT, upload.single('postImage'),async (req,r
             comment:req.body.comment,
             userId:req.body.userId,
             postId:req.params.postId,
-            // userName:req.body.userName
+            userName:req.body.userName
             });
         }
         

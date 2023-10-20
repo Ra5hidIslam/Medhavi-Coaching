@@ -2,12 +2,15 @@ import React from 'react'
 import { createContext,useReducer } from 'react';
 
 
+
 export const AuthContext = createContext();
 
 export const authReducer = (state,action)=>{
     switch(action.type){
         case 'LOGIN':
-            return {...state,login:true}
+            return {...state,login:localStorage.setItem("loginState",true)}
+        case 'LOGOUT':
+            return {...state,login:localStorage.setItem("loginState",false)}
         case 'USERLOADED':
             return {...state,userStatus:true}
         case 'FEEDLOADED':
@@ -19,7 +22,7 @@ export const authReducer = (state,action)=>{
 
 export const AuthContextProvider = ({children})=>{
     const [state,dispatch] = useReducer(authReducer,{
-        login:false,
+        login:localStorage.getItem('loginState'),
         userStatus:false,
         feedStatus:false,
     });
@@ -39,4 +42,3 @@ export const AuthContextProvider = ({children})=>{
 }
 
 
-// export default AuthContext

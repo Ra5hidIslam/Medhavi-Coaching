@@ -7,7 +7,7 @@ require('dotenv').config();
 const sendAnswers = async (userId,selection,question_id,questionType) =>{
     try{
         const axiosPrivate = useAxiosPrivate;
-        console.log("questionId",question_id);
+        // console.log("questionId",question_id);
         const url = process.env.REACT_APP_API_URL_SERVER + "/feed/feedresult/" + question_id;
         // console.log(sessionStorage.getItem("token"));
         

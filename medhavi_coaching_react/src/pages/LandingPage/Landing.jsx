@@ -14,8 +14,11 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 function Landing(){
 
-    // const context = useAuthContext(); 
+
+    localStorage.setItem("loginState",false);
+    const context = useAuthContext(); 
     // const {setLoginContext,LoginContext} = useContext(context);
+
 
 
     const refreshFunction = useRefreshToken();
@@ -32,21 +35,21 @@ function Landing(){
     const checkToken = async()=>{
          // log the person in and redirect to home page
         const  refreshToken = await refreshFunction();
-        if(!refreshToken){
-            return (
-                <Login
-                        logState = {logState}
-                        handleLoginClick = {handleLoginClick}
-                />
-            )
-        }
+        // if(!refreshToken){
+        //     return (
+        //         <Login
+        //                 logState = {logState}
+        //                 handleLoginClick = {handleLoginClick}
+        //         />
+        //     )
+        // }
         console.log("refresh token = ",refreshToken);
         sessionStorage.setItem("token",refreshToken);
         const user = await getUser(localStorage.getItem("userId"));
         const userJson = JSON.stringify(user);  
         sessionStorage.setItem("user",userJson);
         //  change the context
-        // setLoginContext({'LOGIN':true})
+        context.dispatch({'LOGIN':true});
         window.location.href = '/Blog';
          
     }

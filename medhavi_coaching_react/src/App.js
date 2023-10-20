@@ -5,7 +5,7 @@ import { useState } from 'react';
 import NavBar from './components/Navbar/NavBar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from "./pages/Home/Home"
-import JEE from './pages/JEE/Jee';
+import JEE from './pages/JEE/Jee2';
 import NEET from './pages/NEET/Neet';
 import Courses from './pages/Courses/Courses';
 import ExamsPage from './pages/Exams/ExamsPage';
@@ -17,7 +17,7 @@ import QuizStartPage from './pages/Quiz/QuizStartPage';
 import Profile from './pages/Profile/Profile';
 import PracInside from './pages/Prac/PracInside';
 import Landing from './pages/LandingPage/Landing';
-import Blog from './pages/Blog/Blog.js';
+import Blog from './pages/Blog/Blog2.js';
 function App() {
 	return (
 		<Router>

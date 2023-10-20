@@ -116,7 +116,7 @@ const GetQuestionAnswers =()=>{
         // console.log(questionType);
         if(questionType == 'MCQ' || questionType == 'MSQ'){
             console.log("received answer",answer);
-            console.log("selected answer",which_button[question_id]);
+            console.log("selected answer",which_button);
             if(which_answer[question_id] == true){
                 result = JSON.stringify(which_button[question_id]) === JSON.stringify(answer);
                 let originalQuestionId = question_id.slice(0,-1);
@@ -232,49 +232,7 @@ const GetQuestionAnswers =()=>{
     },[]);
 
 
-    // const context = useAuthContext();  
-    // useEffect(()=>{
-    //     async function getDataUser(){
-            
-    //         try{
-    //             if(localStorage.getItem("userId") && !sessionStorage.getItem("user") ){
-                    
-    //                 console.log("hello");
-    //                 const user = await getUser(localStorage.getItem("userId"));
-    //                 console.log("user:",user);
-    //                 // set the sessionStorage user id to the extracted userID
-    //                 // Since storing object directly is not possible so we need to convert it into json and then save it
-    //                 const userJson = JSON.stringify(user);  
-    //                 sessionStorage.setItem("user",userJson);
-    //                 context.dispatch({type:'LOGIN'})
-    //                 // context = useContext(AuthContext);
-    //                 // console.log("context1",context);
-    //                 // setIsMounted(true);
-                    
-    //             }
-    //             // // else if(sessionStorage.getItem("user")){
-    //             //     const context = getContext();
-    //             //     console.log("hello2");
-    //             //     context.dispatch({type:'LOGIN'});
-    //             //     // console.log("hello2");
-    //             //     console.log("context2",context);
-    //             // // }
-    //         }catch(error){
-    //             // console.log(err.message);
-    //             console.log("error in getDataUser");
-    //             console.log("error",error.message);
-    //         }
-            
-    //     }
-
-    //     getDataUser();
-    // },[]);
-
-    // context = useContext(AuthContext);
-    // console.log(context);
-
-    // console.log("Yoyoyoyo");
-
+    
 
     useEffect(()=>{
         console.log(which_answer);

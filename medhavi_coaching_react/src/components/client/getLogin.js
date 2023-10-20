@@ -1,12 +1,15 @@
-require('dotenv').config();
 // import { useAuthContext } from '../hooks/useAuthContext';
+require('dotenv').config();
 
-// const context = useAuthContext();
+
+
+
 
 export const getLogin =  async (data)=>{
+    
+    // const loginContext  = useAuthContext();
     console.log(process.env);
     const url = process.env.REACT_APP_API_URL_SERVER + "/auth/login";
-
     console.log("url=",process.env.REACT_APP_API_URL_SERVER);
     console.log("working??")
     try{
@@ -23,7 +26,7 @@ export const getLogin =  async (data)=>{
             result = await response.json();
             sessionStorage.setItem("token",result["accessToken"]);
             localStorage.setItem("userId",result["userId"]);
-            // context.dispatch({type:'LOGIN'})
+            // loginContext.dispatch({type:'LOGIN'})
             // console.log(result);
             return true
         }

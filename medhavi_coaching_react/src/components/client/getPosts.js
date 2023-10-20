@@ -14,16 +14,17 @@ function toArray(posts){
                       userId:posts[i].userId,
                       userName:posts[i].userName,
                       postId:posts[i]._id,
+                      createdAt:posts[i].createdAt,
                     }
         arr.push(temp);
     }
     return arr
 }
 
-const fetchPosts = async (userID) =>{
+const fetchPosts = async (userID,numberOfPosts) =>{
     try{
         const axiosPrivate = useAxiosPrivate;
-        const response = await axiosPrivate.get('/post/getPostFeed/'+ userID,{
+        const response = await axiosPrivate.get('/post/getPostFeed/'+ userID + '/' + numberOfPosts,{
             // signal:controller.signal
             headers:{'Authorization':`Bearer ${sessionStorage.getItem("token")}`},
         });
@@ -36,10 +37,10 @@ const fetchPosts = async (userID) =>{
     }
 }
 
-const getPosts = async (userID)=>{
+const getPosts = async (userID,numberOfPosts)=>{
     let user;
     try{
-        user = await fetchPosts(userID);
+        user = await fetchPosts(userID,numberOfPosts);
     }catch(err){
         console.log(err.message);
     }

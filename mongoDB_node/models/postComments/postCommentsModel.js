@@ -19,6 +19,9 @@ const postCommentSchema = new mongoose.Schema({
    commentImage:{
     type:String,
    },
+   userName:{
+    type:String,
+   }
 },
     { timestamps:true}
 );

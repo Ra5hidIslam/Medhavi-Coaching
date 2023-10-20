@@ -6,8 +6,8 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
 import SignUp from '../../pages/SignUp/SignUp';
 import { useAuthContext } from '../hooks/useAuthContext';
 import getUser from '../client/getUser';
+// import { useNavigate } from 'react-router-dom';
 
-// const context = useAuthContext();
 
 const initialFormData = Object.freeze({
   email:"",
@@ -17,6 +17,7 @@ const initialFormData = Object.freeze({
 
 function Login({logState,handleLoginClick}) {
 
+  
   const context = useAuthContext(); 
   const [formData,updateFormData] = useState(initialFormData);
 
@@ -31,11 +32,6 @@ function Login({logState,handleLoginClick}) {
 
 
   const handleSubmit = async (e)=>{
-    // e.preventDefault();
-    // const data = new formData(e.target);
-    // console.log(formData);\
-    // write code to fetch the api
-  
     const loginstate  = await getLogin(formData);
     const user = await getUser(localStorage.getItem("userId"));
     const userJson = JSON.stringify(user);  
@@ -43,9 +39,11 @@ function Login({logState,handleLoginClick}) {
     // console.log("hello");
     if(loginstate == true && sessionStorage.getItem("user")){
       context.dispatch({type:'LOGIN'})
-      window.location.href = '/Blog';
+      console.log("New Context",context);
+      // window.location.href = '/Blog';
+      // navigate("/Blog");
       
-      // console.log("Logged In")
+      
     }
     else{
       alert("Login failed");

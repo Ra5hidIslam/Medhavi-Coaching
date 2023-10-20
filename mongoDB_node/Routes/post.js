@@ -81,7 +81,7 @@ async function getSavedPostsFromUsers(ID){
 
 async function postSelector(feedCount){
     // get the feed and sort them by time(latest first).
-    const allPosts = postModel.find().sort({createdAt:-1});
+    const allPosts = postModel.find().sort({createdAt:-1}).limit(feedCount);
     // console.log("allfeeds",allFeeds);
     return allPosts;
 }
@@ -213,7 +213,7 @@ router.get("/getOnePost/:postId",verifyJWT, async (req,res)=>{
 // // Get post feed 
 // //  two ways to get the homefeed(algo for now), if the user is following others then show them first then fill the box with other posts
 
-router.get("/getPostFeed/:userId",verifyJWT, async (req,res)=>{
+router.get("/getPostFeed/:userId/:numberOfPosts",verifyJWT, async (req,res)=>{
     // check if feed exist using feed id
     if(req.params.userId === "undefined" || req.params.userId === null) return res.sendStatus(403);
     const userId = req.params.userId;
@@ -221,7 +221,9 @@ router.get("/getPostFeed/:userId",verifyJWT, async (req,res)=>{
     // find the user and the following list
     const foundUser = await userModel.findOne({_id:userId});
     if(!foundUser) return res.status(403).json("user not found");
+    // console.log(req.params);
     // get the timeline object from the user
+    const limit = req.params.numberOfPosts;
     const timeline = foundUser.timeline;
     console.log("Length of timeline",Object.keys(timeline).length);
     if(timeline == undefined){
@@ -241,7 +243,8 @@ router.get("/getPostFeed/:userId",verifyJWT, async (req,res)=>{
     else{
         // get the feed from the timeline
         console.log("RUnning option3");
-        const post = await getPostFromUsers(timeline);
+        // const post = await getPostFromUsers(timeline);
+        const post = await postSelector(limit);
         console.log("First promise");
         res.status(200).json(feed);    
     }
@@ -254,7 +257,7 @@ router.get("/getPostFeed/:userId",verifyJWT, async (req,res)=>{
 });
 
 
-// //get userfeed
+// //get self postfeed
 router.get("/getUserPost/:userId",async (req,res)=>{
     // check if feed exist using feed id
     if(req.params.userId === "undefined" || req.params.userId === null) return res.sendStatus(403);
@@ -279,56 +282,6 @@ router.get("/getSavedPost/:userId",async (req,res)=>{
 
 
 
-// Add feedResult
-// router.post("/feedresult/:id",verifyJWT,async (req,res)=>{
-//     // check is the user and feed exist first
-//     try{
-//         if((await userModel.findById(req.body.userId)) && (await feedModel.findById(req.body.feedId))){
-//             const newFeedResult = new feedResultModel({
-//                 feedId:req.params.id,
-//                 userId:req.body.userId,
-//                 userSelection:req.body.userSelection,
-//             });
-//             // save user and respond
-//             const user = await newFeedResult.save();
-//             res.status(200).json(user);
-//         }
-//         else{
-//             res.status(500).json("User or feed not found")
-//             // create the object
-
-//         }
-//     }catch(err){
-//         console.log(err);
-//     }
-// });
-
-// const createNewComment = async(userID,comment,userName)=>{
-//     // userid  = userid of the commenter
-//     // comment = comment object of postComment model
-//     // const comment = postCommentsModel.findOne({'userId':userID});
-//     // if(!comment){
-        
-//     // }
-//     // else{
-//     //     await comment.updateOne({"$push":{comments:newComment}});
-//     // }
-//     try{
-//         const newComment = new postCommentsModel({
-//             commentTitle:comment,
-//             userId:userID,
-//             userName:userName
-//         });
-//         const newCommentCreated = newComment.save();
-//         return newCommentCreated._id;
-
-//     }
-//     catch(err){
-//         console.log(err.message);
-//         return 
-//     } 
-    
-// } 
 
 // //get userfeed
 router.get("/getUserPost/:userId",async (req,res)=>{
