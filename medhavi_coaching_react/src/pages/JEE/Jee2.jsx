@@ -112,22 +112,29 @@ const getQuestions = async(userId,defaultExamType,defaultSubType) => {
   }
 
   function show_answer(question_id, answer, questionType) {
-    console.log(which_answer);
-    console.log(which_button);
-    // console.log("button clicked= ",question_id);
-    // console.log("answer for",questionType," = ",answer);
     if (which_answer[question_id] === true) {
-        console.log("selected answer",which_button[question_id]);
       const isCorrect = questionType === 'NUM'
         ? String(answer) === which_button[question_id]
         : JSON.stringify(which_button[question_id]) === JSON.stringify(answer);
-
+  
       const originalQuestionId = question_id.slice(0, -1);
       registerAnswer(localStorage.getItem('userId'), which_button[question_id], originalQuestionId, questionType);
-
-      return isCorrect ? <p>Correct Answer</p> : <p>Wrong Answer</p>;
+  
+      if (isCorrect) {
+        return (
+          <p style={{ color: 'green'}}>
+            Correct Answer
+          </p>
+        );
+      } else {
+        return (
+          <p style={{ color: 'red', padding: '0' ,}}>
+            Wrong Answer
+          </p>
+        );
+      }
     } else {
-      return <p>Check Result</p>;
+      return <p style={{ color: 'black', padding: '0' }}>Check Result</p>;
     }
   }
 
@@ -136,9 +143,9 @@ const getQuestions = async(userId,defaultExamType,defaultSubType) => {
   return (
     <div>
       <div className="subject-buttons">
-        <button onClick={() => {setSelectedSubject('Physics')}}>Physics</button>
-        <button onClick={() => {setSelectedSubject('Chemistry')}}>Chemistry</button>
-        <button onClick={() => {setSelectedSubject('Mathematics')}}>Mathematics</button>
+        <button className='Physics' onClick={() => {setSelectedSubject('Physics')}}>Physics</button>
+        <button className='Chemistry' onClick={() => {setSelectedSubject('Chemistry')}}>Chemistry</button>
+        <button className= "Mathematics" onClick={() => {setSelectedSubject('Mathematics')}}>Mathematics</button>
       </div>
         <div>
             {!questionArray.length>0 ? <div>Loading..</div>:questionArray.map((q) => (

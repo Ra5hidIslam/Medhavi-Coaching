@@ -44,7 +44,7 @@ function Nav_bar() {
   return (
     <nav className={`navbar navbar-expand-lg navbar-light ${NavBarCSS.nav_bar}`} style={{ background: 'linear-gradient(90.46deg, #EE6161 27.83%, rgba(253, 219, 40, 0) 100.14%)' }}>
       <span className="navbar-brand">{ifLanding()}</span>
-      <div className={`${NavBarCSS.nav_bar_buttons} ${NavBarCSS.sign_in_button}`} style={{ position: 'absolute', left: "80vw", top: '55px', backgroundColor: 'green', color: 'white' }}>
+      <div className={`${NavBarCSS.nav_bar_buttons} ${NavBarCSS.sign_in_button}`} style={{ position: 'absolute', left: "75vw", top: '55px', backgroundColor: 'green', color: 'white' }}>
         <button className={NavBarCSS.sign_in_btn} style={{ backgroundColor: 'green', color: 'white' }} onClick={() => {
           if (open) {
             logout();

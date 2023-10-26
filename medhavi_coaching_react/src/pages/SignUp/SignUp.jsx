@@ -128,7 +128,7 @@ const SignUp = ({ logState,handleLoginClick}) => {
               <label>Username</label>
               <input type="text" name="userId" className={SignUpCSS.SignUpBox} onChange={handleChange}/>
               <label>Password</label>
-              <input type="password" name="password" className={SignUpCSS.SignUpBox} onChange={handleChange}/> 
+              <input type="password" name="password" className={SignUpCSS.SignUpBoxPass} onChange={handleChange}/> 
               <label>Profile Picture</label>
               <input type="file" name="image" className={SignUpCSS.SignUpBox} onChange={handleImage}/> 
             </form>

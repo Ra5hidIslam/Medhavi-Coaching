@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import { Masonry } from "react-masonry";
 import { useAuthContext } from "../../components/hooks/useAuthContext";
@@ -10,116 +10,116 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import './blog.css';
 require('dotenv').config();
 
-const ProfilePage = () => {
-  const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
+// const ProfilePage = () => {
+//   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
 
-  function profilePictureElement() {
-    if (user.image) {
-      return (
-        <img
-          crossOrigin="anonymous"
-          src={`http://localhost:8800/profilePhotos/` + user.image}
-          alt="profilePicture"
-          className="rounded-circle profile-image"
-        />
-      );
-    } else {
-      return (
-        <img
-          crossOrigin="anonymous"
-          src={`http://localhost:8800/profilePhotos/defaultProfilePicture.jpg`}
-          alt="profilePicture"
-          className="rounded-circle profile-image"
-        />);
-    }
-  }
+//   function profilePictureElement() {
+//     if (user.image) {
+//       return (
+//         <img
+//           crossOrigin="anonymous"
+//           src={`http://localhost:8800/profilePhotos/` + user.image}
+//           alt="profilePicture"
+//           className="rounded-circle profile-image"
+//         />
+//       );
+//     } else {
+//       return (
+//         <img
+//           crossOrigin="anonymous"
+//           src={`http://localhost:8800/profilePhotos/defaultProfilePicture.jpg`}
+//           alt="profilePicture"
+//           className="rounded-circle profile-image"
+//         />);
+//     }
+//   }
 
-  return (
-    <Container className="profile-container">
-      <div className="profile-header">
-        <div>{profilePictureElement()}</div>
-        <h2 className="profile-name">{user.name}</h2>
-      </div>
-      <div className="marks-container">
-        <p className="marks-label">PREVIOUS EXAM MARKS</p>
-        {/* You can display user marks here */}
-      </div>
-    </Container>
-  );
-}
+//   return (
+//     <Container className="profile-container">
+//       <div className="profile-header">
+//         <div>{profilePictureElement()}</div>
+//         <h2 className="profile-name">{user.name}</h2>
+//       </div>
+//       <div className="marks-container">
+//         <p className="marks-label">PREVIOUS EXAM MARKS</p>
+//         {/* You can display user marks here */}
+//       </div>
+//     </Container>
+//   );
+// }
 
-function Notice({ isAdmin }) {
-  const [notices, setNotices] = useState([]);
-  const [newNotice, setNewNotice] = useState("");
+// function Notice({ isAdmin }) {
+//   const [notices, setNotices] = useState([]);
+//   const [newNotice, setNewNotice] = useState("");
 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
 
-    if (newNotice.trim() !== "") {
-      setNotices([...notices, newNotice]);
-      setNewNotice("");
-    }
-  };
+//     if (newNotice.trim() !== "") {
+//       setNotices([...notices, newNotice]);
+//       setNewNotice("");
+//     }
+//   };
 
-  const renderUploadForm = () => {
-    if (isAdmin) {
-      return (
-        <Form onSubmit={handleSubmit}>
-          <Form.Group>
-            <Form.Control
-              as="textarea"
-              rows="4"
-              placeholder="Enter your notice here"
-              value={newNotice}
-              onChange={(e) => setNewNotice(e.target.value)}
-            />
-          </Form.Group>
-          <Button type="submit" variant="primary">
-            Upload Notice
-          </Button>
-        </Form>
-      );
-    }
-    return null;
-  };
+//   const renderUploadForm = () => {
+//     if (isAdmin) {
+//       return (
+//         <Form onSubmit={handleSubmit}>
+//           <Form.Group>
+//             <Form.Control
+//               as="textarea"
+//               rows="4"
+//               placeholder="Enter your notice here"
+//               value={newNotice}
+//               onChange={(e) => setNewNotice(e.target.value)}
+//             />
+//           </Form.Group>
+//           <Button type="submit" variant="primary">
+//             Upload Notice
+//           </Button>
+//         </Form>
+//       );
+//     }
+//     return null;
+//   };
 
-  return (
-    <div className="notice-container">
-      <Container fluid>
-        <Row>
-          <Col lg={20} className="notice">
-            <div className="notice-header">
-              <div className="header-box">
-                <h2 className="header-text">Notice</h2>
-              </div>
-            </div>
-            <div className="notice-content">{renderUploadForm()}</div>
-            <div className="notice-list">
-              <h2 className="body-text">Uploaded Notices:</h2>
-              <ul>
-                {notices.map((notice, index) => (
-                  <li key={index}>{notice}</li>
-                ))}
-              </ul>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </div>
-  );
-}
+//   return (
+//     <div className="notice-container">
+//       <Container fluid>
+//         <Row>
+//           <Col lg={20} className="notice">
+//             <div className="notice-header">
+//               <div className="header-box">
+//                 <h2 className="header-text">Notice</h2>
+//               </div>
+//             </div>
+//             <div className="notice-content">{renderUploadForm()}</div>
+//             <div className="notice-list">
+//               <h2 className="body-text">Uploaded Notices:</h2>
+//               <ul>
+//                 {notices.map((notice, index) => (
+//                   <li key={index}>{notice}</li>
+//                 ))}
+//               </ul>
+//             </div>
+//           </Col>
+//         </Row>
+//       </Container>
+//     </div>
+//   );
+// }
 
 function PageComponent() {
   return (
     <div className="link-container">
       <div className="navbar-links">
-        <Link to="./post">Post</Link>
+        <Link to="./post">PROFILE</Link>
         <Link to="./Jee">JEE</Link>
         <Link to="./neet">NEET</Link>
-        <Link to="./books">Books</Link>
+        <Link to="./books">RESOURCES</Link>
         <div className="test">
-          <Link to="./test">Test</Link>
+          <Link to="./test">TEST</Link>
         </div>
       </div>
     </div>
@@ -149,11 +149,14 @@ function Posts({ posts, setPosts ,postInteraction, comments, setComments }) {
         // const postComments = postInteraction.filter((comment) => comment.postId === post.postId).comments;
         // const olderPostComments = []; // You need to fetch these from your backend
         // fetchOlderComments(post.postId);
+        
         return (
           <Post
             key={post.id}
             post={post}
             userName={post.userName}
+           
+            userImage={post.userimage}
             // userComment={userComment}
             postInteraction={postInteractions}
             comments = {comments}
@@ -170,12 +173,13 @@ function Posts({ posts, setPosts ,postInteraction, comments, setComments }) {
   );
 }
 
-function Post({ post, userName, postInteraction, comments,setComments }) {
+function Post({ post, userName, postInteraction, comments,setComments, userImage }) {
+  
   let likeStatus = false;
   let likeCountStat = 0;
   let savedStatus = false;
   let commentsFromInter;
-  console.log("Post Interaction of ",userName,postInteraction);
+  // console.log("Post Interaction of ",userName,postInteraction);
   
   if (postInteraction[0]) {
     if (postInteraction[0].likes.includes(post.userId)) {
@@ -221,6 +225,7 @@ function Post({ post, userName, postInteraction, comments,setComments }) {
         comment: userComment,
         userId: localStorage.getItem("userId"),
         userName: user.name, // Include the user's name
+
       };
 
       const url = process.env.REACT_APP_API_URL_SERVER + "/comment/create/" + postId;
@@ -271,7 +276,7 @@ function Post({ post, userName, postInteraction, comments,setComments }) {
   }
 
   const renderComments = (postId) => {
-    console.log(comments);
+    // console.log(comments);
     return (
       <div className="comments">
         <h4>Comments</h4>
@@ -355,23 +360,42 @@ function Post({ post, userName, postInteraction, comments,setComments }) {
     }
   }
 
-
+  const a = (
+    <Fragment>
+      {post.postUserImage && (
+        <img 
+        crossOrigin="anonymous"
+        alt="profilePicture"
+        src =  {`http://localhost:8800/profilePhotos/` + post.postUserImage}
+        className="rounded-circle profile-image"
+        /> 
+      )}
+      
+      {!post.postUserImage && (
+        <img
+        crossOrigin="anonymous"
+        src={`http://localhost:8800/profilePhotos/defaultProfilePicture.jpg`}
+        alt="profilePicture"
+        
+        className="rounded-circle profile-image"
+      />
+      )}
+    </Fragment>)
   return (
     <div className="card">
-      {post.image && (
-        <img
-          crossOrigin="anonymous"
-          src={`http://localhost:8800/postPhotos/` + post.image}
-          alt={post.postTitle}
-          className="card-img-top"
-        />
-      )}
+           
+      
       <div className="card-body">
+      {
+        post.image && <img src={`http://localhost:8800/postPhotos/` + post.image} className="rounded-circle profile-image" />  
+      }
+        <div className="card-photo">{a}</div>
         <h5 className="card-title">{userName}</h5>
+        <p className="timestamp">{formatTime(post)}</p>
         <h5 className="card-title">{post.postTitle}</h5>
       </div>
       <div className="card-footer">
-      <p className="timestamp">{formatTime(post)}</p>
+     
         <button className="btn btn-primary mr-2" id={post.postId} onClick={(e) => handleLike(e)}>
           {liked ? "Unlike" : "Like"}
         </button>
@@ -498,29 +522,59 @@ function Blog() {
         alert("Please enter some content or select a photo before posting.");
       }
     };
+    function profilePictureElement() {
+      if (user.image) {
+        return (
+          <img
+            crossOrigin="anonymous"
+            src={`http://localhost:8800/profilePhotos/` + user.image}
+            alt="profilePicture"
+            className="rounded-circle profile-image"
+          />
+        );
+      } else {
+        return (
+          <img
+            crossOrigin="anonymous"
+            src={`http://localhost:8800/profilePhotos/defaultProfilePicture.jpg`}
+            alt="profilePicture"
+            className="rounded-circle profile-image"
+          />);
+      }
+    }
   
     return (
       <div className="container" style={{ margin: 0, padding: 0 }}>
-        <Notice />
+        {/* <Notice /> */}
         <header>
-          <ProfilePage />
+          {/* <ProfilePage /> */}
           <PageComponent />
         </header>
         <main>
-          <Form onSubmit={handlePostSubmit}>
-            <Form.Group>
-              <Form.Control
-                as="textarea"
-                rows="3"
-                placeholder="Write your thoughts here..."
-                value={newPostText}
-                onChange={(e) => setNewPostText(e.target.value)}
-              />
-            </Form.Group>
-            <Button type="submit" variant="primary">
-              Post
-            </Button>
-          </Form>
+        <div className="profile-header">
+
+  <div className="user-info">  
+    <div className="rounded-circle profile-image">{profilePictureElement()}</div>
+    <h2 className="profile-name">{user.name}</h2>
+  </div>
+
+  <div className="new-post">
+    <Form onSubmit={handlePostSubmit}>
+      <Form.Group>
+        <Form.Control 
+          as="textarea"
+          rows="3"
+          placeholder="Write your thoughts here..."
+          value={newPostText}
+          onChange={(e) => setNewPostText(e.target.value)}
+        />
+      </Form.Group>
+
+      <Button type="submit">Post</Button>
+    </Form>
+  </div>
+
+</div>
   
           {postInteraction && postInteraction.length > 0 ? (
             <Posts

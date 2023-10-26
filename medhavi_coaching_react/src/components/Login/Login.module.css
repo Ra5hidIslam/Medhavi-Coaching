@@ -71,7 +71,7 @@ body {
 
     /* Add a media query for smaller screens */
     @media screen and (max-width: 480px) {
-        width: 60vw; /* Adjust the width for screens up to 480px wide */
+        width: 50vw; /* Adjust the width for screens up to 480px wide */
     }
 }
 
@@ -83,4 +83,15 @@ body {
 .InputBoxes {
     border-radius: 1.3vh;
     border-color: aliceblue;
+    font-size: medium;
+    height: 3vh;
+   
 }
+@media screen and (max-width: 480px)
+    
+{
+input[type="password"] {
+    font-size: 2.8vw; 
+    padding-left: 9px;
+    /* letter-spacing: 1px; */
+  }}

@@ -35,4 +35,3 @@ export const getSignUp = async(data)=>{
     }
     else return "email or username not received";
 }
-

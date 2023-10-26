@@ -109,7 +109,7 @@ const GetQuestionAnswers =()=>{
 
     // Based on the states we are showing the 
     // result, whether the option is correct or not.
-    function show_answer(question_id,answer,questionType){
+    function show_answer(question_id,answer,questionType,which_button,which_answer){
         let result;
         // console.log(question_id);
         // console.log(answer);
@@ -117,62 +117,29 @@ const GetQuestionAnswers =()=>{
         if(questionType == 'MCQ' || questionType == 'MSQ'){
             console.log("received answer",answer);
             console.log("selected answer",which_button);
-            if(which_answer[question_id] == true){
-                result = JSON.stringify(which_button[question_id]) === JSON.stringify(answer);
-                let originalQuestionId = question_id.slice(0,-1);
-                registerAnswer(localStorage.getItem("userId"),which_button[question_id],originalQuestionId,questionType);
-                if(result){
-                    // console.log("you are correct");
-                    
-                    return(
-                        <p>Correct Answer</p>
-                    )
-                }
-                else{
-                    // registerAnswer(localStorage.getItem("userId"),which_button[question_id],originalQuestionId,questionType);
-                    return(
-                        <p>Wrong Answer</p>
-                    )
-                }                     
-            }
-            else{
-                return(
-                    <p>Check Result</p>
-                )
-            }
-        }
-        else{
-            // console.log("answer",String(answer));
-            // console.log("answer selected",String(which_button[question_id]));
-            if(which_answer[question_id] == true){
-                // console.log("received answer",answer);
-                // console.log("selected answer",which_button[question_id]);
-                let originalQuestionId = question_id.slice(0,-1);
-                registerAnswer(localStorage.getItem("userId"),which_button[question_id],originalQuestionId,questionType);
-                if(String(answer) == which_button[question_id]){
-                    // console.log("you are correct");
-                    // console.log(localStorage.getItem("userId"),which_button[question_id],question_id,questionType);
-                    
-                    return(
-                        
-                        <p>Correct Answer</p>
-                    )
-                }
-                else{
-                    // registerAnswer(localStorage.getItem("userId"),which_button[question_id],originalQuestionId,questionType);
-                    return(
-                        
-                        <p>Wrong Answer</p>
-                    )
-                }                     
-            }
-            else{
-                return(
-                    <p>Check Result</p>
-                )
-            }
+            if (which_answer[question_id] === true) {
+                const result = JSON.stringify(which_button[question_id]) === JSON.stringify(answer);
+                const originalQuestionId = question_id.slice(0, -1);
             
-        }
+                // Register the answer
+                registerAnswer(localStorage.getItem("userId"), which_button[question_id], originalQuestionId, questionType);
+            
+                // Determine the CSS class based on the result
+                const buttonClass = result ? 'correct-button' : 'wrong-button';
+            
+                return (
+                  <button className={buttonClass}>
+                    {result ? 'Correct Answer' : 'Wrong Answer'}
+                  </button>
+                );
+              } else {
+                return (
+                  <button className="check-result-button">
+                    Check Result
+                  </button>
+                );
+              }
+            }
         
         // if(which_answer[question_id] === true){
         //     let correct_answer;
