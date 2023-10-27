@@ -8,6 +8,9 @@ const { verify } = require('jsonwebtoken');
 const path = require('path');
 const fs = require('fs'); // module to delete files in server.
 const multer = require('multer');
+const postModel = require('../models/post/postModel');
+const postCommentsModel = require('../models/postComments/postCommentsModel');
+const postInteractionModel = require('../models/post/postInteractionModel');
 // const userModel = require('../models/user/userModel');
 
 
@@ -114,7 +117,71 @@ router.delete("/:id",verifyJWT, async(req,res)=>{
         // "not able to delete the timeline feeds"
     }
 
-    // delete the file
+    // remove the posts from the post model
+    try{
+
+        await postModel.deleteMany({userId:req.body.userId});
+        // if(toDeletePosts.length > 0){
+        //     for(let i =0;i<toDeletePosts.length;i++){
+        //         await postModel.updateOne({},{$pull:{_id:toDeletePosts[]}})
+        //     }
+        // }
+        // const followers = foundUser.followers;
+        // for(let i = 0;i<followers.length;i++){
+        //     let currentUser = await userModel.findOne({_id:followers[i]});
+        //     currentUser.updateOne({},
+        //         {$pull:{timeline:{userId:req.params.userId}}},
+        //         {multi:true})
+        // }
+    }catch(err){
+        return res.status(403).json(err);
+        // "not able to delete the timeline feeds"
+    }
+
+    
+    // remove the comments from the comments model
+    try{
+
+        await postCommentsModel.deleteMany({userId:req.body.userId});
+        // if(toDeletePosts.length > 0){
+        //     for(let i =0;i<toDeletePosts.length;i++){
+        //         await postModel.updateOne({},{$pull:{_id:toDeletePosts[]}})
+        //     }
+        // }
+        // const followers = foundUser.followers;
+        // for(let i = 0;i<followers.length;i++){
+        //     let currentUser = await userModel.findOne({_id:followers[i]});
+        //     currentUser.updateOne({},
+        //         {$pull:{timeline:{userId:req.params.userId}}},
+        //         {multi:true})
+        // }
+    }catch(err){
+        return res.status(403).json(err);
+        // "not able to delete the timeline feeds"
+    }
+
+
+    // remove the post Interaction from the post interaction model
+    try{
+
+        // await postInteractionModel.deleteMany({userId:req.body.userId});
+        // if(toDeletePosts.length > 0){
+        //     for(let i =0;i<toDeletePosts.length;i++){
+        //         await postModel.updateOne({},{$pull:{_id:toDeletePosts[]}})
+        //     }
+        // }
+        // const followers = foundUser.followers;
+        // for(let i = 0;i<followers.length;i++){
+        //     let currentUser = await userModel.findOne({_id:followers[i]});
+        //     currentUser.updateOne({},
+        //         {$pull:{timeline:{userId:req.params.userId}}},
+        //         {multi:true})
+        // }
+    }catch(err){
+        return res.status(403).json(err);
+        // "not able to delete the timeline feeds"
+    }
+    // delete the image.
     if(foundUser.image){
         const filePath = './files/profilePhotos/' + foundUser.image;    
         fs.unlink(filePath,(err)=>{

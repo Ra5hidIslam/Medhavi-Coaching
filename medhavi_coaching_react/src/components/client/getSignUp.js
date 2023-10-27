@@ -3,10 +3,10 @@ export const getSignUp = async(data)=>{
     console.log("data =",data);
 
     var formdata = new FormData();
-    formdata.append("name", "Amit Shah");
-    formdata.append("email", "amit@gmail.com");
-    formdata.append("password", "password");
-    formdata.append("userId", "amit123");
+    formdata.append("name",data.name);
+    formdata.append("email", data.email);
+    formdata.append("password", data.password);
+    formdata.append("userId", data.userId);
     formdata.append("image", data.image);
 
     if(!data) return null;

@@ -180,6 +180,29 @@ router.put("/deletePost/:postId",verifyJWT, async (req,res)=>{
     }catch(err){
         return res.status(403).json(err.message)
     }
+
+    // remove the post Interaction from the post interaction model
+    try{
+
+        await postInteractionModel.deleteOne({userId:req.body.userId});
+        // if(toDeletePosts.length > 0){
+        //     for(let i =0;i<toDeletePosts.length;i++){
+        //         await postModel.updateOne({},{$pull:{_id:toDeletePosts[]}})
+        //     }
+        // }
+        // const followers = foundUser.followers;
+        // for(let i = 0;i<followers.length;i++){
+        //     let currentUser = await userModel.findOne({_id:followers[i]});
+        //     currentUser.updateOne({},
+        //         {$pull:{timeline:{userId:req.params.userId}}},
+        //         {multi:true})
+        // }
+    }catch(err){
+        return res.status(403).json(err);
+        // "not able to delete the timeline feeds"
+    }
+
+
     // delete the file
     if(foundpost.postImage){
         const filePath = './files/postPhotos/' + foundPost.postImage;    

@@ -4,6 +4,7 @@
     "express": "^4.18.2"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "react-axios": "^2.0.6"
   }
 }

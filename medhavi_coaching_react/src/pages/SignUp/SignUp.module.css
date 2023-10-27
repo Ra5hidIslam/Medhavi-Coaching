@@ -374,3 +374,7 @@ input[type="password"] {
   opacity: 1;
   max-width: 16vw;
 }
+
+.successMessage{
+  color: black;
+}

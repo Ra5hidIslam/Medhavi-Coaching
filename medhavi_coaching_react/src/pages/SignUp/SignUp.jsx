@@ -149,7 +149,7 @@ const SignUp = ({ logState,handleLoginClick}) => {
       }
       else if(signUpPageState == 4){
         return(
-          <div>
+          <div className={SignUpCSS.successMessage}> 
             <div className={SignUpCSS.successMessage}> You account has been created</div>
             <div className={SignUpCSS.successMessage}> Please login using your credentials</div>
           </div>
