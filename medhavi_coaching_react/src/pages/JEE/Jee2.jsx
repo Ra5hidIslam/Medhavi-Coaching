@@ -166,12 +166,12 @@ function PageComponent() {
   return (
     <div className="link-contain">
       <div className="navbar-links">
-        <Link to="/Blog">Post</Link>
+        <Link to="/Profile">PROFILE</Link>
         <Link to="/Blog/JEE">JEE</Link>
         <Link to="/Blog/NEET">NEET</Link>
-        <Link to="/books">Books</Link>
+        <Link to="/books">RESOURCES</Link>
         <div className="test">
-          <Link to="/test">Test</Link>
+          <Link to="/test">TEST</Link>
         </div>
       </div>
     </div>
