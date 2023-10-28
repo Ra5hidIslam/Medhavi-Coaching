@@ -32,7 +32,7 @@ mongoose.connect(process.env.REACT_APP_MONGO_URL,
 
 const corsOptions = {
     origin:process.env.REACT_APP_API_URL_ORIGIN_DOMAIN,
-    origin:process.env.REACT_APP_API_URL_ORIGIN,
+    origin:"http://54.202.8.103",
     credentials:true,
 }
 
@@ -44,7 +44,7 @@ app.use(morgan("common"));
 app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", env.REACT_APP_API_URL_ORIGIN); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Origin", "http://54.202.8.103"); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
@@ -64,5 +64,5 @@ app.use("api/notes/",notesRoute);
 app.use(express.static('files'));
 
 app.listen(8800,()=>{
-    console.log("Backend server is running");
+    console.log("Backend server is running on 8800");
 });

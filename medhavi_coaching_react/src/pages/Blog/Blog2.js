@@ -10,105 +10,8 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import './blog.css';
 require('dotenv').config();
 
-// const ProfilePage = () => {
-//   const [user, setUser] = useState(JSON.parse(sessionStorage.getItem("user")));
+const photoServer = "http://54.202.8.103:81";
 
-//   function profilePictureElement() {
-//     if (user.image) {
-//       return (
-//         <img
-//           crossOrigin="anonymous"
-//           src={`http://localhost:8800/profilePhotos/` + user.image}
-//           alt="profilePicture"
-//           className="rounded-circle profile-image"
-//         />
-//       );
-//     } else {
-//       return (
-//         <img
-//           crossOrigin="anonymous"
-//           src={`http://localhost:8800/profilePhotos/defaultProfilePicture.jpg`}
-//           alt="profilePicture"
-//           className="rounded-circle profile-image"
-//         />);
-//     }
-//   }
-
-//   return (
-//     <Container className="profile-container">
-//       <div className="profile-header">
-//         <div>{profilePictureElement()}</div>
-//         <h2 className="profile-name">{user.name}</h2>
-//       </div>
-//       <div className="marks-container">
-//         <p className="marks-label">PREVIOUS EXAM MARKS</p>
-//         {/* You can display user marks here */}
-//       </div>
-//     </Container>
-//   );
-// }
-
-// function Notice({ isAdmin }) {
-//   const [notices, setNotices] = useState([]);
-//   const [newNotice, setNewNotice] = useState("");
-
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-
-//     if (newNotice.trim() !== "") {
-//       setNotices([...notices, newNotice]);
-//       setNewNotice("");
-//     }
-//   };
-
-//   const renderUploadForm = () => {
-//     if (isAdmin) {
-//       return (
-//         <Form onSubmit={handleSubmit}>
-//           <Form.Group>
-//             <Form.Control
-//               as="textarea"
-//               rows="4"
-//               placeholder="Enter your notice here"
-//               value={newNotice}
-//               onChange={(e) => setNewNotice(e.target.value)}
-//             />
-//           </Form.Group>
-//           <Button type="submit" variant="primary">
-//             Upload Notice
-//           </Button>
-//         </Form>
-//       );
-//     }
-//     return null;
-//   };
-
-//   return (
-//     <div className="notice-container">
-//       <Container fluid>
-//         <Row>
-//           <Col lg={20} className="notice">
-//             <div className="notice-header">
-//               <div className="header-box">
-//                 <h2 className="header-text">Notice</h2>
-//               </div>
-//             </div>
-//             <div className="notice-content">{renderUploadForm()}</div>
-//             <div className="notice-list">
-//               <h2 className="body-text">Uploaded Notices:</h2>
-//               <ul>
-//                 {notices.map((notice, index) => (
-//                   <li key={index}>{notice}</li>
-//                 ))}
-//               </ul>
-//             </div>
-//           </Col>
-//         </Row>
-//       </Container>
-//     </div>
-//   );
-// }
 
 function PageComponent() {
   return (
@@ -366,7 +269,7 @@ function Post({ post, userName, postInteraction, comments,setComments, userImage
         <img 
         crossOrigin="anonymous"
         alt="profilePicture"
-        src =  {`http://localhost:8800/profilePhotos/` + post.postUserImage}
+        src =  {photoServer + `/profilePhotos/` + post.postUserImage}
         className="rounded-circle profile-image"
         /> 
       )}
@@ -374,7 +277,7 @@ function Post({ post, userName, postInteraction, comments,setComments, userImage
       {!post.postUserImage && (
         <img
         crossOrigin="anonymous"
-        src={`http://localhost:8800/profilePhotos/defaultProfilePicture.jpg`}
+        src={photoServer + `/profilePhotos/defaultProfilePicture.jpg`}
         alt="profilePicture"
         
         className="rounded-circle profile-image"
@@ -387,7 +290,7 @@ function Post({ post, userName, postInteraction, comments,setComments, userImage
       
       <div className="card-body">
       {
-        post.image && <img src={`http://localhost:8800/postPhotos/` + post.image} className="rounded-circle profile-image" />  
+        post.image && <img src={photoServer + `/postPhotos/` + post.image} className="rounded-circle profile-image" />  
       }
         <div className="card-photo">{a}</div>
         <h5 className="card-title">{userName}</h5>
@@ -527,7 +430,7 @@ function Blog() {
         return (
           <img
             crossOrigin="anonymous"
-            src={`http://localhost:8800/profilePhotos/` + user.image}
+            src={photoServer + `/profilePhotos/` + user.image}
             alt="profilePicture"
             className="rounded-circle profile-image"
           />
@@ -536,7 +439,7 @@ function Blog() {
         return (
           <img
             crossOrigin="anonymous"
-            src={`http://localhost:8800/profilePhotos/defaultProfilePicture.jpg`}
+            src={photoServer + `/profilePhotos/defaultProfilePicture.jpg`}
             alt="profilePicture"
             className="rounded-circle profile-image"
           />);
