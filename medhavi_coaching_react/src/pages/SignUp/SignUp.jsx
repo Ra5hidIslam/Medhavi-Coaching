@@ -26,6 +26,10 @@ const SignUp = ({ logState,handleLoginClick}) => {
   const [signUpPageState, setSignUpPageState] = useState(1);
 
   const handleImage = (e)=>{
+    if(e.target.files[0].size > 3000000){
+      alert("Please select a photo which is smaller than 3MB");
+      return 
+    }
     updateFormData({
       ...formData,
       [e.target.name]:e.target.files[0],
