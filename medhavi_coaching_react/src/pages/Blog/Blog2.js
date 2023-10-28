@@ -456,46 +456,45 @@ function Blog() {
           <PageComponent />
         </header>
         <main>
-        <div className="profile-header">
+          <div className="profile-header">
+            <div className="user-info">  
+              <div className="rounded-circle profile-image">{profilePictureElement()}</div>
+              <h2 className="profile-name">{user.name}</h2>
+          </div>
 
-  <div className="user-info">  
-    <div className="rounded-circle profile-image">{profilePictureElement()}</div>
-    <h2 className="profile-name">{user.name}</h2>
-  </div>
+        <div className="new-post">
+          <Form onSubmit={handlePostSubmit}>
+            <Form.Group>
+              <Form.Control 
+                as="textarea"
+                rows="3"
+                placeholder="Write your thoughts here..."
+                value={newPostText}
+                onChange={(e) => setNewPostText(e.target.value)}
+              />
+            </Form.Group>
 
-  <div className="new-post">
-    <Form onSubmit={handlePostSubmit}>
-      <Form.Group>
-        <Form.Control 
-          as="textarea"
-          rows="3"
-          placeholder="Write your thoughts here..."
-          value={newPostText}
-          onChange={(e) => setNewPostText(e.target.value)}
-        />
-      </Form.Group>
+            <Button type="submit">Post</Button>
+          </Form>
+        </div>
 
-      <Button type="submit">Post</Button>
-    </Form>
-  </div>
-
-</div>
-  
-          {postInteraction && postInteraction.length > 0 ? (
-            <Posts
-              posts={posts}
-              setPosts = {setPosts}
-              userComment={userComment}
-              setUserComment={setUserComment}
-              comments={comments}
-              setComments={setComments}
-              postInteraction={postInteraction}
-            />
-          ) : (
-            <div>Loading post interactions...</div>
-          )}
-        </main>
-      </div>
+        </div>
+      
+              {posts && posts.length > 0 ? (
+                <Posts
+                  posts={posts}
+                  setPosts = {setPosts}
+                  userComment={userComment}
+                  setUserComment={setUserComment}
+                  comments={comments}
+                  setComments={setComments}
+                  postInteraction={postInteraction}
+                />
+              ) : (
+                <div>Loading posts...</div>
+              )}
+            </main>
+          </div>
     );
   }
 
