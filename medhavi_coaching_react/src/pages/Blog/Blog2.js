@@ -404,12 +404,14 @@ function Blog() {
           setNewPostText("");
           setSelectedFile(null);
           console.log(response);
+          const userImage = user.image ? user.image:undefined;
           const newPost = {
             postTitle:newPostText,
             userId:localStorage.getItem("userId"),
             userName:user.name,
             postId:response.data._id,
             createdAt:response.data.createdAt,
+            postUserImage:userImage,
           }
           console.log("posts",posts);
           setPosts(current => [newPost,...current]);
